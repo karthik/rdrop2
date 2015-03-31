@@ -1,0 +1,13 @@
+# rDrop2 - Dropbox interface from R
+
+This package provides Dropbox access from R. 
+
+
+__Installation__  
+
+```r
+devtools::install_github('karthik/rDrop2')
+```
+
+__Basic Usage__
+
