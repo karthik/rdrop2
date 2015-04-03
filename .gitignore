@@ -2,3 +2,5 @@ zzz.R
 .Rproj.user
 .httr-oauth
 Makefile
+^.*\.Rproj$
+cache/
