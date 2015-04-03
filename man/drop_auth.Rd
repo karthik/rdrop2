@@ -4,17 +4,27 @@
 \alias{drop_auth}
 \title{Authentication for Dropbox}
 \usage{
-drop_auth(new_user = FALSE)
+drop_auth(new_user = FALSE, key = "mmhfsybffdom42w",
+  secret = "l8zeqqqgm1ne5z0")
 }
 \arguments{
-\item{new_user}{Default is \code{FALSE}. Set to \code{TRUE} if you need to switch to a new user account.}
+\item{new_user}{Default is \code{FALSE}. Set to \code{TRUE} if you need to
+switch to a new user account or just flush existing token.}
+
+\item{key}{Your application key}
+
+\item{secret}{Your application token. rDrop2 already comes with a key/secret
+but you are welcome to swap out with our own.}
 }
 \description{
 This function authenticates you into Dropbox
 }
 \examples{
 \dontrun{
-dropbox_auth()
+drop_auth()
+# If you want to overwrite an existing tokend and switch to a new user,
+# set new_user to TRUE.
+drop_auth(new_user = TRUE)
 }
 }
 
