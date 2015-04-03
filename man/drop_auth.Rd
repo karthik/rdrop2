@@ -17,7 +17,7 @@ switch to a new user account or just flush existing token.}
 but you are welcome to swap out with our own.}
 }
 \description{
-This function authenticates you into Dropbox
+This function authenticates you into Dropbox. The documentation for the core Dropbox API is available \href{https://www.dropbox.com/developers/core/docs}{here}.
 }
 \examples{
 \dontrun{
