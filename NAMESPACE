@@ -3,6 +3,7 @@
 export("%>%")
 export(drop_acc)
 export(drop_auth)
+export(drop_copy)
 export(drop_create)
 export(drop_delete)
 export(drop_dir)

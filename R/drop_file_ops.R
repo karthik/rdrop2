@@ -1,20 +1,48 @@
 
-drop_copy <- function()  {
-
-}
-
-#'Moves a file or folder to a new location.
+#'Copies a file or folder to a new location.
 #'
-#' @param root This is required. The root relative to which path is specified. Valid values are auto (recommended), sandbox, and dropbox.
-#' @param  from_path Source file or folder
-#' @param  to_path destination file or folder
+#' @template from_to
+#' @template root
 #' @template verbose
 #' @template token
 #' @export
 #' @importFrom assertthat assert_that
-drop_move <- function(root, from_path = NULL, to_path = NULL, verbose = FALSE, dtoken = get_dropbox_token())  {
+#' @examples \dontrun{
+#' write.csv(mtcars, file = "mt.csv")
+#' drop_upload("mt.csv")
+#' drop_create("drop_test2")
+#' drop_copy("mt.csv", "drop_test2/mt2.csv")
+#' }
+drop_copy <- function(from_path = NULL, to_path = NULL, root = "auto", verbose = FALSE, dtoken = get_dropbox_token())  {
+  move_url <- "https://api.dropbox.com/1/fileops/copy"
+     args <- as.list(drop_compact(c(root = root,
+                                    from_path = from_path,
+                                    to_path = to_path))) 
+  x <-POST(move_url, config(token = dtoken), query = args, encode = "form")
+  content(x)
+}
+
+#'Moves a file or folder to a new location.
+#'
+#' @template from_to
+#' @template root
+#' @template verbose
+#' @template token
+#' @export
+#' @importFrom assertthat assert_that
+#' @examples \dontrun{
+#' write.csv(mtcars, file = "mt.csv")
+#' drop_upload("mt.csv")
+#' drop_create("drop_test2")
+#' drop_move("mt.csv", "drop_test2/mt.csv")
+#' }
+drop_move <- function(from_path = NULL, to_path = NULL, root = "auto", verbose = FALSE, dtoken = get_dropbox_token())  {
   move_url <- "https://api.dropbox.com/1/fileops/move"
-  x <-POST(move_url, config(token = dtoken), body = list(root = root, from_path = from_path, to_path = to_path), encode = "form")
+     args <- as.list(drop_compact(c(root = root,
+                                    from_path = from_path,
+                                    to_path = to_path))) 
+  x <-POST(move_url, config(token = dtoken), query = args, encode = "form")
+  content(x)
 }
 
 
