@@ -2,7 +2,7 @@
 # rDrop2 - Dropbox interface from R  ![](drop.png)  
 
 
-This package provides programmatic access to Dropbox from R. The package provides a full suite of file operations, including directory listing, copy/move/delete operations, account information and the ability to upload and download files from any Dropbox account. 
+This package provides programmatic access to Dropbox from R. The package provides a full suite of file operations, including directory listing, copy/move/delete operations, account information and the ability to upload and download files from any Dropbox account. _Note: This is a new package and functionality will change or get updated over the coming weeks before a stable CRAN release._
 
 
 __Installation__  
@@ -74,7 +74,21 @@ __Delete a file__
 drop_delete('mtcars.csv')
 ```
 
-__Searching your Dropbox__
+__Move files__
+
+```r
+drop_create("new_folder")
+drop_move("mtcars.csv", "new_folder/mtcars.csv")
+```
+
+__Copy files__
+
+```r
+drop_create("new_folder")
+drop_copy("mtcars.csv", "new_folder/mtcars.csv")
+```
+
+__Search your Dropbox__
 
 ```r
 foo <- drop_search('gif')
@@ -119,3 +133,4 @@ Response [https://api-content.dropbox.com/1/files/auto//Public/gifs/duck_rabbit.
   Size: 337 kB
 <ON DISK>  ~/Desktop/bugs.gif
 ```
+
