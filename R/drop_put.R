@@ -4,14 +4,22 @@
 #'
 #' @param file Full local path to file.
 #' @param  dest The relative path on Dropbox where the file should get uploaded.
-#' @param  encode = "multipart" encoding format.
+#' @param  encode File encoding
+#' @param  verbose default is FALSE
+#' @template token
 #' @export
 #' @examples \dontrun{
-#' drop_put()
+#' write.csv(mtcars, file = "mtcars.csv")
+#' drop_upload("mtcars.csv")
 #'}
-drop_put <- function(file, dest = NULL, encode = "multipart") {
+drop_upload <- function(file, dest = NULL, encode = "multipart", verbose = FALSE, dtoken = get_dropbox_token()) {
     dest <- ifelse(is.null(dest), basename(file), paste0(strip_slashes(dest),"/", basename(file)))
     put_url <- paste0("https://api-content.dropbox.com/1/files_put/auto/", dest)
-    PUT(put_url, config(token = get_dropbox_token()), encode = encode, body = list(y = upload_file(file)))
-
+    response <- PUT(put_url, config(token = dtoken), encode = encode, body = list(data = upload_file(file)))
+    warn_for_status(response)
+    if(verbose) {
+        content(response)
+    } else {
+        message(sprintf('File %s uploaded successfully', file))
+    }
 }
