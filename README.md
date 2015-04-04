@@ -73,3 +73,25 @@ __Delete a file__
 ```r
 drop_delete('mtcars.csv')
 ```
+
+__Searching your Dropbox__
+
+```r
+> foo <- drop_search('gif')
+Arrrr> dim(foo)
+[1] 751  14
+Arrrr> tail(foo)
+Source: local data frame [6 x 14]
+```
+
+```r
+           rev thumb_exists                                                                                                  path is_dir
+1  1b206e7f519         TRUE                                                   /obscure_path/themes/style/bgnoise.gif  FALSE
+2  1d906e7f519         TRUE                                                  /obscure_path/images/logos/ploslogo.gif  FALSE
+3  1da06e7f519         TRUE                                             /obscure_path/images/logos/treebase_logo.gif  FALSE
+4  1db06e7f519         TRUE                                              /obscure_path/images/logos/fishbaselogo.gif  FALSE
+5  1df06e7f519         TRUE                                                 /obscure_path/images/logos/ritislogo.gif  FALSE
+6 3b6c07dead3c         TRUE /Collaborations/DataONE-ProvWG/meetings/ahm-2013/provwgslide-final-reporting.key/Data/fp_cvi_logo.gif  FALSE
+Variables not shown: client_mtime (chr), icon (chr), read_only (lgl), bytes (int), modified (chr), size (chr), root (chr), mime_type
+  (chr), revision (int), parent_shared_folder_id (chr)
+```
