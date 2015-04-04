@@ -16,7 +16,6 @@ drop_upload <- function(file, dest = NULL, encode = "multipart", verbose = FALSE
     dest <- ifelse(is.null(dest), basename(file), paste0(strip_slashes(dest),"/", basename(file)))
     put_url <- paste0("https://api-content.dropbox.com/1/files_put/auto/", dest)
     response <- PUT(put_url, config(token = dtoken), encode = encode, body = list(data = upload_file(file)))
-    warn_for_status(response)
     if(verbose) {
         content(response)
     } else {
