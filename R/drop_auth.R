@@ -10,6 +10,7 @@
 #'@param key Your application key
 #'@param secret Your application token. rDrop2 already comes with a key/secret
 #'  but you are welcome to swap out with our own.
+#' @param cache By default your credentials are locally cached in a file called \code{.httr-oauth}. Set to FALSE if you need to authenticate separately each time.
 #'@export
 #'@import httr
 #' @examples \dontrun{
@@ -20,7 +21,8 @@
 #'}
 drop_auth <- function(new_user = FALSE,
                       key = "mmhfsybffdom42w",
-                      secret = "l8zeqqqgm1ne5z0") {
+                      secret = "l8zeqqqgm1ne5z0",
+                      cache = TRUE) {
 
    if(new_user & file.exists(".httr-oauth")) {
     message("Removing old credentials ...")
@@ -33,7 +35,7 @@ dropbox <- oauth_endpoint(
   authorize = "https://www.dropbox.com/1/oauth2/authorize",
   access = "https://api.dropbox.com/1/oauth2/token"
 )
-dropbox_token <- oauth2.0_token(dropbox, dropbox_app, cache = TRUE)
+dropbox_token <- oauth2.0_token(dropbox, dropbox_app, cache = cache)
 stopifnot(inherits(dropbox_token, "Token2.0"))
 
 .dstate$token <- dropbox_token

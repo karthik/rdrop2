@@ -3,20 +3,35 @@ drop_copy <- function()  {
 
 }
 
-drop_move <- function()  {
-
+#'Moves a file or folder to a new location.
+#'
+#' @param root This is required. The root relative to which path is specified. Valid values are auto (recommended), sandbox, and dropbox.
+#' @param  from_path Source file or folder
+#' @param  to_path destination file or folder
+#' @template verbose
+#' @template token
+#' @export
+#' @importFrom assertthat assert_that
+drop_move <- function(root, from_path = NULL, to_path = NULL, verbose = FALSE, dtoken = get_dropbox_token())  {
+  move_url <- "https://api.dropbox.com/1/fileops/move"
+  x <-POST(move_url, config(token = dtoken), body = list(root = root, from_path = from_path, to_path = to_path), encode = "form")
 }
 
 
 #'Deletes a file or folder.
 #'
-#' @param  path This is required The path to the new folder to create relative to root.
-#' @param root This is required. The root relative to which path is specified. Valid values are auto (recommended), sandbox, and dropbox.
+#' @template path-root
+#' @template verbose
+#' @template token
 #' @export
-drop_delete <- function (path = NULL, root = "auto") {
+drop_delete <- function (path = NULL, root = "auto", verbose = FALSE, dtoken = get_dropbox_token()) {
     create_url <- "https://api.dropbox.com/1/fileops/delete"
-    x <-POST(create_url, config(token = get_dropbox_token()), body = list(root = root, path = path), encode = "form")
-  content(x)
+    x <-POST(create_url, config(token = dtoken), body = list(root = root, path = path), encode = "form")
+  if(verbose) {
+    content(x) } else {
+      if(content(x)$is_deleted) message(sprintf('Folder %s was successfully deleted', path))
+    }
+  invisible(content(x))
 }
 
 
@@ -35,14 +50,22 @@ drop_delete <- function (path = NULL, root = "auto") {
 #'     "root": "dropbox",
 #'     "revision": 5023410
 #' }
-#' @param  path This is required The path to the new folder to create relative to root.
-#' @param root This is required. The root relative to which path is specified. Valid values are auto (recommended), sandbox, and dropbox.
+#' @template path-root
+#' @template verbose
+#' @template token
 #' @export
 #' @examples \dontrun{
-#' drop_create(path = "")
+#' drop_create(path = "foobar")
 #'}
-drop_create <- function (path = NULL, root = "auto") {
+drop_create <- function (path = NULL, root = "auto", verbose = FALSE, dtoken = get_dropbox_token()) {
     create_url <- "https://api.dropbox.com/1/fileops/create_folder"
-    x <-POST(create_url, config(token = get_dropbox_token()), body = list(root = root, path = path), encode = "form")
-  content(x)
+    x <-POST(create_url, config(token = dtoken), body = list(root = root, path = path), encode = "form")
+    results <- content(x)
+
+  if(verbose) {
+    data.frame(t(unlist(results)))
+  } else {
+    if(results$is_dir) message(sprintf("Folder %s created successfully \n", path))
+  }
+  invisible(results)
 }

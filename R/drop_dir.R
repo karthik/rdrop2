@@ -28,6 +28,8 @@
 #' @param  locale Dropbox uses the locale parameter to specify language settings of content responses. If your app supports any language other than English, insert the appropriate IETF language tag. When a supported language is specified, Dropbox will returned translated size and/or user_error fields (where applicable).
 #' @param include_media_info   If true, each file will include a photo_info dictionary for photos and a video_info dictionary for videos with additional media info. If the data isn't available yet, the string pending will be returned instead of a dictionary.
 #' @param  include_membership  If true, metadata for a shared folder will include a list of members and a list of groups.
+#' @template verbose
+#' @template token
 #' @export
 #' @examples \dontrun{
 #' drop_dir()
@@ -40,17 +42,23 @@ drop_dir <- function(path = NULL,
                     rev = NULL,
                     locale = NULL,
                     include_media_info = TRUE,
-                    include_membership = FALSE) {
+                    include_membership = FALSE,
+                    verbose = FALSE,
+                    dtoken = get_dropbox_token()) {
   args <- as.list(drop_compact(c(file_limit = file_limit, hash = hash, list = list, include_deleted = include_deleted, rev = rev, locale = locale, include_media_info = include_media_info, include_membership = include_membership)))
   metadata_url <- "https://api.dropbox.com/1/metadata/auto/"
   if(!is.null(path)) {
         metadata_url <- paste0(metadata_url, path)
   }
   req <- httr::GET(metadata_url, query = args, config(token = get_dropbox_token()))
-  jsonlite::fromJSON(content(req, as = "text"), flatten = TRUE)
+  res <- jsonlite::fromJSON(content(req, as = "text"), flatten = TRUE)
+  if(verbose) {
+    res
+  } else {
+    dplyr::tbl_df(res$contents) %>% dplyr::select(path, mime_type, root, bytes, modified)
+  }
 }
 # TODO
-# Prettyprint results
 # Summarize total file sizes etc
 
 
