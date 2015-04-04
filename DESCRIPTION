@@ -1,6 +1,6 @@
 Package: rDrop2
 Title: What the Package Does (one line, title case)
-Version: 0.4.0.99
+Version: 0.5.0.99
 Authors@R: 'Karthik Ram <karthik.ram@gmail.com> [aut, cre]'
 Description: What the package does (one paragraph)
 Depends: R (>= 3.1.2)

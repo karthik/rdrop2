@@ -38,7 +38,7 @@ __Account information__
 
 ```r
 library(dplyr)
-acc_info() %>% 
+drop_acc() %>% 
     select(uid, name_details.given_name)
 ```
 
