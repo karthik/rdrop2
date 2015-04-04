@@ -13,7 +13,7 @@ Retrieves information about the user's account. Returns the following fields:  r
 \dontrun{
 acc_info()
 # Select name and UID
-acc_info() \%>\% select(uid, name_details.given_name)
+acc_info() \%>\% select(uid, display_name, quota_info.normal)
 }
 }
 

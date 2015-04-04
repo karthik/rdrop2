@@ -4,7 +4,7 @@
 \alias{drop_dir}
 \title{drop_dir}
 \usage{
-drop_dir(path, file_limit = 1000, hash = NULL, list = TRUE,
+drop_dir(path = NULL, file_limit = 1000, hash = NULL, list = TRUE,
   include_deleted = FALSE, rev = NULL, locale = NULL,
   include_media_info = TRUE, include_membership = FALSE)
 }

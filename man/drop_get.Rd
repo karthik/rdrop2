@@ -4,24 +4,23 @@
 \alias{drop_get}
 \title{Downloads a file from Dropbox}
 \usage{
-drop_get(path = NULL, local_file = NULL, dest = getwd(),
-  overwrite = FALSE)
+drop_get(path = NULL, local_file = NULL, overwrite = FALSE)
 }
 \arguments{
 \item{path}{The path to the file you want to retrieve.}
 
 \item{local_file}{The name of the local copy. Leave this blank if you're fine with the original name.}
 
-\item{dest}{The destination directory (lcoal)}
+\item{overwrite}{Default is \code{FALSE} but can be set to \code{TRUE}.}
 }
 \description{
-<full description>
+Downloads a file from Dropbox
 }
 \examples{
 \dontrun{
 drop_get(path = 'karthik_small.png', dest = "~/Desktop")
 # To overwrite the existing file
- drop_get(path = 'karthik_small.png', dest = "~/Desktop", overwrite = TRUE)
+ drop_get(path = 'karthik_small.png', overwrite = TRUE)
 }
 }
 

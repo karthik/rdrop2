@@ -50,7 +50,8 @@ get_dropbox_token <- function() {
 
   if(!exists('.dstate') || is.null(.dstate$token)) {
     drop_auth()
-  }
-
+  } else {
 .dstate$token
+  }
 }
+

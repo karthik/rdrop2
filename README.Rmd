@@ -1,5 +1,3 @@
-[![Travis-CI Build Status](https://travis-ci.org/karthik/rDrop2.png?branch=master)](https://travis-ci.org/karthik/rDrop2)  
-
 
 ![](drop.png) 
 
@@ -13,7 +11,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-This package provides programmatic access to Dropbox from R. The package provides a full suite of file operations, including directory listing, copy/move/delete operations, account information and the ability to upload and download files from any Dropbox account. 
+This package provides programmatic access to Dropbox from R. The package provides a full suite of file operations, including directory listing, copy/move/delete operations, account information and the ability to upload and download files from any Dropbox account. Current version is `r packageVersion("rDrop2")`.
 
 
 __Installation__  
@@ -21,6 +19,11 @@ __Installation__
 ```r
 devtools::install_github('karthik/rDrop2')
 ```
+
+```{r, echo = FALSE}
+suppressPackageStartupMessages(library(dplyr))
+```
+  
 
 __Basic Usage__
 
@@ -39,7 +42,7 @@ acc_info() %>%
     select(uid, name_details.given_name)
 ```
 
-Retrieve only pngs
+__Retrieve only pngs__
 
 ```{r, eval = FALSE}
 drop_dir() %>% 
@@ -47,3 +50,32 @@ drop_dir() %>%
     filter(mime_type == "image/png")
 ```
 
+__Create a folder__
+
+
+```{r}
+drop_create('drop_test')
+```
+
+__Upload a file__
+
+```{r}
+write.csv(mtcars, 'mtcars.csv')
+drop_put('mtcars.csv')
+```
+
+__Download a file__
+
+```{r}
+dir(pattern = "csv")
+unlink('mtcars.csv')
+dir(pattern = "csv")
+drop_get(path = '/mtcars.csv')
+dir(pattern = "csv")
+```
+
+__Delete a file__
+
+```{r}
+drop_delete('mtcars.csv')
+```

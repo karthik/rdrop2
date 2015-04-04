@@ -7,7 +7,7 @@
 #' @examples \dontrun{
 #' acc_info()
 #' # Select name and UID
-#' acc_info() %>% select(uid, name_details.given_name)
+#' acc_info() %>% select(uid, display_name, quota_info.normal)
 #'}
 acc_info <- function() {
   url <- "https://api.dropbox.com/1/account/info"

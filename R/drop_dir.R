@@ -32,7 +32,7 @@
 #' @examples \dontrun{
 #' drop_dir()
 #'}
-drop_dir <- function(path,
+drop_dir <- function(path = NULL,
                     file_limit = 1000,
                     hash = NULL,
                     list = TRUE,
@@ -51,5 +51,8 @@ drop_dir <- function(path,
 }
 # TODO
 # Prettyprint results
-# Summarize total file sizes etx
+# Summarize total file sizes etc
+
+
+
 
