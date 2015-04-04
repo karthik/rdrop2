@@ -6,7 +6,10 @@ Description: What the package does (one paragraph)
 Depends: R (>= 3.1.2)
 License: MIT + file LICENSE
 LazyData: true
-Imports: httr,
+Imports: 
+         assertthat,
+         dplyr,
+         httr,
          jsonlite,
          magrittr
 Suggests: testthat
