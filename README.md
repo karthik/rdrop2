@@ -134,3 +134,7 @@ Response [https://api-content.dropbox.com/1/files/auto//Public/gifs/duck_rabbit.
 <ON DISK>  ~/Desktop/bugs.gif
 ```
 
+__Known issues__
+
+* There are issues with the content-type for text file uploads. Binary files are fine at the moment. This will get fixed up shortly.
+* For any other issues, please file an [issue](https://github.com/karthik/rDrop2/issues).
