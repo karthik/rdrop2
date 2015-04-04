@@ -1,17 +1,8 @@
 
-![](drop.png) 
+# rDrop2 - Dropbox interface from R  ![](drop.png)  
 
-# rDrop2 - Dropbox interface from R
 
-```{r, echo = FALSE, message = FALSE}
-knitr::opts_chunk$set(
-  comment = "#>",
-  error = FALSE,
-  tidy = FALSE
-)
-```
-
-This package provides programmatic access to Dropbox from R. The package provides a full suite of file operations, including directory listing, copy/move/delete operations, account information and the ability to upload and download files from any Dropbox account. Current version is `r packageVersion("rDrop2")`.
+This package provides programmatic access to Dropbox from R. The package provides a full suite of file operations, including directory listing, copy/move/delete operations, account information and the ability to upload and download files from any Dropbox account. 
 
 
 __Installation__  
@@ -19,11 +10,6 @@ __Installation__
 ```r
 devtools::install_github('karthik/rDrop2')
 ```
-
-```{r, echo = FALSE}
-suppressPackageStartupMessages(library(dplyr))
-```
-  
 
 __Basic Usage__
 
