@@ -2,3 +2,5 @@
 ^\.Rproj\.user$
 ^\.httr-oauth$
 ^\.travis\.yml$
+Makefile
+README.*
