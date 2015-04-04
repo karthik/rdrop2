@@ -41,7 +41,7 @@ Returns metadata for all files and folders whose filename contains the given sea
 \examples{
 \dontrun{
 # If you know me, you know why this query exists
-drop_search('gif')
+drop_search('gif') \%>\% select(path, is_dir, mime_type)
 }
 }
 
