@@ -8,6 +8,7 @@ License: MIT + file LICENSE
 LazyData: true
 Imports: 
          assertthat,
+         data.table,
          dplyr,
          httr,
          jsonlite,

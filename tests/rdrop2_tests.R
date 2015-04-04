@@ -16,3 +16,10 @@ test_that("Test that basic file ops work correctly",{
     expect_message(drop_delete("mtcars.csv"), "successfully deleted")
     unlink("mtcars.csv")
 })
+
+context("testing search")
+
+test_that("Search works correctly", {
+    my_gifs <- drop_search('gif')
+    expect_is(my_gifs, "data.frame")
+})
