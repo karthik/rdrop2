@@ -95,3 +95,27 @@ Source: local data frame [6 x 14]
 Variables not shown: client_mtime (chr), icon (chr), read_only (lgl), bytes (int), modified (chr), size (chr), root (chr), mime_type
   (chr), revision (int), parent_shared_folder_id (chr)
 ```
+
+__Search and download files__
+
+I frequently use a duck season rabbit season gif. This is how I could search and download from my public Dropbox account. 
+
+```r
+> x <- drop_search("rabbit")
+> x
+Source: local data frame [1 x 13]
+
+              rev thumb_exists                         path is_dir
+1 89fe8e80037fcc7         TRUE /Public/gifs/duck_rabbit.gif  FALSE
+Variables not shown: client_mtime (chr), icon (chr), read_only (lgl), bytes (int),
+  modified (chr), size (chr), root (chr), mime_type (chr), revision (int)
+> x$path
+[1] "/Public/gifs/duck_rabbit.gif"
+> drop_get(x$path, local_file = '~/Desktop/bugs.gif')
+Response [https://api-content.dropbox.com/1/files/auto//Public/gifs/duck_rabbit.gif]
+  Date: 2015-04-04 15:34
+  Status: 200
+  Content-Type: image/gif
+  Size: 337 kB
+<ON DISK>  ~/Desktop/bugs.gif
+```
