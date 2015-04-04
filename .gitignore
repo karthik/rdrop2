@@ -4,4 +4,4 @@ zzz.R
 Makefile
 ^.*\.Rproj$
 cache/
-mtcars.csv
+*.csv

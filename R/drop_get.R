@@ -2,7 +2,7 @@
 
 #' Downloads a file from Dropbox
 #'
-#' @param path The path to the file you want to retrieve.
+#' @template path
 #' @param  local_file The name of the local copy. Leave this blank if you're fine with the original name.
 #' @param overwrite Default is \code{FALSE} but can be set to \code{TRUE}.
 #' @template token

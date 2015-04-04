@@ -20,7 +20,8 @@ drop_move <- function(root, from_path = NULL, to_path = NULL, verbose = FALSE, d
 
 #'Deletes a file or folder.
 #'
-#' @template path-root
+#' @template path
+#' @template root
 #' @template verbose
 #' @template token
 #' @export
@@ -50,7 +51,8 @@ drop_delete <- function (path = NULL, root = "auto", verbose = FALSE, dtoken = g
 #'     "root": "dropbox",
 #'     "revision": 5023410
 #' }
-#' @template path-root
+#' @template path
+#' @template root
 #' @template verbose
 #' @template token
 #' @export

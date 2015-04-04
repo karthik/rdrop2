@@ -77,10 +77,10 @@ drop_delete('mtcars.csv')
 __Searching your Dropbox__
 
 ```r
-> foo <- drop_search('gif')
-Arrrr> dim(foo)
+foo <- drop_search('gif')
+> dim(foo)
 [1] 751  14
-Arrrr> tail(foo)
+> tail(foo)
 Source: local data frame [6 x 14]
 ```
 

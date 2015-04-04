@@ -2,16 +2,17 @@
 
 #'Returns metadata for all files and folders whose filename contains the given search string as a substring.
 #'
-#' @param query 
-#' @param  path 
-#' @param  file_limit Default is 1000.
-#' @param  include_deleted 
-#' @param  locale <what param does>
-#' @param  include_membership 
+#' @param query  The search string. This string is split (on spaces) into individual words. Files and folders will be returned if they contain all words in the search string.
+#' @template path
+#' @template file_limit
+#' @param  include_deleted If this parameter is set to true, then files and folders that have been deleted will also be included in the search.
+#' @template locale
+#' @template include_membership
 #' @template verbose
 #' @template token
 #' @export
 #' @examples \dontrun{
+#' # If you know me, you know why this query exists
 #' drop_search('gif')
 #'}
 drop_search <- function(query = NULL, 
