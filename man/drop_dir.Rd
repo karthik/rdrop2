@@ -6,7 +6,8 @@
 \usage{
 drop_dir(path = NULL, file_limit = 1000, hash = NULL, list = TRUE,
   include_deleted = FALSE, rev = NULL, locale = NULL,
-  include_media_info = TRUE, include_membership = FALSE)
+  include_media_info = TRUE, include_membership = FALSE, verbose = FALSE,
+  dtoken = get_dropbox_token())
 }
 \arguments{
 \item{path}{The directory listing relative to the root folder.}
@@ -26,6 +27,10 @@ drop_dir(path = NULL, file_limit = 1000, hash = NULL, list = TRUE,
 \item{include_media_info}{If true, each file will include a photo_info dictionary for photos and a video_info dictionary for videos with additional media info. If the data isn't available yet, the string pending will be returned instead of a dictionary.}
 
 \item{include_membership}{If true, metadata for a shared folder will include a list of members and a list of groups.}
+
+\item{verbose}{By default verbose output is \code{FALSE}. Set to \code{TRUE} if you need to troubleshoot any output or grab additional parameters.}
+
+\item{dtoken}{The Dropbox token}
 }
 \description{
 Retrieves file and folder metadata.

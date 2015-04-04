@@ -4,7 +4,8 @@
 \alias{drop_get}
 \title{Downloads a file from Dropbox}
 \usage{
-drop_get(path = NULL, local_file = NULL, overwrite = FALSE)
+drop_get(path = NULL, local_file = NULL, overwrite = FALSE,
+  dtoken = get_dropbox_token())
 }
 \arguments{
 \item{path}{The path to the file you want to retrieve.}
@@ -12,6 +13,8 @@ drop_get(path = NULL, local_file = NULL, overwrite = FALSE)
 \item{local_file}{The name of the local copy. Leave this blank if you're fine with the original name.}
 
 \item{overwrite}{Default is \code{FALSE} but can be set to \code{TRUE}.}
+
+\item{dtoken}{The Dropbox token}
 }
 \description{
 Downloads a file from Dropbox

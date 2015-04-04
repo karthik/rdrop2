@@ -4,12 +4,17 @@
 \alias{drop_create}
 \title{Creates a folder.}
 \usage{
-drop_create(path = NULL, root = "auto")
+drop_create(path = NULL, root = "auto", verbose = FALSE,
+  dtoken = get_dropbox_token())
 }
 \arguments{
 \item{path}{This is required The path to the new folder to create relative to root.}
 
 \item{root}{This is required. The root relative to which path is specified. Valid values are auto (recommended), sandbox, and dropbox.}
+
+\item{verbose}{By default verbose output is \code{FALSE}. Set to \code{TRUE} if you need to troubleshoot any output or grab additional parameters.}
+
+\item{dtoken}{The Dropbox token}
 }
 \description{
 Returns the following type of response
@@ -28,7 +33,7 @@ Returns the following type of response
 }
 \examples{
 \dontrun{
-drop_create(path = "")
+drop_create(path = "foobar")
 }
 }
 

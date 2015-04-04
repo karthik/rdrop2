@@ -4,7 +4,10 @@
 \alias{acc_info}
 \title{Dropbox account information}
 \usage{
-acc_info()
+acc_info(dtoken = get_dropbox_token())
+}
+\arguments{
+\item{dtoken}{The Dropbox token}
 }
 \description{
 Retrieves information about the user's account. Returns the following fields:  referral_link, display_name,  uid, locale, email_verified, quota_info.datastores, quota_info.shared, quota_info.quota, quota_info.normal, is_paired, country, name_details.familiar_name, name_details.surname, name_details.given_name, email
