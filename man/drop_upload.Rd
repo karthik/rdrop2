@@ -5,7 +5,7 @@
 \title{Uploads a file to Dropbox using PUT semantics.}
 \usage{
 drop_upload(file, dest = NULL, overwrite = TRUE, autorename = FALSE,
-  verbose = FALSE, dtoken = get_dropbox_token())
+  verbose = FALSE, encode = "multipart", dtoken = get_dropbox_token())
 }
 \arguments{
 \item{file}{Full local path to file.}

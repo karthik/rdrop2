@@ -24,6 +24,7 @@ drop_upload <- function(file,
                         overwrite = TRUE,
                         autorename = FALSE,
                         verbose = FALSE,
+                        encode = "multipart",
                         dtoken = get_dropbox_token()) {
   if(is.null(dest)) {
     dest <- basename(file)
@@ -42,11 +43,12 @@ drop_upload <- function(file,
     # I've tried both adding headers explicitly or
     # letting upload_file automatically guess the content type too
     # Neither approach currently works.
-    config = c(token = dtoken, add_headers("Content-Type" = "multipart/form-data"))
     response <- PUT(put_url,
-                    config = config,
+                    config(token = dtoken),
                     query = args,
-                    body = list(y = upload_file(file)))
+                    encode = encode,
+                    body = list(y = upload_file(file)),
+                    verbose())
     if(verbose) {
         pretty_lists(content(response))
     } else {
