@@ -7,11 +7,11 @@
 drop_mime <- function(path) {
   ext <- strsplit(path, ".", fixed = TRUE)[[1L]]
   n <- length(ext)
-  
+
   if (n == 0) return()
-  
+
   types <- c(
-    "csv" = "text/csv; utf-8",
+    "csv" = "text/csv",
     "css" = "text/css",
     "png" = "image/png",
     "tiff", "image/tiff",
@@ -23,11 +23,11 @@ drop_mime <- function(path) {
     "ico" = "image/x-icon",
     "pdf" = "application/pdf",
     "eps" = "application/postscript",
-    "ps" = "application/postscript", 
-    "sgml"= "text/sgml",  
-    "xml" = "text/xml",  
+    "ps" = "application/postscript",
+    "sgml"= "text/sgml",
+    "xml" = "text/xml",
     "text/plain"
   )
-  
+
   unname(types[ext[n]])
 }

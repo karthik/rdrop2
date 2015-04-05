@@ -2,14 +2,17 @@
 % Please edit documentation in R/drop_search.R
 \name{drop_search}
 \alias{drop_search}
-\title{Returns metadata for all files and folders whose filename contains the given search string as a substring.}
+\title{Returns metadata for all files and folders whose filename contains the given
+search string as a substring.}
 \usage{
 drop_search(query = NULL, path = NULL, file_limit = 1000,
   include_deleted = FALSE, locale = NULL, include_membership = FALSE,
   dtoken = get_dropbox_token())
 }
 \arguments{
-\item{query}{The search string. This string is split (on spaces) into individual words. Files and folders will be returned if they contain all words in the search string.}
+\item{query}{The search string. This string is split (on spaces) into
+individual words. Files and folders will be returned if they contain all
+words in the search string.}
 
 \item{path}{This is required The path to the new folder to create relative to
 root.}
@@ -19,7 +22,8 @@ the service won't report listings containing more than the specified amount
 of files and will instead respond with a 406 (Not Acceptable) status
 response.}
 
-\item{include_deleted}{If this parameter is set to true, then files and folders that have been deleted will also be included in the search.}
+\item{include_deleted}{If this parameter is set to true, then files and
+folders that have been deleted will also be included in the search.}
 
 \item{locale}{Dropbox uses the locale parameter to specify language settings of content responses. If your app supports any language other than English, insert the appropriate IETF language tag. When a supported language is specified, Dropbox will returned translated size and/or user_error fields (where applicable)}
 
@@ -36,7 +40,8 @@ different location where your credentials are stored.}
 if you need to troubleshoot any output or grab additional parameters.}
 }
 \description{
-Returns metadata for all files and folders whose filename contains the given search string as a substring.
+Returns metadata for all files and folders whose filename contains the given
+search string as a substring.
 }
 \examples{
 \dontrun{

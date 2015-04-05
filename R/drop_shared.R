@@ -12,7 +12,10 @@
 #' drop_upload("mt.csv")
 #' drop_share("mt.csv")
 #'}
-drop_share <- function(path = NULL, locale = NULL, short_url = TRUE, dtoken = get_dropbox_token()) {
+drop_share <- function(path = NULL, 
+                       locale = NULL, 
+                       short_url = TRUE, 
+                       dtoken = get_dropbox_token()) {
    args <- as.list(drop_compact(c(path = path,
                                 locale = locale,
                                 short_url = short_url))) 

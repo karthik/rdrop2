@@ -12,7 +12,10 @@
 #' # To overwrite the existing file
 #'  drop_get(path = 'karthik_small.png', overwrite = TRUE)
 #'}
-drop_get <- function(path = NULL, local_file = NULL, overwrite = FALSE, dtoken = get_dropbox_token()) {
+drop_get <- function(path = NULL, 
+                     local_file = NULL, 
+                     overwrite = FALSE, 
+                     dtoken = get_dropbox_token()) {
     stopifnot(!is.null(path))
 
     filename <- ifelse(is.null(local_file), basename(path), local_file)

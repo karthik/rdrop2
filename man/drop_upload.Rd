@@ -4,15 +4,22 @@
 \alias{drop_upload}
 \title{Uploads a file to Dropbox using PUT semantics.}
 \usage{
-drop_upload(file, dest = NULL, encode = "multipart", verbose = FALSE,
-  dtoken = get_dropbox_token())
+drop_upload(file, dest = NULL, overwrite = TRUE, autorename = FALSE,
+  verbose = FALSE, dtoken = get_dropbox_token())
 }
 \arguments{
 \item{file}{Full local path to file.}
 
 \item{dest}{The relative path on Dropbox where the file should get uploaded.}
 
-\item{encode}{File encoding}
+\item{overwrite}{Default is \code{TRUE}}
+
+\item{autorename}{This value, either true (default) or false, determines what
+happens when there is a conflict. If true, the file being uploaded will be
+automatically renamed to avoid the conflict. (For example, test.txt might be
+automatically renamed to test (1).txt.) The new name can be obtained from
+the returned metadata. If false, the call will fail with a 409 (Conflict)
+response code.}
 
 \item{verbose}{By default verbose output is \code{FALSE}. Set to \code{TRUE}
 if you need to troubleshoot any output or grab additional parameters.}
