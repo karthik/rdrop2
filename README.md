@@ -158,7 +158,7 @@ $visibility
 ```
 The shared URL (https://www.dropbox.com/s/aikiaug0x2013dp/duck_rabbit.gif?dl=0) resolves here: 
 
-![duck_rabbit](https://www.dropbox.com/s/aikiaug0x2013dp/duck_rabbit.gif?dl=0)
+![duck_rabbit](https://db.tt/PnNKg99G)
 
 __Known issues__
 
