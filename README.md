@@ -156,9 +156,7 @@ $expires
 $visibility
 [1] "PUBLIC"
 ```
-The shared URL (https://www.dropbox.com/s/aikiaug0x2013dp/duck_rabbit.gif?dl=0) resolves here: 
-
-![duck_rabbit](https://dl-web.dropbox.com/get/Public/gifs/duck_rabbit.gif?_subject_uid=2223411&w=AABitDJ-EvRtv7u0Kf_VFm3yCYX6cvAIXAT6B1Jpx2uxvA)
+The shared URL resolves here https://www.dropbox.com/s/aikiaug0x2013dp/duck_rabbit.gif?dl=0
 
 __Known issues__
 
