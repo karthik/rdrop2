@@ -116,7 +116,7 @@ I frequently use a duck season rabbit season gif. This is how I could search and
 x <- drop_search("rabbit")
 drop_get(x$path, local_file = '~/Desktop/bugs.gif')
 
-# Response [https://api-content.dropbox.com/1/files/auto//Public/gifs/duck_rabbit# .gif]
+# Response [https://api-content.dropbox.com/1/files/auto//Public/gifs/duck_rabbit.gif]
 #   Date: 2015-04-04 15:34
 #   Status: 200
 #   Content-Type: image/gif
@@ -137,5 +137,5 @@ The shared URL resolves here https://www.dropbox.com/s/aikiaug0x2013dp/duck_rabb
 
 __Known issues__
 
-* There are issues with the content-type for text file uploads. Binary files are fine at the moment. This will get fixed up shortly.
+* There are issues with the content-type for text file uploads. Binary files are also having issues the moment. This will get fixed up shortly.
 * For any other issues, please file an [issue](https://github.com/karthik/rDrop2/issues).
