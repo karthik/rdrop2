@@ -93,18 +93,18 @@ foo <- drop_search('gif')
 dim(foo)
 # Yes I know I hoard gifs.
 # This isn't even the entire lot.
-[1] 751  14
+# [1] 751  14
 tail(foo)
 Source: local data frame [6 x 14]
 ```
 
 ```r
-           rev thumb_exists                                                                                                  path is_dir
-1  1b206e7f519         TRUE                                                   /obscure_path/themes/style/bgnoise.gif  FALSE
-2  1d906e7f519         TRUE                                                  /obscure_path/images/logos/ploslogo.gif  FALSE
-3  1da06e7f519         TRUE                                             /obscure_path/images/logos/treebase_logo.gif  FALSE
-4  1db06e7f519         TRUE                                              /obscure_path/images/logos/fishbaselogo.gif  FALSE
-Variables not shown: client_mtime (chr), icon (chr), read_only (lgl), bytes (int), modified (chr), size (chr), root (chr), mime_type
+#            rev thumb_exists                                                    #                                               path is_dir
+# 1  1b206e7f519         TRUE                                                   # /obscure_path/themes/style/bgnoise.gif  FALSE
+# 2  1d906e7f519         TRUE                                                  # /obscure_path/images/logos/ploslogo.gif  FALSE
+# 3  1da06e7f519         TRUE                                             # /obscure_path/images/logos/treebase_logo.gif  FALSE
+# 4  1db06e7f519         TRUE                                              # /obscure_path/images/logos/fishbaselogo.gif  FALSE
+# Variables not shown: client_mtime (chr), icon (chr), read_only (lgl), bytes (# int), modified (chr), size (chr), root (chr), mime_type
   (chr), revision (int), parent_shared_folder_id (chr)
 ```
 
@@ -116,12 +116,12 @@ I frequently use a duck season rabbit season gif. This is how I could search and
 x <- drop_search("rabbit")
 drop_get(x$path, local_file = '~/Desktop/bugs.gif')
 
-Response [https://api-content.dropbox.com/1/files/auto//Public/gifs/duck_rabbit.gif]
-  Date: 2015-04-04 15:34
-  Status: 200
-  Content-Type: image/gif
-  Size: 337 kB
-<ON DISK>  ~/Desktop/bugs.gif
+# Response [https://api-content.dropbox.com/1/files/auto//Public/gifs/duck_rabbit# .gif]
+#   Date: 2015-04-04 15:34
+#   Status: 200
+#   Content-Type: image/gif
+#   Size: 337 kB
+# <ON DISK>  ~/Desktop/bugs.gif
 ```
 
 __Share links__
@@ -129,14 +129,9 @@ __Share links__
 ```r
 gifs <- drop_search("rabbit")
 drop_share(gifs$path)
-$url
-[1] "https://db.tt/PnNKg99G"
-
-$expires
-[1] "Tue, 01 Jan 2030 00:00:00 +0000"
-
-$visibility
-[1] "PUBLIC"
+# url = https://db.tt/PnNKg99G 
+# expires = Tue, 01 Jan 2030 00:00:00 +0000 
+# visibility = PUBLIC 
 ```
 The shared URL resolves here https://www.dropbox.com/s/aikiaug0x2013dp/duck_rabbit.gif?dl=0
 
