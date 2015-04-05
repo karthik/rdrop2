@@ -134,6 +134,32 @@ Response [https://api-content.dropbox.com/1/files/auto//Public/gifs/duck_rabbit.
 <ON DISK>  ~/Desktop/bugs.gif
 ```
 
+__Share links__
+
+```r
+> library(rDrop2)
+> x <- drop_search("rabbit")
+> x
+Source: local data frame [1 x 13]
+
+              rev thumb_exists                         path is_dir                    client_mtime
+1 89fe8e80037fcc7         TRUE /Public/gifs/duck_rabbit.gif  FALSE Tue, 04 Nov 2014 16:04:55 +0000
+Variables not shown: icon (chr), read_only (lgl), bytes (int), modified (chr), size (chr), root (chr), mime_type
+  (chr), revision (int)
+> drop_share(x$path)
+$url
+[1] "https://db.tt/PnNKg99G"
+
+$expires
+[1] "Tue, 01 Jan 2030 00:00:00 +0000"
+
+$visibility
+[1] "PUBLIC"
+```
+The shared URL (https://www.dropbox.com/s/aikiaug0x2013dp/duck_rabbit.gif?dl=0) resolves here: 
+
+![duck_rabbit](https://www.dropbox.com/s/aikiaug0x2013dp/duck_rabbit.gif?dl=0)
+
 __Known issues__
 
 * There are issues with the content-type for text file uploads. Binary files are fine at the moment. This will get fixed up shortly.
