@@ -4,7 +4,6 @@
 #'
 #'@param file Full local path to file.
 #'@param  dest The relative path on Dropbox where the file should get uploaded.
-#'@param  encode File encoding
 #'@template verbose
 #'@template token
 #'@export
