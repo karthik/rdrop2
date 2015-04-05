@@ -12,7 +12,8 @@ drop_upload(file, dest = NULL, overwrite = TRUE, autorename = FALSE,
 
 \item{dest}{The relative path on Dropbox where the file should get uploaded.}
 
-\item{overwrite}{Default is \code{TRUE}}
+\item{overwrite}{Default behavior (\code{TRUE}) is to overwrite files in the
+destination. Set to \code{FALSE} to prevent this.}
 
 \item{autorename}{This value, either true (default) or false, determines what
 happens when there is a conflict. If true, the file being uploaded will be
