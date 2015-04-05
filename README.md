@@ -105,7 +105,7 @@ Source: local data frame [6 x 14]
 # 3  1da06e7f519         TRUE                                             # /obscure_path/images/logos/treebase_logo.gif  FALSE
 # 4  1db06e7f519         TRUE                                              # /obscure_path/images/logos/fishbaselogo.gif  FALSE
 # Variables not shown: client_mtime (chr), icon (chr), read_only (lgl), bytes (# int), modified (chr), size (chr), root (chr), mime_type
-  (chr), revision (int), parent_shared_folder_id (chr)
+#  (chr), revision (int), parent_shared_folder_id (chr)
 ```
 
 __Search and download files__
