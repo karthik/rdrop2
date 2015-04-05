@@ -22,7 +22,7 @@ a new authentication request. You can override this by pointing to a
 different location where your credentials are stored.}
 }
 \description{
-Creates and returns a shared link to a file or folder.
+Returns a list with the share \code{url}, \code{expires}, and \code{visibility}.
 }
 \examples{
 \dontrun{

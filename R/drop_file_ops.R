@@ -17,7 +17,7 @@ drop_copy <- function(from_path = NULL, to_path = NULL, root = "auto", verbose =
   move_url <- "https://api.dropbox.com/1/fileops/copy"
      args <- as.list(drop_compact(c(root = root,
                                     from_path = from_path,
-                                    to_path = to_path))) 
+                                    to_path = to_path)))
   x <-POST(move_url, config(token = dtoken), query = args, encode = "form")
   content(x)
 }
@@ -40,7 +40,7 @@ drop_move <- function(from_path = NULL, to_path = NULL, root = "auto", verbose =
   move_url <- "https://api.dropbox.com/1/fileops/move"
      args <- as.list(drop_compact(c(root = root,
                                     from_path = from_path,
-                                    to_path = to_path))) 
+                                    to_path = to_path)))
   x <-POST(move_url, config(token = dtoken), query = args, encode = "form")
   content(x)
 }
@@ -64,26 +64,15 @@ drop_delete <- function (path = NULL, root = "auto", verbose = FALSE, dtoken = g
 }
 
 
-#' Creates a folder.
+#'Creates a folder.
 #'
-#' Returns the following type of response
-#' {
-#'     "size": "0 bytes",
-#'     "rev": "1f477dd351f",
-#'     "thumb_exists": false,
-#'     "bytes": 0,
-#'     "modified": "Wed, 10 Aug 2011 18:21:30 +0000",
-#'     "path": "/new_folder",
-#'     "is_dir": true,
-#'     "icon": "folder",
-#'     "root": "dropbox",
-#'     "revision": 5023410
-#' }
-#' @template path
-#' @template root
-#' @template verbose
-#' @template token
-#' @export
+#'Returns a list containing the following fields: "size", "rev", "thumb_exists",
+#'"bytes", "modified", "path", "is_dir", "icon", "root", "revision"
+#'@template path
+#'@template root
+#'@template verbose
+#'@template token
+#'@export
 #' @examples \dontrun{
 #' drop_create(path = "foobar")
 #'}

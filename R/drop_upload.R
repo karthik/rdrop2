@@ -32,14 +32,15 @@ drop_upload <- function(file,
     put_url <- "https://api-content.dropbox.com/1/files_put/auto/"
     content_type <- drop_mime(file)
     content_length <- file.info(file)$size
-    args <- as.list(drop_compact(c(`Content-Type` = content_type, 
-                                    `Content-Length` = content_length, 
-                                    overwrite = overwrite, 
-                                    autorename = autorename, 
+    args <- as.list(drop_compact(c(`Content-Type` = content_type,
+                                   `Content-Length` = content_length,
+                                    overwrite = overwrite,
+                                    autorename = autorename,
                                     path = dest)))
-    response <- PUT(put_url, 
-                    config(token = dtoken), 
-                    query = args, 
+    pretty_lists(args)
+    response <- PUT(put_url,
+                    config(token = dtoken),
+                    query = args,
                     body = list(data = upload_file(file)))
     if(verbose) {
         pretty_lists(content(response))
@@ -49,3 +50,6 @@ drop_upload <- function(file,
     }
 
 }
+# KNOWN PROBLEMS
+# Binary file uploads are corrupted
+# csv files get a header and footer making them unusable.

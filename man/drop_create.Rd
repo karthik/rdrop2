@@ -24,19 +24,8 @@ a new authentication request. You can override this by pointing to a
 different location where your credentials are stored.}
 }
 \description{
-Returns the following type of response
-{
-    "size": "0 bytes",
-    "rev": "1f477dd351f",
-    "thumb_exists": false,
-    "bytes": 0,
-    "modified": "Wed, 10 Aug 2011 18:21:30 +0000",
-    "path": "/new_folder",
-    "is_dir": true,
-    "icon": "folder",
-    "root": "dropbox",
-    "revision": 5023410
-}
+Returns a list containing the following fields: "size", "rev", "thumb_exists",
+"bytes", "modified", "path", "is_dir", "icon", "root", "revision"
 }
 \examples{
 \dontrun{
