@@ -46,4 +46,5 @@ drop_upload <- function(file,
     } else {
         message(sprintf('File %s uploaded successfully', file))
     }
+    invisible(content(response))
 }

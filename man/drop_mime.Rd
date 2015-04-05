@@ -2,8 +2,7 @@
 % Please edit documentation in R/drop_mime.R
 \name{drop_mime}
 \alias{drop_mime}
-\title{Compute mime type from file extension.
-Needs mechanism for user extension.}
+\title{Computes mime type from file extension.}
 \usage{
 drop_mime(path)
 }
@@ -14,8 +13,7 @@ drop_mime(path)
 mime string
 }
 \description{
-Compute mime type from file extension.
-Needs mechanism for user extension.
+Computes mime type from file extension.
 }
 \keyword{internal}
 

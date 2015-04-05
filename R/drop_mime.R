@@ -1,5 +1,4 @@
-#' Compute mime type from file extension.
-#' Needs mechanism for user extension.
+#' Computes mime type from file extension.
 #'
 #' @param path path to file
 #' @keywords internal
