@@ -42,9 +42,10 @@ drop_upload <- function(file,
                     query = args, 
                     body = list(data = upload_file(file)))
     if(verbose) {
-        content(response)
+        pretty_lists(content(response))
     } else {
+        invisible(content(response))
         message(sprintf('File %s uploaded successfully', file))
     }
-    invisible(content(response))
+
 }

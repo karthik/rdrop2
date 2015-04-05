@@ -93,7 +93,7 @@ drop_create <- function (path = NULL, root = "auto", verbose = FALSE, dtoken = g
     results <- content(x)
 
   if(verbose) {
-    data.frame(t(unlist(results)))
+    pretty_lists(results)
   } else {
     if(results$is_dir) message(sprintf("Folder %s created successfully \n", path))
   }

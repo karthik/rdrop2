@@ -17,7 +17,7 @@ drop_acc <- function(dtoken = get_dropbox_token(), verbose = FALSE) {
   res <- content(req)
   res <- LinearizeNestedList(res)
   if(verbose) {
-    res
+    pretty_lists(res)
   } else {
     data.frame(t(unlist(res)))
   }

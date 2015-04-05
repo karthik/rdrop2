@@ -21,6 +21,5 @@ drop_share <- function(path = NULL,
                                 short_url = short_url))) 
    share_url <- "https://api.dropbox.com/1/shares/auto/"
    res <- GET(share_url, query = args, config(token = dtoken))
-   results <- content(res)
-   results
+   pretty_list(content(res))
 }

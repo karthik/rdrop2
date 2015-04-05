@@ -53,7 +53,7 @@ drop_dir <- function(path = NULL,
   req <- httr::GET(metadata_url, query = args, config(token = get_dropbox_token()))
   res <- jsonlite::fromJSON(content(req, as = "text"), flatten = TRUE)
   if(verbose) {
-    res
+    pretty_lists(res)
   } else {
     dplyr::tbl_df(res$contents) %>% dplyr::select(path, mime_type, root, bytes, modified)
   }
