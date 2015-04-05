@@ -39,6 +39,9 @@ drop_upload <- function(file,
                                     autorename = autorename,
                                     path = dest)))
     pretty_lists(args) # temporarily printing args for debugging
+    # I've tried both adding headers explicitly or
+    # letting upload_file automatically guess the content type too
+    # Neither approach currently works.
     config = c(token = dtoken, add_headers("Content-Type" = "multipart/form-data"))
     response <- PUT(put_url,
                     config = config,
