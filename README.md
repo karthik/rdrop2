@@ -31,7 +31,9 @@ drop_acc() %>%
 __Directory listing__
 
 ```r
-dropbox_dir()
+drop_dir()
+# or specify a path
+drop_dir('public/gifs')
 ```
 
 __Retrieve only pngs__
@@ -61,11 +63,7 @@ drop_upload('mtcars.csv', dest = "drop_test")
 __Download a file__
 
 ```r
-dir(pattern = "csv")
-unlink('mtcars.csv')
-dir(pattern = "csv")
-drop_get(path = '/mtcars.csv')
-dir(pattern = "csv")
+drop_get(path = 'mtcars.csv')
 ```
 
 __Delete a file__
@@ -84,17 +82,17 @@ drop_move("mtcars.csv", "new_folder/mtcars.csv")
 __Copy files__
 
 ```r
-drop_create("new_folder")
-drop_copy("mtcars.csv", "new_folder/mtcars.csv")
+drop_create("new_folder2")
+drop_copy("mtcars.csv", "new_folder2/mtcars.csv")
 ```
 
 __Search your Dropbox__
 
 ```r
 foo <- drop_search('gif')
-> dim(foo)
+dim(foo)
 [1] 751  14
-> tail(foo)
+tail(foo)
 Source: local data frame [6 x 14]
 ```
 
@@ -104,8 +102,6 @@ Source: local data frame [6 x 14]
 2  1d906e7f519         TRUE                                                  /obscure_path/images/logos/ploslogo.gif  FALSE
 3  1da06e7f519         TRUE                                             /obscure_path/images/logos/treebase_logo.gif  FALSE
 4  1db06e7f519         TRUE                                              /obscure_path/images/logos/fishbaselogo.gif  FALSE
-5  1df06e7f519         TRUE                                                 /obscure_path/images/logos/ritislogo.gif  FALSE
-6 3b6c07dead3c         TRUE /Collaborations/DataONE-ProvWG/meetings/ahm-2013/provwgslide-final-reporting.key/Data/fp_cvi_logo.gif  FALSE
 Variables not shown: client_mtime (chr), icon (chr), read_only (lgl), bytes (int), modified (chr), size (chr), root (chr), mime_type
   (chr), revision (int), parent_shared_folder_id (chr)
 ```
@@ -115,17 +111,9 @@ __Search and download files__
 I frequently use a duck season rabbit season gif. This is how I could search and download from my public Dropbox account. 
 
 ```r
-> x <- drop_search("rabbit")
-> x
-Source: local data frame [1 x 13]
+x <- drop_search("rabbit")
+drop_get(x$path, local_file = '~/Desktop/bugs.gif')
 
-              rev thumb_exists                         path is_dir
-1 89fe8e80037fcc7         TRUE /Public/gifs/duck_rabbit.gif  FALSE
-Variables not shown: client_mtime (chr), icon (chr), read_only (lgl), bytes (int),
-  modified (chr), size (chr), root (chr), mime_type (chr), revision (int)
-> x$path
-[1] "/Public/gifs/duck_rabbit.gif"
-> drop_get(x$path, local_file = '~/Desktop/bugs.gif')
 Response [https://api-content.dropbox.com/1/files/auto//Public/gifs/duck_rabbit.gif]
   Date: 2015-04-04 15:34
   Status: 200
@@ -137,16 +125,8 @@ Response [https://api-content.dropbox.com/1/files/auto//Public/gifs/duck_rabbit.
 __Share links__
 
 ```r
-> library(rDrop2)
-> x <- drop_search("rabbit")
-> x
-Source: local data frame [1 x 13]
-
-              rev thumb_exists                         path is_dir                    client_mtime
-1 89fe8e80037fcc7         TRUE /Public/gifs/duck_rabbit.gif  FALSE Tue, 04 Nov 2014 16:04:55 +0000
-Variables not shown: icon (chr), read_only (lgl), bytes (int), modified (chr), size (chr), root (chr), mime_type
-  (chr), revision (int)
-> drop_share(x$path)
+gifs <- drop_search("rabbit")
+drop_share(gifs$path)
 $url
 [1] "https://db.tt/PnNKg99G"
 
