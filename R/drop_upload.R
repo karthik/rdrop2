@@ -37,7 +37,7 @@ drop_upload <- function(file,
                                     overwrite = overwrite,
                                     autorename = autorename,
                                     path = dest)))
-    pretty_lists(args)
+    pretty_lists(args) # temporarily printing args for debugging
     response <- PUT(put_url,
                     config(token = dtoken),
                     query = args,
