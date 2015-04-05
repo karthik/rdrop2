@@ -36,8 +36,8 @@ Uploads a file to Dropbox using PUT semantics.
 }
 \examples{
 \dontrun{
-write.csv(mtcars, file = "mtcars.csv")
-drop_upload("mtcars.csv")
+write.csv(mtcars, file = "mtt.csv")
+drop_upload("mtt.csv")
 }
 }
 

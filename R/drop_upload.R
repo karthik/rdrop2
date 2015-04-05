@@ -16,8 +16,8 @@
 #'@template token
 #'@export
 #' @examples \dontrun{
-#' write.csv(mtcars, file = "mtcars.csv")
-#' drop_upload("mtcars.csv")
+#' write.csv(mtcars, file = "mtt.csv")
+#' drop_upload("mtt.csv")
 #'}
 drop_upload <- function(file,
                         dest = NULL,
@@ -31,18 +31,19 @@ drop_upload <- function(file,
     dest <- paste0(strip_slashes(dest),"/", basename(file))
   }
     put_url <- "https://api-content.dropbox.com/1/files_put/auto/"
-    content_type <- drop_mime(file)
-    content_length <- file.info(file)$size
-    args <- as.list(drop_compact(c(`Content-Type` = content_type,
-                                   `Content-Length` = content_length,
+    # content_type <- drop_mime(file)
+    # content_length <- file.info(file)$size
+    args <- as.list(drop_compact(c(# `Content-Type` = content_type,
+                                   # `Content-Length` = content_length,
                                     overwrite = overwrite,
                                     autorename = autorename,
                                     path = dest)))
     pretty_lists(args) # temporarily printing args for debugging
+    config = c(token = dtoken, add_headers("Content-Type" = "multipart/form-data"))
     response <- PUT(put_url,
-                    config(token = dtoken),
+                    config = config,
                     query = args,
-                    body = list(data = upload_file(file)))
+                    body = list(y = upload_file(file)))
     if(verbose) {
         pretty_lists(content(response))
     } else {
