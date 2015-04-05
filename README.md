@@ -91,6 +91,8 @@ __Search your Dropbox__
 ```r
 foo <- drop_search('gif')
 dim(foo)
+# Yes I know I hoard gifs.
+# This isn't even the entire lot.
 [1] 751  14
 tail(foo)
 Source: local data frame [6 x 14]
