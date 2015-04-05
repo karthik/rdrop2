@@ -36,7 +36,7 @@ drop_dir()
 drop_dir('public/gifs')
 ```
 
-__Retrieve only pngs__
+__Filter dir listing by filetype (e.g. png files)__
 
 ```r
 drop_dir() %>% 
