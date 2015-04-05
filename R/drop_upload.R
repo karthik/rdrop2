@@ -5,7 +5,7 @@
 #'@param file Full local path to file.
 #'@param  dest The relative path on Dropbox where the file should get uploaded.
 #'@param  encode File encoding
-#'@param  verbose default is FALSE
+#'@template verbose
 #'@template token
 #'@export
 #' @examples \dontrun{
