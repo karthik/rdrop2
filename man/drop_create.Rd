@@ -2,7 +2,7 @@
 % Please edit documentation in R/drop_file_ops.R
 \name{drop_create}
 \alias{drop_create}
-\title{Creates a folder.}
+\title{Creates a folder on Dropbox}
 \usage{
 drop_create(path = NULL, root = "auto", verbose = FALSE,
   dtoken = get_dropbox_token())
@@ -12,7 +12,7 @@ drop_create(path = NULL, root = "auto", verbose = FALSE,
 root.}
 
 \item{root}{This is required. The root relative to which path is specified.
-Valid values are auto (recommended), sandbox, and dropbox.}
+Valid values are auto (recommended and also the default), sandbox, and dropbox.}
 
 \item{verbose}{By default verbose output is \code{FALSE}. Set to \code{TRUE}
 if you need to troubleshoot any output or grab additional parameters.}

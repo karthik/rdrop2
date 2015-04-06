@@ -13,7 +13,7 @@ drop_copy(from_path = NULL, to_path = NULL, root = "auto",
 \item{to_path}{destination file or folder}
 
 \item{root}{This is required. The root relative to which path is specified.
-Valid values are auto (recommended), sandbox, and dropbox.}
+Valid values are auto (recommended and also the default), sandbox, and dropbox.}
 
 \item{verbose}{By default verbose output is \code{FALSE}. Set to \code{TRUE}
 if you need to troubleshoot any output or grab additional parameters.}

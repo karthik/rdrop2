@@ -45,7 +45,7 @@ drop_dir <- function(path = NULL,
         metadata_url <- paste0(metadata_url, path)
   }
   req <- httr::GET(metadata_url, query = args, config(token = get_dropbox_token()))
-  res <- jsonlite::fromJSON(content(req, as = "text"), flatten = TRUE)
+  res <- jsonlite::fromJSON(httr::content(req, as = "text"), flatten = TRUE)
   if(verbose) {
     pretty_lists(res)
   } else {

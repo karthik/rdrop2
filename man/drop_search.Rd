@@ -25,7 +25,11 @@ response.}
 \item{include_deleted}{If this parameter is set to true, then files and
 folders that have been deleted will also be included in the search.}
 
-\item{locale}{Dropbox uses the locale parameter to specify language settings of content responses. If your app supports any language other than English, insert the appropriate IETF language tag. When a supported language is specified, Dropbox will returned translated size and/or user_error fields (where applicable)}
+\item{locale}{Dropbox uses the locale parameter to specify language settings
+of content responses. If your app supports any language other than English,
+insert the appropriate IETF language tag. When a supported language is
+specified, Dropbox will returned translated size and/or user_error fields
+(where applicable)}
 
 \item{include_membership}{If true, metadata for a shared folder will
 include a list of members and a list of groups.}

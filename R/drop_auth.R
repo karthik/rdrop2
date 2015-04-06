@@ -30,14 +30,14 @@ drop_auth <- function(new_user = FALSE,
     file.remove(".httr-oauth")
   }
 # These are the app keys
-dropbox_app <- oauth_app("dropbox", key, secret)
+dropbox_app <- httr::oauth_app("dropbox", key, secret)
 
 # the dropbox endpoint 
-dropbox <- oauth_endpoint(
+dropbox <- httr::oauth_endpoint(
   authorize = "https://www.dropbox.com/1/oauth2/authorize",
   access = "https://api.dropbox.com/1/oauth2/token"
 )
-dropbox_token <- oauth2.0_token(dropbox, dropbox_app, cache = cache)
+dropbox_token <- httr::oauth2.0_token(dropbox, dropbox_app, cache = cache)
 stopifnot(inherits(dropbox_token, "Token2.0"))
 
 .dstate$token <- dropbox_token

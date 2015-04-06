@@ -11,7 +11,11 @@ drop_share(path = NULL, locale = NULL, short_url = TRUE,
 \item{path}{This is required The path to the new folder to create relative to
 root.}
 
-\item{locale}{Dropbox uses the locale parameter to specify language settings of content responses. If your app supports any language other than English, insert the appropriate IETF language tag. When a supported language is specified, Dropbox will returned translated size and/or user_error fields (where applicable)}
+\item{locale}{Dropbox uses the locale parameter to specify language settings
+of content responses. If your app supports any language other than English,
+insert the appropriate IETF language tag. When a supported language is
+specified, Dropbox will returned translated size and/or user_error fields
+(where applicable)}
 
 \item{short_url}{By default the function return shortened URL. Set to \code{FALSE} if you require a full path.}
 

@@ -34,6 +34,7 @@ drop_upload <- function(file,
   } else {
     dest <- paste0(strip_slashes(dest),"/", basename(file))
   }
+    stopifnot(file.exists(file))
     put_url <- "https://api-content.dropbox.com/1/files_put/auto/"
     # content_type <- drop_mime(file)
     # content_length <- file.info(file)$size

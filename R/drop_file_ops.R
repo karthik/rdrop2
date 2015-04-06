@@ -19,7 +19,14 @@ drop_copy <- function(from_path = NULL, to_path = NULL, root = "auto", verbose =
                                     from_path = from_path,
                                     to_path = to_path)))
   x <-POST(move_url, config(token = dtoken), query = args, encode = "form")
-  content(x)
+  res <- content(x)
+  if(!verbose) {
+  # This should just be a simple print statement
+  message(sprintf("File copied to %s", res$path))
+} else {
+  pretty_lists(res)
+  invisible(res)
+}
 }
 
 #'Moves a file or folder to a new location.
@@ -42,7 +49,14 @@ drop_move <- function(from_path = NULL, to_path = NULL, root = "auto", verbose =
                                     from_path = from_path,
                                     to_path = to_path)))
   x <-POST(move_url, config(token = dtoken), query = args, encode = "form")
-  content(x)
+  res <- content(x)
+  if(!verbose) {
+  # This should just be a simple print statement
+  message(sprintf("Filed moved to %s", res$path))
+  } else {
+  pretty_lists(res)
+  invisible(res)
+}
 }
 
 
@@ -64,7 +78,7 @@ drop_delete <- function (path = NULL, root = "auto", verbose = FALSE, dtoken = g
 }
 
 
-#'Creates a folder.
+#'Creates a folder on Dropbox
 #'
 #'Returns a list containing the following fields: "size", "rev", "thumb_exists",
 #'"bytes", "modified", "path", "is_dir", "icon", "root", "revision"

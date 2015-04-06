@@ -26,7 +26,11 @@ response.}
 
 \item{rev}{If you include a particular revision number, then only the metadata for that revision will be returned.}
 
-\item{locale}{Dropbox uses the locale parameter to specify language settings of content responses. If your app supports any language other than English, insert the appropriate IETF language tag. When a supported language is specified, Dropbox will returned translated size and/or user_error fields (where applicable)}
+\item{locale}{Dropbox uses the locale parameter to specify language settings
+of content responses. If your app supports any language other than English,
+insert the appropriate IETF language tag. When a supported language is
+specified, Dropbox will returned translated size and/or user_error fields
+(where applicable)}
 
 \item{include_media_info}{If true, each file will include a photo_info dictionary for photos and a video_info dictionary for videos with additional media info. If the data isn't available yet, the string pending will be returned instead of a dictionary.}
 
