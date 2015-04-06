@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/ropensci/rDrop2.svg)](https://travis-ci.org/ropensci/rDrop2)
+
 
 # rDrop2 - Dropbox interface from R  ![](drop.png)  
 
