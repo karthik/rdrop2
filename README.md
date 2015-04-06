@@ -137,6 +137,17 @@ drop_share(gifs$path)
 ```
 The shared URL resolves here https://www.dropbox.com/s/aikiaug0x2013dp/duck_rabbit.gif?dl=0
 
+__Read csv files directly from Dropbox__
+
+```r
+write.csv(iris, file = "iris.csv")
+drop_upload("iris.csv")
+# Now let's read this back into an R session
+# Note that there is a quiet download happening to your temp dir
+new_iris <- drop_read_csv("iris.csv")
+```
+
+
 __Known issues__
 
 * There are currently no known bugs.
