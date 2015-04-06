@@ -1,6 +1,6 @@
 Package: rDrop2
 Title: Programmatic Interface to the Dropbox API
-Version: 0.5.0.99
+Version: 0.5.1.99
 Authors@R: 'Karthik Ram <karthik.ram@gmail.com> [aut, cre]'
 Description: This package provides full programmatic access to context on the Dropbox platform, including support for all standard file operations.
 Depends: R (>= 3.1.2)
