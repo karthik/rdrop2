@@ -4,6 +4,8 @@ context("Testing that acc info works correctly")
 test_that("Account information works correctly", {
 expect_is("data.frame", drop_acc())
 expect_is("list", drop_acc(verbose = TRUE))
+acc_info <- drop_acc()
+identical("Karthik Ram", as.character(acc_info$display_name))
 })
 
 
