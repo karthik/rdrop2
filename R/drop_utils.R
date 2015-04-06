@@ -9,10 +9,12 @@
 NULL
 
 
+#' A local version of list compact from plyr.
 #' @noRd
 drop_compact <- function(l) Filter(Negate(is.null), l)
 
 
+#' A small function to strip trailing slashes from a path
 #' @noRd
 strip_slashes <- function(path) {
     if (length(path) && grepl("/$", path)) {
@@ -174,7 +176,7 @@ LinearizeNestedList <- function(NList, LinearizeDataFrames=FALSE,
     return(NList)
 }
 
-
+#' A pretty list printer. Reduces extraneous space.
 #' @noRd
 pretty_lists <- function(x)
 {
