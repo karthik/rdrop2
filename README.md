@@ -10,7 +10,7 @@ This package provides programmatic access to Dropbox from R. The package provide
 __Installation__  
 
 ```r
-devtools::install_github('karthik/rDrop2')
+devtools::install_github('karthik/rdrop2')
 ```
 
 __Basic Usage__
