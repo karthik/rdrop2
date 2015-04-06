@@ -8,6 +8,7 @@
 #'@param  dest The relative path on Dropbox where the file should get uploaded.
 #'@param overwrite Default behavior (\code{TRUE}) is to overwrite files in the
 #'  destination. Set to \code{FALSE} to prevent this.
+#' @param encode The file encoding
 #'@param autorename This value, either true (default) or false, determines what
 #'  happens when there is a conflict. If true, the file being uploaded will be
 #'  automatically renamed to avoid the conflict. (For example, test.txt might be

@@ -49,6 +49,7 @@ drop_dir <- function(path = NULL,
   if(verbose) {
     pretty_lists(res)
   } else {
+    path <- mime_type <- root <- bytes <- modified <- NULL
     dplyr::tbl_df(res$contents) %>% dplyr::select(path, mime_type, root, bytes, modified)
   }
 }

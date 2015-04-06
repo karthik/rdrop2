@@ -5,5 +5,10 @@
 Makefile
 README.*
 .httr-oauth.enc
- tests/testthat/.httr-oauth
- tests/testthat/.httr-oauth.enc
+tests/testthat/.httr-oauth.enc
+^.*\.gif$
+^.*\.png$
+^.*\.csv$
+zzz.R
+man-roxygen
+cache/

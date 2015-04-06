@@ -35,9 +35,6 @@ rDrop2 will try to automatically locate your local credential cache and use
 them. However, if the credentials are not found, the function will initiate
 a new authentication request. You can override this by pointing to a
 different location where your credentials are stored.}
-
-\item{verbose}{By default verbose output is \code{FALSE}. Set to \code{TRUE}
-if you need to troubleshoot any output or grab additional parameters.}
 }
 \description{
 Returns metadata for all files and folders whose filename contains the given

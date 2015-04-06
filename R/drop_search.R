@@ -12,7 +12,6 @@
 #'  folders that have been deleted will also be included in the search.
 #'@template locale
 #'@template include_membership
-#'@template verbose
 #'@template token
 #'@export
 #' @examples \dontrun{
