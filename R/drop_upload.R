@@ -13,7 +13,7 @@
 #'  happens when there is a conflict. If true, the file being uploaded will be
 #'  automatically renamed to avoid the conflict. (For example, test.txt might be
 #'  automatically renamed to test (1).txt.) The new name can be obtained from
-#'  the returned metadata. If false, the call will fail with a 409 (Conflict)
+#'  the returned metadata. If false, the call will fail with a 409 (Conflict).
 #'  response code.
 #'@template verbose
 #'@template token
@@ -42,10 +42,7 @@ drop_upload <- function(file,
                                     overwrite = overwrite,
                                     autorename = autorename,
                                     path = dest)))
-    pretty_lists(args) # temporarily printing args for debugging
-    # I've tried both adding headers explicitly or
-    # letting upload_file automatically guess the content type too
-    # Neither approach currently works.
+    # pretty_lists(args) # temporarily printing args for debugging
     response <- PUT(put_url,
                     config(token = dtoken),
                     query = args,
@@ -59,6 +56,3 @@ drop_upload <- function(file,
     }
 
 }
-# KNOWN PROBLEMS
-# Binary file uploads are corrupted
-# csv files get a header and footer making them unusable.

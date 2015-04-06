@@ -19,7 +19,7 @@ destination. Set to \code{FALSE} to prevent this.}
 happens when there is a conflict. If true, the file being uploaded will be
 automatically renamed to avoid the conflict. (For example, test.txt might be
 automatically renamed to test (1).txt.) The new name can be obtained from
-the returned metadata. If false, the call will fail with a 409 (Conflict)
+the returned metadata. If false, the call will fail with a 409 (Conflict).
 response code.}
 
 \item{verbose}{By default verbose output is \code{FALSE}. Set to \code{TRUE}
