@@ -50,8 +50,7 @@ drop_upload <- function(file,
                     config(token = dtoken),
                     query = args,
                     encode = encode,
-                    body = list(y = upload_file(file)),
-                    verbose())
+                    body = upload_file(file))
     if(verbose) {
         pretty_lists(content(response))
     } else {

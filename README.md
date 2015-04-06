@@ -139,5 +139,5 @@ The shared URL resolves here https://www.dropbox.com/s/aikiaug0x2013dp/duck_rabb
 
 __Known issues__
 
-* There are issues with the content-type for text file uploads. Binary files are also having issues the moment. This will get fixed up shortly.
+* There are currently no known bugs.
 * For any other issues, please file an [issue](https://github.com/karthik/rDrop2/issues).
