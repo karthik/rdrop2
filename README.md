@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/karthik/rDrop2.svg)](https://travis-ci.org/ropensci/rDrop2) 
+[![Build Status](https://travis-ci.org/karthik/rdrop2.svg)](https://travis-ci.org/ropensci/rDrop2) 
 
 
 # rdrop2 - Dropbox interface from R  ![](drop.png)  
@@ -153,18 +153,6 @@ drop_upload("iris.csv")
 # Now let's read this back into an R session
 # Note that there is a quiet download happening to your temp dir
 new_iris <- drop_read_csv("iris.csv")
-```
-
-#### How to upload and share a file
-
-```
-share <- "dataset.csv" %>%
-                write.csv(iris, .) %>% 
-                drop_upload %>%
-                drop_share
-
-# Now use the share$url in your rmarkdown text
-# or to read the file in elsewhere via URL.
 ```
 
 #### Accessing Dropbox on Shiny and remote servers
