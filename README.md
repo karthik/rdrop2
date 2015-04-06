@@ -42,7 +42,6 @@ __Filter dir listing by filetype (e.g. png files)__
 
 ```r
 drop_dir() %>% 
-    .$contents %>% 
     filter(mime_type == "image/png")
 ```
 
