@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/ropensci/rDrop2.svg)](https://travis-ci.org/ropensci/rDrop2)
+[![Build Status](https://travis-ci.org/ropensci/rDrop2.svg)](https://travis-ci.org/ropensci/rDrop2) [![Coverage Status](https://coveralls.io/repos/karthik/rDrop2/badge.svg)](https://coveralls.io/r/karthik/rDrop2)
 
 
 # rDrop2 - Dropbox interface from R  ![](drop.png)  
