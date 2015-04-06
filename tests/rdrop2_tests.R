@@ -2,6 +2,7 @@ options("httr_oauth_cache" = TRUE)
 
 context("Testing that acc info works correctly")
 test_that("Account information works correctly", {
+skip_on_cran()
 expect_is("data.frame", drop_acc())
 expect_is("list", drop_acc(verbose = TRUE))
 acc_info <- drop_acc()
@@ -12,6 +13,7 @@ identical("Karthik Ram", as.character(acc_info$display_name))
 context("File ops")
 
 test_that("Test that basic file ops work correctly",{
+    skip_on_cran()
     write.csv(mtcars, "mtcars.csv")
     # Check to see if file uploads are successful
     expect_message(drop_upload("mtcars.csv"), "successfully")
@@ -22,6 +24,7 @@ test_that("Test that basic file ops work correctly",{
 context("testing search")
 
 test_that("Search works correctly", {
+    skip_on_cran()
     my_gifs <- drop_search('gif')
     expect_is(my_gifs, "data.frame")
 })

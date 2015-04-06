@@ -1,4 +1,0 @@
-language: r
-before_install:
-# - openssl aes-256-cbc -K $encrypted_643c5066da72_key -iv $encrypted_643c5066da72_iv
-#  -in .httr-oauth.enc -out .httr-oauth -d
