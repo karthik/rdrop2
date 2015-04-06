@@ -64,7 +64,9 @@ drop_upload('mtcars.csv', dest = "drop_test")
 __Download a file__
 
 ```r
-drop_get(path = 'mtcars.csv')
+drop_get('mtcars.csv')
+# or add path if file is not in root
+drop_get("test_folder/mtcars.csv")
 ```
 
 __Delete a file__
@@ -84,7 +86,7 @@ __Copy files__
 
 ```r
 drop_create("new_folder2")
-drop_copy("mtcars.csv", "new_folder2/mtcars.csv")
+drop_copy("new_folder/mtcars.csv", "new_folder2/mtcars.csv")
 ```
 
 __Search your Dropbox__
