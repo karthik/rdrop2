@@ -16,7 +16,7 @@ devtools::install_github('karthik/rdrop2')
 __Basic Usage__
 
 ```r
-library(rDrop2)
+library(rdrop2)
 drop_auth()
 # This will launch your browser and request access to your Dropbox account. 
 # Once completed, close your browser window and return to R to complete authentication.
