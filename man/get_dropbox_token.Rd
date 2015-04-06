@@ -2,12 +2,12 @@
 % Please edit documentation in R/drop_auth.R
 \name{get_dropbox_token}
 \alias{get_dropbox_token}
-\title{Retrieve drobpox token from environment}
+\title{Retrieve Dropbox token from environment}
 \usage{
 get_dropbox_token()
 }
 \description{
-Get token if it's previously stored, else prompt user to get one.
+Retrieves a token if it is previously stored, otherwise prompts user to get one.
 }
 \keyword{internal}
 

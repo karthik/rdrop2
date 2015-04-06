@@ -45,9 +45,9 @@ stopifnot(inherits(dropbox_token, "Token2.0"))
 
 
 
-#' Retrieve drobpox token from environment
+#' Retrieve Dropbox token from environment
 #'
-#' Get token if it's previously stored, else prompt user to get one.
+#' Retrieves a token if it is previously stored, otherwise prompts user to get one.
 #'
 #' @keywords internal
 get_dropbox_token <- function() {
