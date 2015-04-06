@@ -4,3 +4,6 @@
 ^\.travis\.yml$
 Makefile
 README.*
+.httr-oauth.enc
+ tests/testthat/.httr-oauth
+ tests/testthat/.httr-oauth.enc
