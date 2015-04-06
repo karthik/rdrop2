@@ -27,7 +27,7 @@ __Account information__
 ```r
 library(dplyr)
 drop_acc() %>% 
-    select(uid, name_details.given_name)
+    select(uid, display_name, email_verified, quota_info.quota)
 ```
 
 __Directory listing__
