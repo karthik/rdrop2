@@ -1,6 +1,7 @@
 zzz.R
 .Rproj.user
 .httr-oauth
+tests/testthat/.httr-oauth
 Makefile
 ^.*\.Rproj$
 cache/
