@@ -2,6 +2,8 @@
 
 #'Uploads a file to Dropbox using PUT semantics.
 #'
+#' This function will allow you to write files of any size to Dropbox(even ones
+#' that cannot be read into memory) by uploading them in chunks.
 #'@param file Relative path to local file.
 #'@param  dest The relative path on Dropbox where the file should get uploaded.
 #'@param overwrite Default behavior (\code{TRUE}) is to overwrite files in the
