@@ -8,7 +8,7 @@ drop_upload(file, dest = NULL, overwrite = TRUE, autorename = FALSE,
   verbose = FALSE, encode = "multipart", dtoken = get_dropbox_token())
 }
 \arguments{
-\item{file}{Full local path to file.}
+\item{file}{Relative path to local file.}
 
 \item{dest}{The relative path on Dropbox where the file should get uploaded.}
 
@@ -32,7 +32,8 @@ a new authentication request. You can override this by pointing to a
 different location where your credentials are stored.}
 }
 \description{
-Uploads a file to Dropbox using PUT semantics.
+This function will allow you to write files of any size to Dropbox(even ones
+that cannot be read into memory) by uploading them in chunks.
 }
 \examples{
 \dontrun{

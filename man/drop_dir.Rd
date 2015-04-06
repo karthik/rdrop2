@@ -46,21 +46,8 @@ different location where your credentials are stored.}
 Retrieves file and folder metadata.
 }
 \details{
-A sample output for contents looks like this in the unparsed state
-{
-"size": "225.4KB",
-"rev": "35e97029684fe",
-"thumb_exists": false,
-"bytes": 230783,
-"modified": "Tue, 19 Jul 2011 21:55:38 +0000",
-"client_mtime": "Mon, 18 Jul 2011 18:04:35 +0000",
-"path": "/Getting_Started.pdf",
-"is_dir": false,
-"icon": "page_white_acrobat",
-"root": "dropbox",
-"mime_type": "application/pdf",
-"revision": 220823
-}
+A sample output for contents returns the following fields:
+size, rev, thumb_exists, bytes, modified, client_mtime, path, is_dir, icon, root, mime_type, revision
 }
 \examples{
 \dontrun{
