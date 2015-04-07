@@ -51,7 +51,8 @@ Retrieves file and folder metadata.
 }
 \details{
 A sample output for contents returns the following fields:
-size, rev, thumb_exists, bytes, modified, client_mtime, path, is_dir, icon, root, mime_type, revision
+size, rev, thumb_exists, bytes, modified, client_mtime, path, is_dir, icon, root, mime_type, revision. Note that
+with verbose set to FALSE you only get a subset of these fields. To get the full output, look in \code{drop_dir()$contents}
 }
 \examples{
 \dontrun{
