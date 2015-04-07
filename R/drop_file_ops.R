@@ -18,10 +18,11 @@ drop_copy <- function(from_path = NULL, to_path = NULL, root = "auto", verbose =
      args <- as.list(drop_compact(c(root = root,
                                     from_path = from_path,
                                     to_path = to_path)))
+  # TODO
+  # here if to_path is just a path, append filename at the end
   x <-POST(move_url, config(token = dtoken), query = args, encode = "form")
   res <- content(x)
   if(!verbose) {
-  # This should just be a simple print statement
   message(sprintf("File copied to %s", res$path))
 } else {
   pretty_lists(res)
@@ -48,10 +49,11 @@ drop_move <- function(from_path = NULL, to_path = NULL, root = "auto", verbose =
      args <- as.list(drop_compact(c(root = root,
                                     from_path = from_path,
                                     to_path = to_path)))
+  # TODO 
+  # here if to_path is just a path, append filename at the end   
   x <-POST(move_url, config(token = dtoken), query = args, encode = "form")
   res <- content(x)
   if(!verbose) {
-  # This should just be a simple print statement
   message(sprintf("Filed moved to %s", res$path))
   } else {
   pretty_lists(res)
