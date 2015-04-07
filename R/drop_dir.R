@@ -48,10 +48,17 @@ drop_dir <- function(path = NULL,
   res <- jsonlite::fromJSON(httr::content(req, as = "text"), flatten = TRUE)
   if(length(res$contents) > 0) { # i.e. not an empty folder
   if(verbose) {
-    pretty_lists(res)
+    res2 <- res
+    res2$contents <- NULL
+    pretty_lists(res2)
   } else {
+
     path <- mime_type <- root <- bytes <- modified <- NULL
+    if("mime_type" %in% names(res$contents)) {
     dplyr::tbl_df(res$contents) %>% dplyr::select(path, mime_type, root, bytes, modified)
+    } else {
+      dplyr::tbl_df(res$contents) %>% dplyr::select(path, is_dir, root, bytes, modified)
+    }
   }
   } else {
     NULL
