@@ -15,6 +15,6 @@
 #'}
 drop_read_csv <- function(file, dest = tempdir(), ...) {
     localfile = paste0(dest, "/", basename(file))
-    drop_get(file, local_file = localfile)
+    drop_get(file, local_file = localfile, overwrite = TRUE)
     read.csv(localfile, ...)
 }
