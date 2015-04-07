@@ -38,7 +38,7 @@ LinearizeNestedList <- function(NList, LinearizeDataFrames=FALSE,
     #         articles/r/linearize_nested_lists_in_r
     #
     # Akhil S Bhel
-    # 
+    #
     # Implements a recursive algorithm to linearize nested lists upto any
     # arbitrary level of nesting (limited by R's allowance for recursion-depth).
     # By linearization, it is meant to bring all list branches emanating from
@@ -177,9 +177,12 @@ LinearizeNestedList <- function(NList, LinearizeDataFrames=FALSE,
 }
 
 #' A pretty list printer. Reduces extraneous space.
+#' @importFrom assertthat assert_that
 #' @noRd
 pretty_lists <- function(x)
 {
+  assert_that(inherits(x, "list"))
+
    for(key in names(x)){
       value <- format(x[[key]])
       if(value == "") next

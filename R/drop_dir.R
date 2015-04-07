@@ -32,13 +32,13 @@ drop_dir <- function(path = NULL,
                     verbose = FALSE,
                     dtoken = get_dropbox_token()) {
 
-  args <- as.list(drop_compact(c(file_limit = file_limit, 
-                  hash = hash, 
-                  list = list, 
-                  include_deleted = include_deleted, 
-                  rev = rev, 
-                  locale = locale, 
-                  include_media_info = include_media_info, 
+  args <- as.list(drop_compact(c(file_limit = file_limit,
+                  hash = hash,
+                  list = list,
+                  include_deleted = include_deleted,
+                  rev = rev,
+                  locale = locale,
+                  include_media_info = include_media_info,
                   include_membership = include_membership)))
   metadata_url <- "https://api.dropbox.com/1/metadata/auto/"
   if(!is.null(path)) {
@@ -46,11 +46,15 @@ drop_dir <- function(path = NULL,
   }
   req <- httr::GET(metadata_url, query = args, config(token = get_dropbox_token()))
   res <- jsonlite::fromJSON(httr::content(req, as = "text"), flatten = TRUE)
+  if(length(res$contents) > 0) { # i.e. not an empty folder
   if(verbose) {
     pretty_lists(res)
   } else {
     path <- mime_type <- root <- bytes <- modified <- NULL
     dplyr::tbl_df(res$contents) %>% dplyr::select(path, mime_type, root, bytes, modified)
+  }
+  } else {
+    NULL
   }
 }
 # TODO
