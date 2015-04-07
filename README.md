@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/karthik/rdrop2.svg)](https://travis-ci.org/ropensci/rDrop2) 
+![](https://img.shields.io/badge/development-active-blue.svg) [![Build Status](https://travis-ci.org/karthik/rdrop2.svg)](https://travis-ci.org/ropensci/rDrop2) 
 
 
 # rdrop2 - Dropbox interface from R  ![](drop.png)  
@@ -162,4 +162,4 @@ If you expect to access a Dropbox account via Shiny or on a remote cluster, EC2,
 
 __Bugs and issues__
 
-* Given that this package hasn't been around for very long, please file any [issues](https://github.com/karthik/rDrop2/issues) or problems as they arise.
+* Given that this package hasn't been around for very long there are likely some undiscovered issues. So please file any [issues](https://github.com/karthik/rDrop2/issues) or problems as they arise.
