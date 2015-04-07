@@ -68,6 +68,8 @@ test_that("Copying files works correctly", {
     write.csv(iris, file = file_name)
     drop_upload(file_name)
     drop_create("copy_test")
+    # Try a duplicate create. This should fail
+    expect_error(drop_create("copy_test"))
     drop_upload(file_name)
     drop_copy(file_name, paste0("/copy_test/", file_name))
     res <- drop_dir("copy_test")
