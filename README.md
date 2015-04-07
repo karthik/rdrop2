@@ -157,7 +157,7 @@ new_iris <- drop_read_csv("iris.csv")
 
 #### Accessing Dropbox on Shiny and remote servers
 
-If you expect to access a Dropbox account via Shiny or on a remote cluster, EC2, Digital Ocean etc, you can leave the cached `oauth` file in the same directory, or pass the `token` explicitly as the last argument to any function call that begins with `drop_`. You can also save the output of `drop_auth` into a R object and sink that to disk and pass that as a token. If using on Travis or similar, you should consider [[encrypting the oauth cache file](http://docs.travis-ci.com/user/encrypting-files/) to prevent unauthorized access to your Dropbox account.
+If you expect to access a Dropbox account via Shiny or on a remote cluster, EC2, Digital Ocean etc, you can leave the cached `oauth` file in the same directory, or pass the `token` explicitly as the last argument to any function call that begins with `drop_`. You can also save the output of `drop_auth` into a R object and sink that to disk and pass that as a token. If using on Travis or similar, you should consider [encrypting the oauth cache file](http://docs.travis-ci.com/user/encrypting-files/) to prevent unauthorized access to your Dropbox account.
 
 
 __Bugs and issues__
