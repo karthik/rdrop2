@@ -114,6 +114,7 @@ test_that("Sharing a Dropbox resource works correctly", {
     share_names <- sort(c("url","expires","visibility"))
     res_names <- sort(names(res))
     expect_identical(share_names, res_names)
+    unlink(file_name)
     # Make sure the $url starts with http://
 })
 
