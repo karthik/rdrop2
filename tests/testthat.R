@@ -1,4 +1,4 @@
 library(testthat)
-library(dropper)
+library(rdrop2)
 
-test_check("dropper")
+test_check("rdrop2")

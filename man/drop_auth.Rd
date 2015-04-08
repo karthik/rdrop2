@@ -11,10 +11,10 @@ drop_auth(new_user = FALSE, key = "mmhfsybffdom42w",
 \item{new_user}{Default is \code{FALSE}. Set to \code{TRUE} if you need to
 switch to a new user account or just flush existing token.}
 
-\item{key}{Your application key. dropper already comes with a key/secret
+\item{key}{Your application key. rdrop2 already comes with a key/secret
 but you are welcome to swap out with our own.}
 
-\item{secret}{Your application token. dropper already comes with a key/secret
+\item{secret}{Your application token. rdrop2 already comes with a key/secret
 but you are welcome to swap out with our own.}
 
 \item{cache}{By default your credentials are locally cached in a file called \code{.httr-oauth}. Set to FALSE if you need to authenticate separately each time.}

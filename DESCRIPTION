@@ -1,4 +1,4 @@
-Package: dropper
+Package: rdrop2
 Title: Programmatic Interface to the Dropbox API
 Version: 0.5.4.99
 Authors@R: 'Karthik Ram <karthik.ram@gmail.com> [aut, cre]'

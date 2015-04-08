@@ -1,5 +1,5 @@
 
-# Contributing to dropper
+# Contributing to rdrop2
 
 * Before filing an issue, make sure it's not already on the queue or something listed for a future milestone.
 *  Also be sure to check known issues at the bottom of the `README`.
