@@ -1,7 +1,7 @@
-![](https://img.shields.io/badge/development-active-blue.svg) [![Build Status](https://travis-ci.org/karthik/rdrop2.svg?branch=master)](https://travis-ci.org/karthik/rdrop2)
+![](https://img.shields.io/badge/development-active-blue.svg) [![Build Status](https://travis-ci.org/karthik/dropr.svg?branch=master)](https://travis-ci.org/karthik/dropr)
 
 
-# rdrop2 - Dropbox interface from R  ![](drop.png)  
+# dropr - Dropbox interface from R  ![](drop.png)  
 
 
 This package provides programmatic access to Dropbox from R. The functions in this package provide access to a full suite of file operations, including dir/copy/move/delete operations, account information (including quotas) and the ability to upload and download files from any Dropbox account. This package replaces the old [rDrop](https://github.com/karthik/rDrop). _Note: This is a new package (04/06/15) and functionality will change or get updated rapidly before a stable CRAN release._
@@ -10,13 +10,13 @@ This package provides programmatic access to Dropbox from R. The functions in th
 __Installation__  
 
 ```r
-devtools::install_github('karthik/rdrop2')
+devtools::install_github('karthik/dropr')
 ```
 
 __Authentication__
 
 ```r
-library(rdrop2)
+library(dropr)
 drop_auth()
 # This will launch your browser and request access to your Dropbox account. You will be prompted to log in if you aren't already logged in.
 # Once completed, close your browser window and return to R to complete authentication. 
@@ -162,6 +162,6 @@ If you expect to access a Dropbox account via Shiny or on a remote cluster, EC2,
 
 __Bugs and known issues__
 
-* If you have two factor auth set up with Dropbox, it's currently not possible to use `rdrop2`. A fix is not planned until a future milestone.
+* If you have two factor auth set up with Dropbox, it's currently not possible to use `dropr`. A fix is not planned until a future milestone.
 
-* Given that this package hasn't been around for very long there are likely some undiscovered issues. So please file any [issues](https://github.com/karthik/rDrop2/issues) or problems as they arise.
+* Given that this package hasn't been around for very long there are likely some undiscovered issues. So please file any [issues](https://github.com/karthik/dropr/issues) or problems as they arise.

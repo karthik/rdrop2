@@ -7,9 +7,9 @@
 #'This function authenticates you into Dropbox. The documentation for the  \href{https://www.dropbox.com/developers/core/docs}{core Dropbox API} provides more details including alternate methods if you desire to reimplement your own.
 #'@param new_user Default is \code{FALSE}. Set to \code{TRUE} if you need to
 #'  switch to a new user account or just flush existing token.
-#'@param key Your application key. rDrop2 already comes with a key/secret
+#'@param key Your application key. dropr already comes with a key/secret
 #'  but you are welcome to swap out with our own.
-#'@param secret Your application token. rDrop2 already comes with a key/secret
+#'@param secret Your application token. dropr already comes with a key/secret
 #'  but you are welcome to swap out with our own.
 #' @param cache By default your credentials are locally cached in a file called \code{.httr-oauth}. Set to FALSE if you need to authenticate separately each time.
 #'@export
