@@ -1,4 +1,4 @@
-![](https://img.shields.io/badge/development-active-blue.svg) [![Build Status](https://travis-ci.org/karthik/dropr.svg?branch=master)](https://travis-ci.org/karthik/dropr)
+![](https://img.shields.io/badge/development-active-blue.svg) [![Build Status](https://travis-ci.org/karthik/dropr.svg)](https://travis-ci.org/karthik/dropr)
 
 
 # dropr - Dropbox interface from R  ![](drop.png)  
