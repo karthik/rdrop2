@@ -136,6 +136,7 @@ test_that("Search works correctly", {
 context("testing dropbox revisions")
 
 test_that("Revisions are returned correctly", {
+skip_on_cran()    
 write.csv(iris, file = "iris.csv")
 drop_upload("iris.csv")
 write.csv(iris[iris$Species == "setosa", ], file = "iris.csv")
@@ -144,4 +145,17 @@ x <- drop_history("iris.csv")
 expect_equal(ncol(x), 14)
 expect_is(x, "data.frame")
 drop_delete("iris.csv")
+unlink("iris.csv")
+})
+
+# drop_exists
+
+context("testing Dropbox exists")
+test_that("We can verify that a file exists on Dropbox", {
+  skip_on_cran()
+  library(uuid)
+  drop_create("existential_test")
+  expect_true(drop_exists("existential_test"))
+  expect_false(drop_exists(paste0(UUIDgenerate(), UUIDgenerate(), ".csv")))
+  drop_delete("existential_test")
 })

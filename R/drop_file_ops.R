@@ -20,14 +20,19 @@ drop_copy <- function(from_path = NULL, to_path = NULL, root = "auto", verbose =
                                     to_path = to_path)))
   # TODO
   # here if to_path is just a path, append filename at the end
-  x <-POST(move_url, config(token = dtoken), query = args, encode = "form")
-  res <- content(x)
-  if(!verbose) {
-  message(sprintf("File copied to %s", res$path))
-} else {
-  pretty_lists(res)
-  invisible(res)
-}
+  if(drop_exists(from_path)) {
+    # copy
+    x <-POST(move_url, config(token = dtoken), query = args, encode = "form")
+    res <- content(x)
+    if(!verbose) {
+      message(sprintf("File copied to %s", res$path))
+    } else {
+      pretty_lists(res)
+      invisible(res)
+    }
+  } else {
+    stop("File or folder not found \n")
+  }
 }
 
 #'Moves a file or folder to a new location.
@@ -51,14 +56,18 @@ drop_move <- function(from_path = NULL, to_path = NULL, root = "auto", verbose =
                                     to_path = to_path)))
   # TODO
   # here if to_path is just a path, append filename at the end
-  x <-POST(move_url, config(token = dtoken), query = args, encode = "form")
-  res <- content(x)
-  if(!verbose) {
-  message(sprintf("Filed moved to %s", res$path))
+  if(drop_exists(from_path)) {
+    x <-POST(move_url, config(token = dtoken), query = args, encode = "form")
+    res <- content(x)
+    if(!verbose) {
+      message(sprintf("Filed moved to %s", res$path))
+    } else {
+      pretty_lists(res)
+      invisible(res)
+    }
   } else {
-  pretty_lists(res)
-  invisible(res)
-}
+    stop("File or folder not found \n")
+  }
 }
 
 
@@ -71,28 +80,18 @@ drop_move <- function(from_path = NULL, to_path = NULL, root = "auto", verbose =
 #' @export
 drop_delete <- function (path = NULL, root = "auto", verbose = FALSE, dtoken = get_dropbox_token()) {
     create_url <- "https://api.dropbox.com/1/fileops/delete"
-    # Check to see if a file exists before attempting to delete
-    dir <- drop_dir(path = dirname(path))
-    # Check for a leading slash and if not present, add it.
-    if(!identical("/", substr(path, 1, 1)))  {
-    path_trailing <- paste0("/", path)
+   if(drop_exists(path)) { # file was found
+        # do delete
+      x <-POST(create_url, config(token = dtoken), body = list(root = root, path = path), encode = "form")
+      if(verbose) {
+        content(x) } else {
+          if(content(x)$is_deleted) message(sprintf('%s was successfully deleted', path))
+          invisible(content(x))
+        }
     } else {
-      path_trailing <- path
-    }
-
-    if(path_trailing %in% dir$path) {
-      # delete
-    x <-POST(create_url, config(token = dtoken), body = list(root = root, path = path), encode = "form")
-  if(verbose) {
-    content(x) } else {
-      if(content(x)$is_deleted) message(sprintf('%s was successfully deleted', path))
-    }
-  invisible(content(x))
-
-  } else {
+      # Since file/folder wasn't found, report a stop error
       stop("File not found on current path")
     }
-    # ......
 }
 
 
@@ -120,3 +119,36 @@ drop_create <- function (path = NULL, root = "auto", verbose = FALSE, dtoken = g
   }
   invisible(results)
 }
+
+
+
+
+
+
+#'Checks to see if a file/folder exists on Dropbox
+#'
+#'Since many file operations such as move, copy, delete and history can only act
+#'on files that currently exist on a Dropbox store, checking to see if the
+#'\code{path} is valid before operating prevents bad API calls from being sent
+#'to the server. This functions returns a logical response after checking if a
+#'file path is valid on Dropbox.
+#'@param path The full path to a Dropbox file
+#' @examples \dontrun{
+#' drop_create("existential_test")
+#' drop_exists("existential_test")
+#' drop_delete("existential_test")
+#'}
+drop_exists <- function(path = NULL) {
+  assert_that(!is.null(path))
+  file_name <- paste0("/", basename(path)) # add a leading slash
+  dir_name <- dirname(path)
+  dir_listing <- drop_dir(path = dir_name)
+
+    if(file_name %in% dir_listing$path) {
+      TRUE
+    } else {
+      FALSE
+    }
+
+}
+
