@@ -74,7 +74,7 @@ drop_delete <- function (path = NULL, root = "auto", verbose = FALSE, dtoken = g
     # Check to see if a file exists before attempting to delete
     dir <- drop_dir(path = dirname(path))
     # Check for a leading slash and if not present, add it.
-    if(!identical("/", substr("/foo", 1, 1)))  {
+    if(!identical("/", substr(path, 1, 1)))  {
     path_trailing <- paste0("/", path)
     } else {
       path_trailing <- path
