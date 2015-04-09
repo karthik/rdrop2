@@ -14,14 +14,16 @@
 #'}
 drop_get <- function(path = NULL, 
                      local_file = NULL, 
+                     rev = NULL,
                      overwrite = FALSE, 
                      dtoken = get_dropbox_token()) {
     stopifnot(!is.null(path))
 
     filename <- ifelse(is.null(local_file), basename(path), local_file)
     get_url <- "https://api-content.dropbox.com/1/files/auto/"
+    args <- as.list(drop_compact(c(rev = rev)))
     full_download_path <- paste0(get_url, path)
-    GET(full_download_path, , config(token = dtoken), write_disk(filename, overwrite = overwrite))
+    GET(full_download_path, query = args, config(token = dtoken), write_disk(filename, overwrite = overwrite))
 }
 
 

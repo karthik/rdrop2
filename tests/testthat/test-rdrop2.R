@@ -129,3 +129,19 @@ test_that("Search works correctly", {
     my_gifs <- drop_search('gif')
     expect_is(my_gifs, "data.frame")
 })
+
+
+# drop_rev
+
+context("testing dropbox revisions")
+
+test_that("Revisions are returned correctly", {
+write.csv(iris, file = "iris.csv")
+drop_upload("iris.csv")
+write.csv(iris[iris$Species == "setosa", ], file = "iris.csv")
+drop_upload("iris.csv")
+x <- drop_rev("iris.csv")
+expect_equal(ncol(x), 14)
+expect_is(x, "data.frame")
+drop_delete("iris.csv")
+})
