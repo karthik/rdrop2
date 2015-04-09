@@ -71,12 +71,22 @@ drop_move <- function(from_path = NULL, to_path = NULL, root = "auto", verbose =
 #' @export
 drop_delete <- function (path = NULL, root = "auto", verbose = FALSE, dtoken = get_dropbox_token()) {
     create_url <- "https://api.dropbox.com/1/fileops/delete"
+    # Check to see if a file exists before attempting to delete
+    dir <- drop_dir(path = dirname(path))
+    path_trailing <- paste0("/", path)
+    if(path_trailing %in% dir$path) {
+      # delete
     x <-POST(create_url, config(token = dtoken), body = list(root = root, path = path), encode = "form")
   if(verbose) {
     content(x) } else {
       if(content(x)$is_deleted) message(sprintf('Folder %s was successfully deleted', path))
     }
   invisible(content(x))
+
+  } else {
+      stop("File not found on current path")
+    }
+    # ......
 }
 
 
