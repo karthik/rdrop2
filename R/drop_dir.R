@@ -32,7 +32,7 @@ drop_dir <- function(path = NULL,
                     include_membership = FALSE,
                     verbose = FALSE,
                     dtoken = get_dropbox_token()) {
-
+  is_dir <- NULL
   args <- as.list(drop_compact(c(file_limit = file_limit,
                   hash = hash,
                   list = list,
