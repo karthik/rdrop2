@@ -1,13 +1,27 @@
-language: r
+language: c
 sudo: required
 before_install:
 - openssl aes-256-cbc -K $encrypted_ad3262635b9a_key -iv $encrypted_ad3262635b9a_iv
   -in tests/testthat/.httr-oauth.enc -out tests/testthat/.httr-oauth -d
-r_packages:
- - uuid
-r_github_packages:
-- jimhester/covr
+before_install:
+  - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
+  - chmod 755 ./travis-tool.sh
+  - ./travis-tool.sh bootstrap
+
+install:
+  - ./travis-tool.sh install_deps
+  - ./travis-tool.sh r_install uuid
+  - ./travis-tool.sh install_github jimhester/covr
+
+script: ./travis-tool.sh run_tests
+
+after_failure:
+  - ./travis-tool.sh dump_logs
+
 after_success:
-- Rscript -e 'library(covr); NOT_CRAN=true; coveralls()'
-env:
-- warnings_are_errors: false
+- Rscript -e 'library(covr); NOT_CRAN = true; coveralls()'
+
+notifications:
+  email:
+    on_success: change
+    on_failure: change
