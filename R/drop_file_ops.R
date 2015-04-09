@@ -71,28 +71,23 @@ drop_move <- function(from_path = NULL, to_path = NULL, root = "auto", verbose =
 #' @export
 drop_delete <- function (path = NULL, root = "auto", verbose = FALSE, dtoken = get_dropbox_token()) {
     create_url <- "https://api.dropbox.com/1/fileops/delete"
-    # Check to see if a file exists before attempting to delete
-    dir <- drop_dir(path = dirname(path))
-    # Check for a leading slash and if not present, add it.
-    if(!identical("/", substr(path, 1, 1)))  {
-    path_trailing <- paste0("/", path)
-    } else {
-      path_trailing <- path
-    }
+    # Check to see if a file/folder exists before attempting to delete
 
-    if(path_trailing %in% dir$path) {
-      # delete
-    x <-POST(create_url, config(token = dtoken), body = list(root = root, path = path), encode = "form")
-  if(verbose) {
-    content(x) } else {
-      if(content(x)$is_deleted) message(sprintf('%s was successfully deleted', path))
-    }
-  invisible(content(x))
+    file_name <- paste0("/", basename(path)) # add a leading slash
+    dir_name <- dirname(path)
+    dir_listing <- drop_dir(path = dir_name)
 
-  } else {
+    if(file_name %in% dir_listing$path) { # file was found
+        # do delete
+      x <-POST(create_url, config(token = dtoken), body = list(root = root, path = path), encode = "form")
+      if(verbose) {
+        content(x) } else {
+          if(content(x)$is_deleted) message(sprintf('%s was successfully deleted', path))
+        }
+      invisible(content(x))
+    } else { # Since file/folder wasn't found, report a stop error
       stop("File not found on current path")
     }
-    # ......
 }
 
 
