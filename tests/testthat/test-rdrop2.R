@@ -145,3 +145,14 @@ expect_equal(ncol(x), 14)
 expect_is(x, "data.frame")
 drop_delete("iris.csv")
 })
+
+# drop_exists
+
+context("testing Dropbox exists")
+test_that("We can verify that a file exists on Dropbox", {
+  library(uuid)
+  drop_create("existential_test")
+  expect_true(drop_exists("existential_test"))
+  expect_false(drop_exists(paste0(UUIDgenerate(), UUIDgenerate(), ".csv")))
+  drop_delete("existential_test")
+})
