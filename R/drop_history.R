@@ -14,9 +14,9 @@
 #' drop_upload("iris.csv")
 #' write.csv(iris[iris$Species == "setosa", ], file = "iris.csv")
 #' drop_upload("iris.csv")
-#' drop_rev("iris.csv")
+#' drop_history("iris.csv")
 #'}
-drop_rev <- function(path = NULL, dtoken = get_dropbox_token()) {
+drop_history <- function(path = NULL, dtoken = get_dropbox_token()) {
     rev_url <- "https://api.dropbox.com/1/revisions/auto/"
     assert_that(!is.null(path))
     # strip slashes here
