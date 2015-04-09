@@ -4,7 +4,7 @@
 \alias{drop_get}
 \title{Downloads a file from Dropbox}
 \usage{
-drop_get(path = NULL, local_file = NULL, overwrite = FALSE,
+drop_get(path = NULL, local_file = NULL, rev = NULL, overwrite = FALSE,
   dtoken = get_dropbox_token())
 }
 \arguments{
