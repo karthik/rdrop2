@@ -144,6 +144,7 @@ x <- drop_history("iris.csv")
 expect_equal(ncol(x), 14)
 expect_is(x, "data.frame")
 drop_delete("iris.csv")
+unlink("iris.csv")
 })
 
 # drop_exists
