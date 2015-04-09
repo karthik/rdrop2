@@ -136,6 +136,7 @@ test_that("Search works correctly", {
 context("testing dropbox revisions")
 
 test_that("Revisions are returned correctly", {
+skip_on_cran()    
 write.csv(iris, file = "iris.csv")
 drop_upload("iris.csv")
 write.csv(iris[iris$Species == "setosa", ], file = "iris.csv")
@@ -151,6 +152,7 @@ unlink("iris.csv")
 
 context("testing Dropbox exists")
 test_that("We can verify that a file exists on Dropbox", {
+  skip_on_cran()
   library(uuid)
   drop_create("existential_test")
   expect_true(drop_exists("existential_test"))
