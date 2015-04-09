@@ -24,7 +24,7 @@ drop_rev <- function(path = NULL, dtoken = get_dropbox_token()) {
     res <- httr::GET(rev_url, , config(token = dtoken))
     httr::stop_for_status(res)
     results <- httr::content(res)
-    res_df <- lapply(results, function(x) data.frame(t(unlist(x))))
+    res_df <- lapply(results, function(x) data.frame(t(unlist(x)), stringsAsFactors = FALSE))
     data.table::rbindlist(res_df, fill = TRUE)
 }
 
