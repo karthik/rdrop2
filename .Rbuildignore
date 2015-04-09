@@ -12,3 +12,4 @@ tests/testthat/.httr-oauth.enc
 zzz.R
 man-roxygen
 cache/
+CONTRIBUTING.md

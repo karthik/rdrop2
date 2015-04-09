@@ -5,6 +5,7 @@
 #' @template path
 #' @param  local_file The name of the local copy. Leave this blank if you're fine with the original name.
 #' @param overwrite Default is \code{FALSE} but can be set to \code{TRUE}.
+#' @param rev The revision of the file to retrieve. This defaults to the most recent revision.
 #' @template token
 #' @export
 #' @examples \dontrun{
