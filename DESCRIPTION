@@ -13,4 +13,5 @@ Imports:
          httr,
          jsonlite,
          magrittr
-Suggests: testthat
+Suggests: testthat,
+          uuid
