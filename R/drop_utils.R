@@ -18,7 +18,7 @@ drop_compact <- function(l) Filter(Negate(is.null), l)
 #' @noRd
 strip_slashes <- function(path) {
     if (length(path) && grepl("/$", path)) {
-        path <- substr(path, 1, nchar(path)-1)
+        path <- substr(path, 1, nchar(path) - 1)
     }
     path
 }
