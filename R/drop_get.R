@@ -7,16 +7,18 @@
 #' @param overwrite Default is \code{FALSE} but can be set to \code{TRUE}.
 #' @param rev The revision of the file to retrieve. This defaults to the most recent revision.
 #' @template token
+#' @template verbose
 #' @export
 #' @examples \dontrun{
 #' drop_get(path = 'karthik_small.png', dest = "~/Desktop")
 #' # To overwrite the existing file
 #'  drop_get(path = 'karthik_small.png', overwrite = TRUE)
 #'}
-drop_get <- function(path = NULL, 
-                     local_file = NULL, 
+drop_get <- function(path = NULL,
+                     local_file = NULL,
                      rev = NULL,
-                     overwrite = FALSE, 
+                     overwrite = FALSE,
+                     verbose = FALSE,
                      dtoken = get_dropbox_token()) {
     stopifnot(!is.null(path))
 
@@ -24,7 +26,12 @@ drop_get <- function(path = NULL,
     get_url <- "https://api-content.dropbox.com/1/files/auto/"
     args <- as.list(drop_compact(c(rev = rev)))
     full_download_path <- paste0(get_url, path)
-    GET(full_download_path, query = args, config(token = dtoken), write_disk(filename, overwrite = overwrite))
+    x <- GET(full_download_path, query = args, config(token = dtoken), write_disk(filename, overwrite = overwrite))
+    if(!verbose) {
+        message(sprintf("%s on disk %s KB", filename, length(x$content)/1000, x$url))
+    } else {
+        x
+    }
 }
 
 
