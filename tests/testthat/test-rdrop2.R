@@ -157,7 +157,12 @@ test_that("We can verify that a file exists on Dropbox", {
   drop_create("existential_test")
   expect_true(drop_exists("existential_test"))
   expect_false(drop_exists(paste0(UUIDgenerate(), UUIDgenerate(), ".csv")))
+  # Now test files inside subfolders
+  write.csv(iris, file = "iris.csv")
+  drop_upload("iris.csv", dest = "existential_test")
+  expect_true(drop_exists("existential_test/iris.csv"))
   drop_delete("existential_test")
+
 })
 
 
