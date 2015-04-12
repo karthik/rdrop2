@@ -25,7 +25,7 @@ drop_copy <- function(from_path = NULL, to_path = NULL, root = "auto", verbose =
     x <-POST(move_url, config(token = dtoken), query = args, encode = "form")
     res <- content(x)
     if(!verbose) {
-      message(sprintf("File copied to %s", res$path))
+      message(sprintf("%s copied to %s", basename(res$path), dirname(res$path)))
     } else {
       pretty_lists(res)
       invisible(res)
@@ -60,7 +60,7 @@ drop_move <- function(from_path = NULL, to_path = NULL, root = "auto", verbose =
     x <-POST(move_url, config(token = dtoken), query = args, encode = "form")
     res <- content(x)
     if(!verbose) {
-      message(sprintf("Filed moved to %s", res$path))
+      message(sprintf("%s moved to %s", from_path, res$path)) 
     } else {
       pretty_lists(res)
       invisible(res)
