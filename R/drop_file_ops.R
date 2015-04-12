@@ -67,6 +67,7 @@ drop_move <- function(from_path = NULL, to_path = NULL, root = "auto", verbose =
     }
   } else {
     stop("File or folder not found \n")
+    FALSE
   }
 }
 
@@ -91,6 +92,7 @@ drop_delete <- function (path = NULL, root = "auto", verbose = FALSE, dtoken = g
     } else {
       # Since file/folder wasn't found, report a stop error
       stop("File not found on current path")
+      FALSE
     }
 }
 

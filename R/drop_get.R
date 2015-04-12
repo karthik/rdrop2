@@ -21,17 +21,22 @@ drop_get <- function(path = NULL,
                      verbose = FALSE,
                      dtoken = get_dropbox_token()) {
     stopifnot(!is.null(path))
-
+      if(drop_exists(from_path)) {
     filename <- ifelse(is.null(local_file), basename(path), local_file)
     get_url <- "https://api-content.dropbox.com/1/files/auto/"
     args <- as.list(drop_compact(c(rev = rev)))
     full_download_path <- paste0(get_url, path)
     x <- GET(full_download_path, query = args, config(token = dtoken), write_disk(filename, overwrite = overwrite))
     if(!verbose) {
+        # prints file sizes in kb but this could also be pretty printed
         message(sprintf("%s on disk %s KB", filename, length(x$content)/1000, x$url))
     } else {
         x
     }
+   } else {
+    message("File not found on Dropbox \n")
+    FALSE
+   } 
 }
 
 
