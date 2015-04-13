@@ -162,6 +162,4 @@ If you expect to access a Dropbox account via Shiny or on a remote cluster, EC2,
 
 __Bugs and known issues__
 
-* If you have two factor auth set up with Dropbox, it's currently not possible to use `rdrop2`. A fix is not planned until a future milestone.
-
 * Given that this package hasn't been around for very long there are likely some undiscovered issues. So please file any [issues](https://github.com/karthik/rdrop2/issues) or problems as they arise.
