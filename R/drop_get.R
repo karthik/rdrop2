@@ -30,7 +30,8 @@ drop_get <- function(path = NULL,
     if(!verbose) {
         # prints file sizes in kb but this could also be pretty printed
         message(sprintf("%s on disk %s KB", filename, length(x$content)/1000, x$url))
-    } else {
+        TRUE
+    } else {        
         x
     }
    } else {
