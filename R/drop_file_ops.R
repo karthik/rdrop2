@@ -32,6 +32,7 @@ drop_copy <- function(from_path = NULL, to_path = NULL, root = "auto", verbose =
     }
   } else {
     stop("File or folder not found \n")
+    FALSE
   }
 }
 
@@ -143,7 +144,6 @@ drop_create <- function (path = NULL, root = "auto", verbose = FALSE, dtoken = g
 #'}
 drop_exists <- function(path = NULL) {
   assert_that(!is.null(path))
-  # file_name <- paste0("/", basename(path)) # add a leading slash
   if(!grepl('^/', path)) path <- paste0("/", path)
   dir_name <- dirname(path)
   dir_listing <- drop_dir(path = dir_name)

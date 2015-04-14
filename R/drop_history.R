@@ -19,7 +19,6 @@
 drop_history <- function(path = NULL, dtoken = get_dropbox_token()) {
     rev_url <- "https://api.dropbox.com/1/revisions/auto/"
     assert_that(!is.null(path))
-    # strip slashes here
     rev_url <- paste0(rev_url, strip_slashes(path))
     res <- httr::GET(rev_url, , config(token = dtoken))
     httr::stop_for_status(res)
