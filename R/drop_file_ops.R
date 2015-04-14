@@ -32,6 +32,7 @@ drop_copy <- function(from_path = NULL, to_path = NULL, root = "auto", verbose =
     }
   } else {
     stop("File or folder not found \n")
+    FALSE
   }
 }
 

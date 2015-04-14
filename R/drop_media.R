@@ -25,5 +25,6 @@ drop_media <- function(path = NULL, locale = NULL, dtoken = get_dropbox_token())
    pretty_lists(content(res))
 } else {
     stop("File not found \n")
+    FALSE
 }
 }

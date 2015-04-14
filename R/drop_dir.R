@@ -22,7 +22,7 @@
 #' drop_dir()
 #'}
 drop_dir <- function(path = NULL,
-                    file_limit = 1000,
+                    file_limit = 10000,
                     hash = NULL,
                     list = TRUE,
                     include_deleted = FALSE,
