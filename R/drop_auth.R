@@ -4,14 +4,23 @@
 
 #'Authentication for Dropbox
 #'
-#'This function authenticates you into Dropbox. The documentation for the  \href{https://www.dropbox.com/developers/core/docs}{core Dropbox API} provides more details including alternate methods if you desire to reimplement your own.
+#'This function authenticates you into Dropbox. The documentation for the
+#'\href{https://www.dropbox.com/developers/core/docs}{core Dropbox API} provides
+#'more details including alternate methods if you desire to reimplement your
+#'own.
 #'@param new_user Default is \code{FALSE}. Set to \code{TRUE} if you need to
 #'  switch to a new user account or just flush existing token.
-#'@param key Your application key. rdrop2 already comes with a key/secret
-#'  but you are welcome to swap out with our own.
+#'@param key Your application key. rdrop2 already comes with a key/secret but
+#'  you are welcome to swap out with our own. Since these keys are shipped with
+#'  the package, there is a small chance they could be voided if someone abuses
+#'  the key. So if you plan to use this in production, or for an internal tool,
+#'  the recommended practice is to create a new application on Dropbox and use
+#'  those keys for your purposes.
 #'@param secret Your application token. rdrop2 already comes with a key/secret
 #'  but you are welcome to swap out with our own.
-#' @param cache By default your credentials are locally cached in a file called \code{.httr-oauth}. Set to FALSE if you need to authenticate separately each time.
+#'@param cache By default your credentials are locally cached in a file called
+#'  \code{.httr-oauth}. Set to FALSE if you need to authenticate separately each
+#'  time.
 #'@export
 #'@import httr
 #' @examples \dontrun{
@@ -32,7 +41,7 @@ drop_auth <- function(new_user = FALSE,
 # These are the app keys
 dropbox_app <- httr::oauth_app("dropbox", key, secret)
 
-# the dropbox endpoint 
+# the dropbox endpoint
 dropbox <- httr::oauth_endpoint(
   authorize = "https://www.dropbox.com/1/oauth2/authorize",
   access = "https://api.dropbox.com/1/oauth2/token"

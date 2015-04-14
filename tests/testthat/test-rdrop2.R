@@ -136,32 +136,32 @@ test_that("Search works correctly", {
 context("testing dropbox revisions")
 
 test_that("Revisions are returned correctly", {
-skip_on_cran()    
-write.csv(iris, file = "iris.csv")
-drop_upload("iris.csv")
-write.csv(iris[iris$Species == "setosa", ], file = "iris.csv")
-drop_upload("iris.csv")
-x <- drop_history("iris.csv")
-expect_equal(ncol(x), 14)
-expect_is(x, "data.frame")
-drop_delete("iris.csv")
-unlink("iris.csv")
+    skip_on_cran()    
+    write.csv(iris, file = "iris.csv")
+    drop_upload("iris.csv")
+    write.csv(iris[iris$Species == "setosa", ], file = "iris.csv")
+    drop_upload("iris.csv")
+    x <- drop_history("iris.csv")
+    expect_equal(ncol(x), 14)
+    expect_is(x, "data.frame")
+    drop_delete("iris.csv")
+    unlink("iris.csv")
 })
 
 # drop_exists
 
 context("testing Dropbox exists")
 test_that("We can verify that a file exists on Dropbox", {
-  skip_on_cran()
-  library(uuid)
-  drop_create("existential_test")
-  expect_true(drop_exists("existential_test"))
-  expect_false(drop_exists(paste0(UUIDgenerate(), UUIDgenerate(), ".csv")))
-  # Now test files inside subfolders
-  write.csv(iris, file = "iris.csv")
-  drop_upload("iris.csv", dest = "existential_test")
-  expect_true(drop_exists("existential_test/iris.csv"))
-  drop_delete("existential_test")
+    skip_on_cran()
+    library(uuid)
+    drop_create("existential_test")
+    expect_true(drop_exists("existential_test"))
+    expect_false(drop_exists(paste0(UUIDgenerate(), UUIDgenerate(), ".csv")))
+    # Now test files inside subfolders
+    write.csv(iris, file = "iris.csv")
+    drop_upload("iris.csv", dest = "existential_test")
+    expect_true(drop_exists("existential_test/iris.csv"))
+    drop_delete("existential_test")
 
 })
 
@@ -170,9 +170,11 @@ test_that("We can verify that a file exists on Dropbox", {
 context("Testing Media URLs")
 
 test_that("Media URLs work correctly", {
+    skip_on_cran()
     download.file("http://media4.giphy.com/media/YaXcVXGvBQlEI/200.gif", destfile = "duck_rabbit.gif")
-drop_upload("duck_rabbit.gif")
-media_url <- drop_media("duck_rabbit.gif")
-expect_output(media_url$url, "https://dl.dropboxusercontent.com")
-unlink("duck_rabbit.gif")
+    drop_upload("duck_rabbit.gif")
+    media_url <- drop_media("duck_rabbit.gif")
+    expect_output(media_url$url, "https://dl.dropboxusercontent.com")
+    unlink("duck_rabbit.gif")
+    unlink("*.csv")
 })
