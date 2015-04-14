@@ -21,7 +21,7 @@ drop_get <- function(path = NULL,
                      verbose = FALSE,
                      dtoken = get_dropbox_token()) {
     stopifnot(!is.null(path))
-      if(drop_exists(from_path)) {
+      if(drop_exists(path)) {
     filename <- ifelse(is.null(local_file), basename(path), local_file)
     get_url <- "https://api-content.dropbox.com/1/files/auto/"
     args <- as.list(drop_compact(c(rev = rev)))
@@ -36,7 +36,7 @@ drop_get <- function(path = NULL,
    } else {
     message("File not found on Dropbox \n")
     FALSE
-   } 
+   }
 }
 
 
