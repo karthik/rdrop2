@@ -37,7 +37,7 @@ drop_get <- function(path = NULL,
    } else {
     message("File not found on Dropbox \n")
     FALSE
-   } 
+   }
 }
 
 
