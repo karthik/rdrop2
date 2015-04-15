@@ -9,6 +9,14 @@ This package provides programmatic access to Dropbox from R. The functions in th
 
 __Installation__  
 
+A stable version `0.6` can be installed from CRAN
+
+```r
+install.packages('rdrop2')
+```
+
+__Development version__  
+
 ```r
 devtools::install_github('karthik/rdrop2')
 ```
