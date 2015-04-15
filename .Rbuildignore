@@ -13,8 +13,5 @@ zzz.R
 man-roxygen
 cache/
 CONTRIBUTING.md
-# Tests can't run on CRAN due to oauth 
-tests/testthat/.httr-oauth
-tests/testthat.R
 NEWS.md
 cran-comments.md
