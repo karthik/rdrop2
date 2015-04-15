@@ -17,3 +17,4 @@ CONTRIBUTING.md
 tests/testthat/.httr-oauth
 tests/testthat.R
 NEWS.md
+cran-comments.md
