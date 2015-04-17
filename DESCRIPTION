@@ -12,6 +12,7 @@ Imports:
          dplyr,
          httr,
          jsonlite,
-         magrittr
+         magrittr,
+         progress
 Suggests: testthat,
           uuid

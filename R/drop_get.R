@@ -8,6 +8,7 @@
 #' @param rev The revision of the file to retrieve. This defaults to the most recent revision.
 #' @template token
 #' @template verbose
+#' @import progress
 #' @export
 #' @examples \dontrun{
 #' drop_get(path = 'karthik_small.png', dest = "~/Desktop")
@@ -26,6 +27,10 @@ drop_get <- function(path = NULL,
     get_url <- "https://api-content.dropbox.com/1/files/auto/"
     args <- as.list(drop_compact(c(rev = rev)))
     full_download_path <- paste0(get_url, path)
+    pb <- progress_bar$new(
+    format = "  downloading [:bar] :percent in :elapsed",
+    total = 100, clear = FALSE, width= 60)
+
     x <- GET(full_download_path, query = args, config(token = dtoken), write_disk(filename, overwrite = overwrite))
     if(!verbose) {
         # prints file sizes in kb but this could also be pretty printed
