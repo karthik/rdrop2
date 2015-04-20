@@ -19,29 +19,29 @@ context("File ops")
 
 # drop_dir
 # ......................................
-# context("Directory listing works ok")
-# test_that("drop_dir returns data correctly", {
-#     skip_on_cran()
-#     file1 <- paste0(UUIDgenerate(), ".csv")
-#     file2 <- paste0(UUIDgenerate(), ".csv")
-#     file3 <- paste0(UUIDgenerate(), ".csv")
-#     write.csv(iris, file1)
-#     write.csv(iris, file2)
-#     write.csv(iris, file3)
-#
-#     filenames <- c(file1, file2, file3)
-#     # add a leading slash
-#     filenames_slash <- paste0("/", filenames)
-#     drop_create(path = "testingdirectories")
-#     drop_upload(file1, "testingdirectories")
-#     drop_upload(file2, "testingdirectories")
-#     drop_upload(file3, "testingdirectories")
-#     dir_listing <- drop_dir("testingdirectories")
-#     # Now test that it has nrow 3
-#     expect_equal(nrow(dir_listing), 3)
-#     expect_identical(sort(basename(dir_listing$path), sort(basename(filenames_slash))))
-#     drop_delete("testingdirectories")
-# })
+context("Directory listing works ok")
+test_that("drop_dir returns data correctly", {
+    skip_on_cran()
+    file1 <- paste0(UUIDgenerate(), ".csv")
+    file2 <- paste0(UUIDgenerate(), ".csv")
+    file3 <- paste0(UUIDgenerate(), ".csv")
+    write.csv(iris, file1)
+    write.csv(iris, file2)
+    write.csv(iris, file3)
+
+    filenames <- c(file1, file2, file3)
+    # add a leading slash
+    filenames_slash <- paste0("/", filenames)
+    drop_create(path = "testingdirectories")
+    drop_upload(file1, "testingdirectories")
+    drop_upload(file2, "testingdirectories")
+    drop_upload(file3, "testingdirectories")
+    dir_listing <- drop_dir("testingdirectories")
+    # Now test that it has nrow 3
+    expect_equal(nrow(dir_listing), 3)
+    expect_identical(sort(basename(dir_listing$path), sort(basename(filenames_slash))))
+    drop_delete("testingdirectories")
+})
 
 # All the file ops (move/copy/delete)
 # drop_get, drop_upload
