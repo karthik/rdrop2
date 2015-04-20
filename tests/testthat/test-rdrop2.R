@@ -22,6 +22,7 @@ context("File ops")
 context("Directory listing works ok")
 test_that("drop_dir returns data correctly", {
     skip_on_cran()
+    library(uuid)
     file1 <- paste0(UUIDgenerate(), ".csv")
     file2 <- paste0(UUIDgenerate(), ".csv")
     file3 <- paste0(UUIDgenerate(), ".csv")
@@ -39,7 +40,7 @@ test_that("drop_dir returns data correctly", {
     dir_listing <- drop_dir("testingdirectories")
     # Now test that it has nrow 3
     expect_equal(nrow(dir_listing), 3)
-    expect_identical(sort(basename(dir_listing$path), sort(basename(filenames_slash))))
+    expect_identical(sort(basename(dir_listing$path)), sort(basename(filenames_slash)))
     drop_delete("testingdirectories")
 })
 
@@ -136,7 +137,7 @@ test_that("Search works correctly", {
 context("testing dropbox revisions")
 
 test_that("Revisions are returned correctly", {
-    skip_on_cran()    
+    skip_on_cran()
     write.csv(iris, file = "iris.csv")
     drop_upload("iris.csv")
     write.csv(iris[iris$Species == "setosa", ], file = "iris.csv")
