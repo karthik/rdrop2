@@ -5,7 +5,7 @@
 \title{drop_dir}
 \usage{
 drop_dir(path = NULL, file_limit = 10000, hash = NULL, list = TRUE,
-  include_deleted = FALSE, rev = NULL, locale = NULL,
+  include_deleted = FALSE, rev = NULL, locale = NULL, n = 25,
   include_media_info = TRUE, include_membership = FALSE, verbose = FALSE,
   dtoken = get_dropbox_token())
 }
@@ -31,6 +31,8 @@ of content responses. If your app supports any language other than English,
 insert the appropriate IETF language tag. When a supported language is
 specified, Dropbox will returned translated size and/or user_error fields
 (where applicable)}
+
+\item{n}{Number of entries to print. Default is 25}
 
 \item{include_media_info}{If true, each file will include a photo_info dictionary for photos and a video_info dictionary for videos with additional media info. If the data isn't available yet, the string pending will be returned instead of a dictionary.}
 
