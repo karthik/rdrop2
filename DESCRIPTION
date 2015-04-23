@@ -1,6 +1,6 @@
 Package: rdrop2
 Title: Programmatic Interface to the Dropbox API
-Version: 0.6.1.99
+Version: 0.6.2.99
 Authors@R: person("Karthik", "Ram", , "karthik.ram@gmail.com", c("aut", "cre"))
 Description: Provides full programmatic access to the Dropbox file hosting platform (dropbox.com), including support for all standard file operations.
 Depends: R (>= 3.1.1)
