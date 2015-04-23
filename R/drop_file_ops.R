@@ -111,6 +111,7 @@ drop_delete <- function (path = NULL, root = "auto", verbose = FALSE, dtoken = g
 #' drop_create(path = "foobar")
 #'}
 drop_create <- function (path = NULL, root = "auto", verbose = FALSE, dtoken = get_dropbox_token()) {
+       if(!drop_exists(path)) {
     create_url <- "https://api.dropbox.com/1/fileops/create_folder"
     x <-POST(create_url, config(token = dtoken), body = list(root = root, path = path), encode = "form")
     results <- content(x)
@@ -121,6 +122,9 @@ drop_create <- function (path = NULL, root = "auto", verbose = FALSE, dtoken = g
     if(results$is_dir) message(sprintf("Folder %s created successfully \n", path))
   }
   invisible(results)
+  } else {
+    stop("Folder already exists")
+  }
 }
 
 

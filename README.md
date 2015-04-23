@@ -1,5 +1,5 @@
 ![](https://img.shields.io/badge/development-active-blue.svg) [![Build Status](https://travis-ci.org/karthik/rdrop2.svg)](https://travis-ci.org/karthik/rdrop2)
-
+![CRAN downloads](http://cranlogs.r-pkg.org/badges/rdrop2)
 
 # rdrop2 - Dropbox interface from R  ![a_box](drop.png)  
 
