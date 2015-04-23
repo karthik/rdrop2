@@ -12,4 +12,3 @@ after_success:
 - Rscript -e 'library(covr); NOT_CRAN=true; coveralls()'
 env:
 - warnings_are_errors: false
-repo_token: aUhll3U3RULfiS3bxXvMeWndNgPhiFFLy
