@@ -21,7 +21,7 @@ drop_get <- function(path = NULL,
                      rev = NULL,
                      overwrite = FALSE,
                      verbose = FALSE,
-                     progress = NULL,
+                     progress = FALSE,
                      dtoken = get_dropbox_token()) {
     stopifnot(!is.null(path))
       if(drop_exists(path)) {
@@ -39,7 +39,7 @@ x <- GET(full_download_path, query = args, config(token = dtoken), write_disk(fi
     }
     if(!verbose) {
         # prints file sizes in kb but this could also be pretty printed
-        message(sprintf("%s on disk %s KB", filename, length(x$content)/1000, x$url))
+        message(sprintf("\n %s on disk %s KB", filename, length(x$content)/1000, x$url))
         TRUE
     } else {        
         x
