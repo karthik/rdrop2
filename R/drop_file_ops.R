@@ -149,8 +149,8 @@ drop_create <- function (path = NULL, root = "auto", verbose = FALSE, dtoken = g
 drop_exists <- function(path = NULL) {
   assert_that(!is.null(path))
   if(!grepl('^/', path)) path <- paste0("/", path)
-  dir_name <- dirname(path)
-  dir_listing <- drop_dir(path = dir_name)
+  dir_name <- suppressMessages(dirname(path))
+  dir_listing <- drop_dir_internal(path = dir_name)
 
     if(path %in% dir_listing$path) {
       TRUE

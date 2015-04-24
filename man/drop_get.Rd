@@ -5,7 +5,7 @@
 \title{Downloads a file from Dropbox}
 \usage{
 drop_get(path = NULL, local_file = NULL, rev = NULL, overwrite = FALSE,
-  verbose = FALSE, progress = NULL, dtoken = get_dropbox_token())
+  verbose = FALSE, progress = FALSE, dtoken = get_dropbox_token())
 }
 \arguments{
 \item{path}{This is required The path to the new folder to create relative to

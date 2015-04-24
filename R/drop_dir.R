@@ -34,6 +34,40 @@ drop_dir <- function(path = NULL,
                     include_membership = FALSE,
                     verbose = FALSE,
                     dtoken = get_dropbox_token()) {
+  results <- drop_dir_internal(path = path,
+                               file_limit = file_limit,
+                               hash = hash,
+                               list = list,
+                               include_deleted = include_deleted,
+                               rev = rev,
+                               locale = locale,
+                               include_media_info = include_media_info,
+                               include_membership = include_membership,
+                               verbose = verbose,
+                               dtoken = dtoken)
+  results %>% print(n = n)
+
+}
+
+
+#' @noRd
+#' @keywords internal
+drop_dir_internal <- function(path = NULL,
+                    file_limit = 10000,
+                    hash = NULL,
+                    list = TRUE,
+                    include_deleted = FALSE,
+                    rev = NULL,
+                    locale = NULL,
+                    n = 25,
+                    include_media_info = TRUE,
+                    include_membership = FALSE,
+                    verbose = FALSE,
+                    dtoken = get_dropbox_token()) {
+  # current_print_size <- getOption("dplyr.print_max")
+  # options(dplyr.print_max = n)
+  # opar <- options(dplyr.print_max = current_print_size)
+  # on.exit(opar)
   is_dir <- NULL
   args <- as.list(drop_compact(c(file_limit = file_limit,
                   hash = hash,
@@ -61,19 +95,12 @@ drop_dir <- function(path = NULL,
 
     path <- mime_type <- root <- bytes <- modified <- NULL
     if("mime_type" %in% names(res$contents)) {
-    dplyr::tbl_df(res$contents) %>% dplyr::select(path, mime_type, root, bytes, modified) %>% print(n = n) # prints 25 files
+    dplyr::tbl_df(res$contents) %>% dplyr::select(path, mime_type, root, bytes, modified) # prints 25 files
     } else {
-      dplyr::tbl_df(res$contents) %>% dplyr::select(path, is_dir, root, bytes, modified) %>% print(n = n) # prints 25 files
+    dplyr::tbl_df(res$contents) %>% dplyr::select(path, is_dir, root, bytes, modified)  # prints 25 files
     }
   }
   } else {
     NULL
   }
 }
-# TODO
-# Summarize total file sizes etc
-
-
-
-
-
