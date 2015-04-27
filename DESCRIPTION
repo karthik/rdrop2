@@ -5,6 +5,7 @@ Authors@R: person("Karthik", "Ram", , "karthik.ram@gmail.com", c("aut", "cre"))
 Description: Provides full programmatic access to the Dropbox file hosting platform (dropbox.com), including support for all standard file operations.
 Depends: R (>= 3.1.1)
 License: MIT + file LICENSE
+BugReports: https://github.com/karthik/rdrop2/issues
 LazyData: true
 Imports: 
          assertthat,
