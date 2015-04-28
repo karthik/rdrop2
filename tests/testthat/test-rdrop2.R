@@ -1,11 +1,10 @@
 options("httr_oauth_cache" = TRUE)
-
 # drop_acc
 # ......................................
 
 context("Testing that acc info works correctly")
 test_that("Account information works correctly", {
-skip_on_cran()
+# skip_on_cran()
 library(dplyr)
 expect_is(drop_acc(), "data.frame")
 expect_is(drop_acc(verbose = TRUE), "list")
@@ -21,7 +20,7 @@ context("File ops")
 # ......................................
 context("Directory listing works ok")
 test_that("drop_dir returns data correctly", {
-    skip_on_cran()
+    # skip_on_cran()
     library(uuid)
     file1 <- paste0(UUIDgenerate(), ".csv")
     file2 <- paste0(UUIDgenerate(), ".csv")
@@ -49,7 +48,7 @@ test_that("drop_dir returns data correctly", {
 # ......................................
 
 test_that("Test that basic file ops work correctly",{
-    skip_on_cran()
+    # skip_on_cran()
     library(uuid)
     file_name <- paste0(UUIDgenerate(), ".csv")
     write.csv(mtcars, file_name)
@@ -63,7 +62,7 @@ test_that("Test that basic file ops work correctly",{
 # drop_copy
 # ......................................
 test_that("Copying files works correctly", {
-    skip_on_cran()
+    # skip_on_cran()
     library(uuid)
     file_name <- paste0(UUIDgenerate(), ".csv")
     write.csv(iris, file = file_name)
@@ -83,7 +82,7 @@ test_that("Copying files works correctly", {
 # drop_move
 # ......................................
 test_that("Moving files works correctly", {
-    skip_on_cran()
+    # skip_on_cran()
     library(uuid)
     file_name <- paste0(UUIDgenerate(), ".csv")
     write.csv(iris, file = file_name)
@@ -105,7 +104,7 @@ test_that("Moving files works correctly", {
 # ......................................
 context("testing drop share")
 test_that("Sharing a Dropbox resource works correctly", {
-    skip_on_cran()
+    # skip_on_cran()
     library(uuid)
     file_name <- paste0(UUIDgenerate(), ".csv")
     write.csv(iris, file = file_name)
@@ -125,7 +124,7 @@ test_that("Sharing a Dropbox resource works correctly", {
 
 context("testing search")
 test_that("Search works correctly", {
-    skip_on_cran()
+    # skip_on_cran()
     library(dplyr)
     my_gifs <- drop_search('gif')
     expect_is(my_gifs, "data.frame")
@@ -137,7 +136,7 @@ test_that("Search works correctly", {
 context("testing dropbox revisions")
 
 test_that("Revisions are returned correctly", {
-    skip_on_cran()
+    # skip_on_cran()
     write.csv(iris, file = "iris.csv")
     drop_upload("iris.csv")
     write.csv(iris[iris$Species == "setosa", ], file = "iris.csv")
@@ -153,7 +152,7 @@ test_that("Revisions are returned correctly", {
 
 context("testing Dropbox exists")
 test_that("We can verify that a file exists on Dropbox", {
-    skip_on_cran()
+    # skip_on_cran()
     library(uuid)
     drop_create("existential_test")
     expect_true(drop_exists("existential_test"))
@@ -171,7 +170,7 @@ test_that("We can verify that a file exists on Dropbox", {
 context("Testing Media URLs")
 
 test_that("Media URLs work correctly", {
-    skip_on_cran()
+    # skip_on_cran()
     download.file("http://media4.giphy.com/media/YaXcVXGvBQlEI/200.gif", destfile = "duck_rabbit.gif")
     drop_upload("duck_rabbit.gif")
     media_url <- drop_media("duck_rabbit.gif")
