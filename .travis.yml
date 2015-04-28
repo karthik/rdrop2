@@ -8,7 +8,9 @@ r_packages:
 r_github_packages:
 - jimhester/covr
 - gaborcsardi/progress
-after_success:
-- Rscript -e 'library(covr); NOT_CRAN=true; coveralls()'
 env:
 - warnings_are_errors: false
+   matrix:
+      - NOT_CRAN="true"
+after_success:
+- Rscript -e 'library(covr); NOT_CRAN=true; coveralls()'

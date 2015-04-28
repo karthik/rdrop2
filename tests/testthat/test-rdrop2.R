@@ -46,6 +46,7 @@ test_that("drop_dir returns data correctly", {
 # All the file ops (move/copy/delete)
 # drop_get, drop_upload
 # ......................................
+context("drop_get and drop_upload")
 
 test_that("Test that basic file ops work correctly",{
     # skip_on_cran()
@@ -58,6 +59,14 @@ test_that("Test that basic file ops work correctly",{
     unlink(file_name)
 })
 
+test_that("Drop_get work correctly", {
+    # skip_on_cran()
+    download.file("http://media4.giphy.com/media/YaXcVXGvBQlEI/200.gif", destfile = "duck_rabbit.gif")
+    drop_upload("duck_rabbit.gif")
+    drop_get("duck_rabbit.gif", overwrite = TRUE)
+    expect_true("duck_rabbit.gif" %in% dir())
+    file.remove("duck_rabbit.gif")
+})
 
 # drop_copy
 # ......................................
@@ -178,3 +187,35 @@ test_that("Media URLs work correctly", {
     unlink("duck_rabbit.gif")
     unlink("*.csv")
 })
+
+context("Testing drop_read_csv")
+
+test_that("Can read csv files directly from dropbox", {
+    library(uuid)
+    file_name <- paste0(UUIDgenerate(), ".csv")
+    write.csv(iris, file = file_name)
+    drop_upload(file_name)
+    z <- drop_read_csv(file_name)
+    expect_is(z, "data.frame")
+    unlink(file_name)
+    })
+
+context("Drop delta works")
+
+test_that("Drop delta works", {
+    library(uuid)
+    file_name <- paste0(UUIDgenerate(), ".csv")
+    write.csv(iris, file = file_name)
+    z <- drop_delta(path_prefix = "/")
+    expected_names <- c("has_more", "cursor", "entries", "reset")
+    expect_identical(names(z), expected_names)
+    unlink(file_name)
+    })
+
+context("drop exists")
+
+test_that("Drop exists works", {
+    drop_create("existential_test")
+    expect_true(drop_exists("existential_test"))
+    drop_delete("existential_test")
+    })

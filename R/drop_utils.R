@@ -191,3 +191,8 @@ pretty_lists <- function(x)
    invisible(x)
 }
 
+
+#' @noRd
+release_questions <- function() {
+    c("For the love of God did I add skip_on_cran?")
+}
