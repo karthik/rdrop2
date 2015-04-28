@@ -1,4 +1,5 @@
-![](https://img.shields.io/badge/development-active-blue.svg) [![Build Status](https://travis-ci.org/karthik/rdrop2.svg)](https://travis-ci.org/karthik/rdrop2)
+![](https://img.shields.io/badge/development-active-blue.svg) [![Build Status](https://travis-ci.org/karthik/rdrop2.svg)](https://travis-ci.org/karthik/rdrop2)  
+[![Coverage Status](https://coveralls.io/repos/karthik/rdrop2/badge.svg)](https://coveralls.io/r/karthik/rdrop2)  
 ![monthly_downloads](http://cranlogs.r-pkg.org/badges/rdrop2)
 
 # rdrop2 - Dropbox interface from R  ![a_box](drop.png)  
