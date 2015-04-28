@@ -10,7 +10,5 @@ r_github_packages:
 - gaborcsardi/progress
 env:
 - warnings_are_errors: false
-   matrix:
-      - NOT_CRAN="true"
 after_success:
 - Rscript -e 'library(covr); coveralls()'
