@@ -1,5 +1,5 @@
 ![](https://img.shields.io/badge/development-active-blue.svg)  
-[![Build Status](https://travis-ci.org/karthik/rdrop2.svg)](https://travis-ci.org/karthik/rdrop2)  [![Build status](https://ci.appveyor.com/api/projects/status/fplp48qu6oqjddnw?svg=true)](https://ci.appveyor.com/project/karthik/rdrop2)
+[![Build Status](https://travis-ci.org/karthik/rdrop2.svg)](https://travis-ci.org/karthik/rdrop2)  
 [![Coverage Status](https://coveralls.io./repos/karthik/rdrop2/badge.svg)](https://coveralls.io/r/karthik/rdrop2)  
 ![monthly_downloads](http://cranlogs.r-pkg.org/badges/rdrop2)
 
