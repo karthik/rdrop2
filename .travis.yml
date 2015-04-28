@@ -13,4 +13,4 @@ env:
    matrix:
       - NOT_CRAN="true"
 after_success:
-- Rscript -e 'library(covr); NOT_CRAN=true; coveralls()'
+- Rscript -e 'library(covr); coveralls()'
