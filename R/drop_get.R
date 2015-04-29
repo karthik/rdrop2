@@ -9,7 +9,6 @@
 #' @param progress Progress bars are turned off by default. Set to \code{TRUE} ot turn this on. Progress is only reported when file sizes are known. Otherwise just bytes downloaded.
 #' @template token
 #' @template verbose
-#' @import progress
 #' @export
 #' @examples \dontrun{
 #' drop_get(path = 'dataset.zip', local_file = "~/Desktop")
@@ -29,9 +28,6 @@ drop_get <- function(path = NULL,
     get_url <- "https://api-content.dropbox.com/1/files/auto/"
     args <- as.list(drop_compact(c(rev = rev)))
     full_download_path <- paste0(get_url, path)
-    pb <- progress_bar$new(
-    format = "  downloading [:bar] :percent in :elapsed",
-    total = 100, clear = FALSE, width= 60)
     if(progress) {
 x <- GET(full_download_path, query = args, config(token = dtoken), write_disk(filename, overwrite = overwrite), progress())
     } else {
