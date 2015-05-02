@@ -172,10 +172,10 @@ If you expect to access a Dropbox account via Shiny or on a remote cluster, EC2,
 token <- drop_auth()
 saveRDS(token, "droptoken.rds")
 # Upload droptoken to your server
-# WARNINGS --------------------
+# ******** WARNING ********
 # Losing this file will give anyone 
 # complete control of your Dropbox account
-# WARNINGS --------------------
+# ******** WARNING ********
 # read it back with readRDS
 token <- readRDS("droptoken.rds")
 # Then pass the token to each function
