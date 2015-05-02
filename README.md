@@ -168,6 +168,20 @@ new_iris <- drop_read_csv("iris.csv")
 
 If you expect to access a Dropbox account via Shiny or on a remote cluster, EC2, Digital Ocean etc, you can leave the cached `oauth` file in the same directory, or pass the `token` explicitly as the last argument to any function call that begins with `drop_`. You can also save the output of `drop_auth` into a R object and sink that to disk and pass that as a token. If using on Travis or similar, you should consider [encrypting the oauth cache file](http://docs.travis-ci.com/user/encrypting-files/) to prevent unauthorized access to your Dropbox account.
 
+```r
+token <- drop_auth()
+saveRDS(token, "droptoken.rds")
+# Upload droptoken to your server
+# WARNINGS --------------------
+# Losing this file will give anyone 
+# complete control of your Dropbox account
+# WARNINGS --------------------
+# read it back with readRDS
+token <- readRDS("droptoken.rds")
+# Then pass the token to each function
+drop_acc(dtoken = token)
+```
+
 
 __Bugs and known issues__
 
