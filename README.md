@@ -175,6 +175,8 @@ saveRDS(token, "droptoken.rds")
 # ******** WARNING ********
 # Losing this file will give anyone 
 # complete control of your Dropbox account
+# You can then revoke the rdrop2 app from your
+# dropbox account and start over.
 # ******** WARNING ********
 # read it back with readRDS
 token <- readRDS("droptoken.rds")
