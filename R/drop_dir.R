@@ -80,7 +80,7 @@ drop_dir_internal <- function(path = NULL,
   if(!is.null(path)) {
         metadata_url <- paste0(metadata_url, path)
   }
-  req <- httr::GET(metadata_url, query = args, config(token = get_dropbox_token()))
+  req <- httr::GET(metadata_url, query = args, config(token = dtoken))
   res <- jsonlite::fromJSON(httr::content(req, as = "text"), flatten = TRUE)
   if(length(res$contents) > 0) { # i.e. not an empty folder
   if(verbose) {
