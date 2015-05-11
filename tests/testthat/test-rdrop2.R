@@ -2,6 +2,7 @@ options("httr_oauth_cache" = TRUE)
 # drop_acc
 # ......................................
 
+
 context("Testing that acc info works correctly")
 test_that("Account information works correctly", {
 # skip_on_cran()
@@ -219,3 +220,8 @@ test_that("Drop exists works", {
     expect_true(drop_exists("existential_test"))
     drop_delete("existential_test")
     })
+
+x <- drop_dir()$path
+if(length(x) > 0) {
+ sapply(x, drop_delete)
+}
