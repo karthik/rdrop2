@@ -4,7 +4,7 @@
 \alias{drop_exists}
 \title{Checks to see if a file/folder exists on Dropbox}
 \usage{
-drop_exists(path = NULL)
+drop_exists(path = NULL, dtoken = get_dropbox_token())
 }
 \arguments{
 \item{path}{The full path to a Dropbox file}
