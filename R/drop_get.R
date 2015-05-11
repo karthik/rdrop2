@@ -23,26 +23,26 @@ drop_get <- function(path = NULL,
                      progress = FALSE,
                      dtoken = get_dropbox_token()) {
     stopifnot(!is.null(path))
-      if(drop_exists(path)) {
-    filename <- ifelse(is.null(local_file), basename(path), local_file)
-    get_url <- "https://api-content.dropbox.com/1/files/auto/"
-    args <- as.list(drop_compact(c(rev = rev)))
-    full_download_path <- paste0(get_url, path)
-    if(progress) {
-x <- GET(full_download_path, query = args, config(token = dtoken), write_disk(filename, overwrite = overwrite), progress())
-    } else {
-x <- GET(full_download_path, query = args, config(token = dtoken), write_disk(filename, overwrite = overwrite))
-    }
-    if(!verbose) {
-        # prints file sizes in kb but this could also be pretty printed
-        message(sprintf("\n %s on disk %s KB", filename, length(x$content)/1000, x$url))
-        TRUE
-    } else {        
-        x
-    }
+    if(drop_exists(path, dtoken = dtoken)) {
+        filename <- ifelse(is.null(local_file), basename(path), local_file)
+        get_url <- "https://api-content.dropbox.com/1/files/auto/"
+        args <- as.list(drop_compact(c(rev = rev)))
+        full_download_path <- paste0(get_url, path)
+        if(progress) {
+            x <- GET(full_download_path, query = args, config(token = dtoken), write_disk(filename, overwrite = overwrite), progress())
+        } else {
+            x <- GET(full_download_path, query = args, config(token = dtoken), write_disk(filename, overwrite = overwrite))
+        }
+        if(!verbose) {
+            # prints file sizes in kb but this could also be pretty printed
+            message(sprintf("\n %s on disk %s KB", filename, length(x$content)/1000, x$url))
+            TRUE
+        } else {        
+            x
+        }
    } else {
-    message("File not found on Dropbox \n")
-    FALSE
+       message("File not found on Dropbox \n")
+       FALSE
    } 
 }
 

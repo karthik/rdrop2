@@ -4,7 +4,7 @@
 \alias{drop_read_csv}
 \title{drop_read_csv}
 \usage{
-drop_read_csv(file, dest = tempdir(), ...)
+drop_read_csv(file, dest = tempdir(), dtoken = get_dropbox_token(), ...)
 }
 \arguments{
 \item{file}{Name of file with full path relative to Dropbox root}

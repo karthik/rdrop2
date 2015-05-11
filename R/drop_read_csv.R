@@ -13,8 +13,8 @@
 #' # Now let's read this back into an R session
 #' new_iris <- drop_read_csv("iris.csv")
 #'}
-drop_read_csv <- function(file, dest = tempdir(), ...) {
+drop_read_csv <- function(file, dest = tempdir(), dtoken = get_dropbox_token(), ...) {
     localfile = paste0(dest, "/", basename(file))
-    drop_get(file, local_file = localfile, overwrite = TRUE)
+    drop_get(file, local_file = localfile, overwrite = TRUE, dtoken = dtoken)
     read.csv(localfile, ...)
 }

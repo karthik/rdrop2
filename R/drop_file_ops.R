@@ -146,11 +146,11 @@ drop_create <- function (path = NULL, root = "auto", verbose = FALSE, dtoken = g
 #' drop_exists("existential_test")
 #' drop_delete("existential_test")
 #'}
-drop_exists <- function(path = NULL) {
+drop_exists <- function(path = NULL, dtoken = get_dropbox_token()) {
   assert_that(!is.null(path))
   if(!grepl('^/', path)) path <- paste0("/", path)
   dir_name <- suppressMessages(dirname(path))
-  dir_listing <- drop_dir_internal(path = dir_name)
+  dir_listing <- drop_dir_internal(path = dir_name, dtoken = dtoken)
 
     if(path %in% dir_listing$path) {
       TRUE
