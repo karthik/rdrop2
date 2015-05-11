@@ -1,8 +1,7 @@
-[![Build Status](https://travis-ci.org/karthik/rdrop2.svg)](https://travis-ci.org/karthik/rdrop2)  
-[![Coverage Status](https://coveralls.io./repos/karthik/rdrop2/badge.svg)](https://coveralls.io/r/karthik/rdrop2)  
-[![monthly__downloads](http://cranlogs.r-pkg.org/badges/rdrop2)](http://cranlogs.r-pkg.org./badges/rdrop2)
-
 # rdrop2 - Dropbox interface from R  ![a_box](drop.png)  
+
+[![Build Status](https://travis-ci.org/karthik/rdrop2.svg)](https://travis-ci.org/karthik/rdrop2)  [![Coverage Status](https://coveralls.io./repos/karthik/rdrop2/badge.svg)](https://coveralls.io/r/karthik/rdrop2)   [![monthly__downloads](http://cranlogs.r-pkg.org/badges/rdrop2)](http://cranlogs.r-pkg.org./badges/rdrop2)
+
 
 
 This package provides programmatic access to Dropbox from R. The functions in this package provide access to a full suite of file operations, including dir/copy/move/delete operations, account information (including quotas) and the ability to upload and download files from any Dropbox account. This package replaces the old [rDrop](https://github.com/karthik/rDrop). 
