@@ -28,7 +28,7 @@ library(rdrop2)
 drop_auth()
 # This will launch your browser and request access to your Dropbox account. You will be prompted to log in if you aren't already logged in.
 # Once completed, close your browser window and return to R to complete authentication. 
-The credentials are automatically cached (you can prevent this) for future use.
+# The credentials are automatically cached (you can prevent this) for future use.
 ```
 
 #### Retrieve Dropbox account information
