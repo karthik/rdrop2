@@ -85,7 +85,7 @@ drop_dir_internal <- function(path = NULL,
   if(length(res$contents) > 0) { # i.e. not an empty folder
   if(verbose) {
     res2 <- res
-    res2$contents <- NULL
+    res2$contents <- data.frame()
     res$contents <- dplyr::tbl_df(res$contents)
     pretty_lists(res2)
     print(dplyr::tbl_df(res$contents))
@@ -100,6 +100,6 @@ drop_dir_internal <- function(path = NULL,
     }
   }
   } else {
-    NULL
+    data.frame()
   }
 }
