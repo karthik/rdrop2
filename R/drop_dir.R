@@ -91,7 +91,6 @@ drop_dir_internal <- function(path = NULL,
     print(dplyr::tbl_df(res$contents))
     invisible(res)
   } else {
-
     path <- mime_type <- root <- bytes <- modified <- NULL
     if("mime_type" %in% names(res$contents)) {
     dplyr::tbl_df(res$contents) %>% dplyr::select(path, mime_type, root, bytes, modified) # prints 25 files
