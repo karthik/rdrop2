@@ -85,13 +85,12 @@ drop_dir_internal <- function(path = NULL,
   if(length(res$contents) > 0) { # i.e. not an empty folder
   if(verbose) {
     res2 <- res
-    res2$contents <- NULL
+    res2$contents <- data.frame()
     res$contents <- dplyr::tbl_df(res$contents)
     pretty_lists(res2)
     print(dplyr::tbl_df(res$contents))
     invisible(res)
   } else {
-
     path <- mime_type <- root <- bytes <- modified <- NULL
     if("mime_type" %in% names(res$contents)) {
     dplyr::tbl_df(res$contents) %>% dplyr::select(path, mime_type, root, bytes, modified) # prints 25 files
@@ -100,6 +99,6 @@ drop_dir_internal <- function(path = NULL,
     }
   }
   } else {
-    NULL
+    data.frame()
   }
 }
