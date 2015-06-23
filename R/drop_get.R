@@ -17,7 +17,7 @@
 #'}
 drop_get <- function(path = NULL,
                      local_file = NULL,
-                     rev = NULL,
+                     rev = "",
                      overwrite = FALSE,
                      verbose = FALSE,
                      progress = FALSE,
