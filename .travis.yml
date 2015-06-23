@@ -8,6 +8,9 @@ r_packages:
 r_github_packages:
 - jimhester/covr
 env:
+ global:
+  - CRAN: http://cran.rstudio.com
+  - NOT_CRAN: true
 - warnings_are_errors: false
 after_success:
 - Rscript -e 'library(covr); coveralls()'
