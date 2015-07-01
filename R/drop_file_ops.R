@@ -140,6 +140,7 @@ drop_create <- function (path = NULL, root = "auto", verbose = FALSE, dtoken = g
 #'to the server. This functions returns a logical response after checking if a
 #'file path is valid on Dropbox.
 #'@param path The full path to a Dropbox file
+#' @template token
 #' @export
 #' @examples \dontrun{
 #' drop_create("existential_test")

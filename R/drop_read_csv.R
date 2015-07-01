@@ -6,6 +6,7 @@
 #' @param file Name of file with full path relative to Dropbox root
 #' @param  dest A temporary directory where a csv file is downloaded before being read into memory
 #' @param  ... Additional arguments into \code{read.csv}
+#' @template token
 #' @export
 #' @examples \dontrun{
 #' write.csv(iris, file = "iris.csv")
