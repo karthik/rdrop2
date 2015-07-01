@@ -192,6 +192,7 @@ test_that("Media URLs work correctly", {
 context("Testing drop_read_csv")
 
 test_that("Can read csv files directly from dropbox", {
+         skip_on_cran()
     library(uuid)
     file_name <- paste0(UUIDgenerate(), ".csv")
     write.csv(iris, file = file_name)
@@ -204,6 +205,7 @@ test_that("Can read csv files directly from dropbox", {
 context("Drop delta works")
 
 test_that("Drop delta works", {
+         skip_on_cran()
     library(uuid)
     file_name <- paste0(UUIDgenerate(), ".csv")
     write.csv(iris, file = file_name)
@@ -216,6 +218,7 @@ test_that("Drop delta works", {
 context("drop exists")
 
 test_that("Drop exists works", {
+         skip_on_cran()
     drop_create("existential_test")
     expect_true(drop_exists("existential_test"))
     drop_delete("existential_test")
