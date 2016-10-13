@@ -29,7 +29,6 @@ drop_dir <- function(path = NULL,
                     include_deleted = FALSE,
                     rev = NULL,
                     locale = NULL,
-                    n = 25,
                     include_media_info = TRUE,
                     include_membership = FALSE,
                     verbose = FALSE,
@@ -45,8 +44,7 @@ drop_dir <- function(path = NULL,
                                include_membership = include_membership,
                                verbose = verbose,
                                dtoken = dtoken)
-  results %>% print(n = n)
-
+  results
 }
 
 
@@ -63,10 +61,6 @@ drop_dir_internal <- function(path = NULL,
                     include_membership = FALSE,
                     verbose = FALSE,
                     dtoken = get_dropbox_token()) {
-  # current_print_size <- getOption("dplyr.print_max")
-  # options(dplyr.print_max = n)
-  # opar <- options(dplyr.print_max = current_print_size)
-  # on.exit(opar)
   is_dir <- NULL
   args <- as.list(drop_compact(c(file_limit = file_limit,
                   hash = hash,
@@ -93,12 +87,13 @@ drop_dir_internal <- function(path = NULL,
   } else {
     path <- mime_type <- root <- bytes <- modified <- NULL
     if("mime_type" %in% names(res$contents)) {
-    dplyr::tbl_df(res$contents) %>% dplyr::select(path, mime_type, root, bytes, modified) # prints 25 files
+    new_df <- dplyr::tbl_df(res$contents) %>% dplyr::select(path, mime_type, root, bytes, modified)
     } else {
-    dplyr::tbl_df(res$contents) %>% dplyr::select(path, is_dir, root, bytes, modified)  # prints 25 files
+    new_df <- dplyr::tbl_df(res$contents) %>% dplyr::select(path, is_dir, root, bytes, modified)
     }
   }
   } else {
-    data.frame()
+    new_df <- dplyr::data_frame()
   }
+  new_df
 }
