@@ -1,5 +1,9 @@
 # rdrop2 - Dropbox interface from R  ![a_box](drop.png)  
 
+**Important note:** Package is undergoing numerous bug fixes and update to the new Dropbox API v2. Please expect a beta release on March 15th.
+
+---
+
 [![Build Status](https://travis-ci.org/karthik/rdrop2.svg)](https://travis-ci.org/karthik/rdrop2)  [![Coverage Status](https://coveralls.io./repos/karthik/rdrop2/badge.svg)](https://coveralls.io/r/karthik/rdrop2) [![](http://cranlogs.r-pkg.org/badges/rdrop2)](http://cran.rstudio.com/web/packages/rdrop2/index.html)  [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/rdrop2)](http://cran.r-project.org/web/packages/rdrop2)
 
 
