@@ -45,8 +45,11 @@ drop_dir <- function(path = NULL,
                                include_membership = include_membership,
                                verbose = verbose,
                                dtoken = dtoken)
+  if (is.null(results)) {
+    return()
+  }
+  
   results %>% print(n = n)
-
 }
 
 
