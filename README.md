@@ -1,6 +1,6 @@
 # rdrop2 - Dropbox interface from R  ![a_box](drop.png)  
 
-**Important note:** Package is undergoing numerous bug fixes and update to the new Dropbox API v2. Please expect a beta release on March 15th.
+**Important note:** Package is undergoing numerous bug fixes and update to the new Dropbox API v2. Please expect a beta release by mid-September (with a CRAN release before the API switch).
 
 ---
 
