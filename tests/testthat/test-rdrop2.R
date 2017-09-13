@@ -152,7 +152,7 @@ test_that("Revisions are returned correctly", {
     write.csv(iris[iris$Species == "setosa", ], file = "iris.csv")
     drop_upload("iris.csv")
     x <- drop_history("iris.csv")
-    expect_equal(ncol(x), 14)
+    expect_equal(ncol(x), 15)
     expect_is(x, "data.frame")
     drop_delete("iris.csv")
     unlink("iris.csv")
