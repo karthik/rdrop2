@@ -184,7 +184,7 @@ test_that("Media URLs work correctly", {
     download.file("http://media4.giphy.com/media/YaXcVXGvBQlEI/200.gif", destfile = "duck_rabbit.gif")
     drop_upload("duck_rabbit.gif")
     media_url <- drop_media("duck_rabbit.gif")
-    expect_output(media_url$url, "https://dl.dropboxusercontent.com")
+    expect_match(media_url$url, "https://dl.dropboxusercontent.com")
     unlink("duck_rabbit.gif")
     unlink("*.csv")
 })
