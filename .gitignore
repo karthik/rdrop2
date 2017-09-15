@@ -8,3 +8,5 @@ cache/
 *.csv
 *.gif
 /tests/testthat/token.rds
+/tests/testthat/*.csv
+/tests/testthat/*.gif
