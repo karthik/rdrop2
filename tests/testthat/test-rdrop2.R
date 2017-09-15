@@ -4,13 +4,18 @@ options("httr_oauth_cache" = TRUE)
 
 
 context("Testing that acc info works correctly")
+
 test_that("Account information works correctly", {
- skip_on_cran()
-library(dplyr)
-expect_is(drop_acc(), "data.frame")
-expect_is(drop_acc(verbose = TRUE), "list")
-acc_info <- drop_acc()
-identical("Karthik Ram", as.character(acc_info$display_name))
+
+  skip_on_cran()
+
+  library(dplyr)
+
+  # should usually return data.frame
+  expect_is(drop_acc(), "data.frame")
+
+  # should return list when verbose
+  expect_is(drop_acc(verbose = TRUE), "list")
 })
 
 
