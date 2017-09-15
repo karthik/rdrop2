@@ -13,7 +13,7 @@
 #' @template token
 #'@export
 #' @examples \dontrun{
-#' drop_media('public/gifs/duck_rabbit.gif')
+#' drop_media('Public/gifs/duck_rabbit.gif')
 #'}
 drop_media <- function(path = NULL, locale = NULL, dtoken = get_dropbox_token()) {
       assert_that(!is.null(path))
