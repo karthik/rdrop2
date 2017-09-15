@@ -16,3 +16,4 @@ Imports:
          magrittr
 Suggests: testthat,
           uuid
+RoxygenNote: 6.0.1
