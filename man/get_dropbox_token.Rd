@@ -2,7 +2,7 @@
 % Please edit documentation in R/drop_auth.R
 \name{get_dropbox_token}
 \alias{get_dropbox_token}
-\title{Retrieve Dropbox token from environment}
+\title{Retrieve oauth2 token from rdrop2-namespaced environment}
 \usage{
 get_dropbox_token()
 }

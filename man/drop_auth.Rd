@@ -8,43 +8,53 @@ drop_auth(new_user = FALSE, key = "mmhfsybffdom42w",
   secret = "l8zeqqqgm1ne5z0", cache = TRUE, rdstoken = NA)
 }
 \arguments{
-\item{new_user}{Default is \code{FALSE}. Set to \code{TRUE} if you need to
-switch to a new user account or just flush existing token.}
+\item{new_user}{Set to \code{TRUE} if you need to switch to a new user
+account or just flush existing token. Default is \code{FALSE}.}
 
-\item{key}{Your application key. rdrop2 already comes with a key/secret but
+\item{key}{Your application key. \code{rdrop2} already comes with a key/secret but
 you are welcome to swap out with our own. Since these keys are shipped with
 the package, there is a small chance they could be voided if someone abuses
-the key. So if you plan to use this in production, or for an internal tool,
+the key. If you plan to use this in production, or for an internal tool,
 the recommended practice is to create a new application on Dropbox and use
 those keys for your purposes.}
 
-\item{secret}{Your application token. rdrop2 already comes with a key/secret
-but you are welcome to swap out with our own.}
+\item{secret}{Your application secret. Like \code{key}, \code{rdrop2} comes
+with a secret but you are welcome to swap out with our own.}
 
 \item{cache}{By default your credentials are locally cached in a file called
-\code{.httr-oauth}. Set to FALSE if you need to authenticate separately each
-time.}
+\code{.httr-oauth}. Set to FALSE if you need to authenticate separately
+each time.}
 
 \item{rdstoken}{File path to stored RDS token. In server environments where
 interactive OAuth is not possible, a token can be created on a desktop
-client and used in production. See \href{https://github.com/karthik/rdrop2}
-for how to create RDS token.}
+client and used in production. See examples.}
+}
+\value{
+A Token2.0 object, invisibly
 }
 \description{
 This function authenticates you into Dropbox. The documentation for the
-\href{https://www.dropbox.com/developers/core/docs}{core Dropbox API} provides
-more details including alternate methods if you desire to reimplement your
-own.
+\href{https://www.dropbox.com/developers/core/docs}{core Dropbox API}
+provides more details including alternate methods if you desire to
+reimplement your own.
 }
 \examples{
 \dontrun{
-drop_auth()
 
-# If you want to overwrite an existing local token and switch to a new user,
-# set new_user to TRUE.
-drop_auth(new_user = TRUE)
+  # To either read token from .httr-oauth in the working directory or open a
+  # web browser to authenticate (and cache a token)
+  drop_auth()
 
-# To use a stored token, set new_user to FALSE and provide token location
-drop_auth(new_user = FALSE, rdstoken = "/path/to/tokenfile.RDS")
+  # If you want to overwrite an existing local token and switch to a new
+  # user, set new_user to TRUE.
+  drop_auth(new_user = TRUE)
+
+  # To store a token for re-use (more flexible than .httr-oauth), save the
+  # output of drop_auth and save it to an RDS file
+  token <- drop_auth()
+  saveRDS(token, "/path/to/tokenfile.RDS")
+
+  # To use a stored token provide token location
+  drop_auth(rdstoken = "/path/to/tokenfile.RDS")
 }
 }
