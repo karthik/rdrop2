@@ -7,7 +7,7 @@ test_that("Able to authenticate from cached .httr-oauth", {
   skip_on_cran()
 
   # read cached token and check its class
-  expect_is(drop_auth(), "Token2.0")
+  expect_is(drop_auth(rdstoken = "dropbox_token.rds"), "Token2.0")
 })
 
 
