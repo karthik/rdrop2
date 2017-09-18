@@ -6,4 +6,4 @@ Makefile
 cache/
 *.csv
 *.gif
-*.rds
+token.rds
