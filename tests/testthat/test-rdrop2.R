@@ -22,13 +22,14 @@ context("Testing that acc info works correctly")
 test_that("Account information works correctly", {
   skip_on_cran()
 
-  library(dplyr)
+  acc_info <- drop_acc()
 
-  # should usually return data.frame
-  expect_is(drop_acc(), "data.frame")
 
-  # should return list when verbose
-  expect_is(drop_acc(verbose = TRUE), "list")
+  # expect list
+  expect_is(acc_info, "list")
+
+  # name element should be its own list
+  expect_is(acc_info$name, "list")
 })
 
 
