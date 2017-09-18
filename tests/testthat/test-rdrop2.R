@@ -1,11 +1,5 @@
 context("authorization")
 
-# Just to make sure that no one accidentally leaves one here
-test_that("No .httr-oauth* file is here", {
-  fls <- list.files(pattern = "^\\.httr-oauth", all.files = TRUE)
-  expect_length(fls, 0)
-})
-
 test_that("Able to authenticate from saved RDS token", {
   skip_on_cran()
 
