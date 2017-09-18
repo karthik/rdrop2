@@ -1,12 +1,9 @@
 zzz.R
 .Rproj.user
 .httr-oauth
-tests/testthat/.httr-oauth
 Makefile
 ^.*\.Rproj$
 cache/
 *.csv
 *.gif
-/tests/testthat/token.rds
-/tests/testthat/*.csv
-/tests/testthat/*.gif
+token.rds

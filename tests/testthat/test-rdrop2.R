@@ -7,7 +7,7 @@ test_that("Able to authenticate from cached .httr-oauth", {
   skip_on_cran()
 
   # read cached token and check its class
-  expect_is(drop_auth(), "Token2.0")
+  expect_is(drop_auth(rdstoken = "token.rds"), "Token2.0")
 })
 
 
@@ -23,7 +23,7 @@ test_that("Account information works correctly", {
   library(dplyr)
 
   # should usually return data.frame
-  expect_is(drop_acc(dtoken = token), "data.frame")
+  expect_is(drop_acc(), "data.frame")
 
   # should return list when verbose
   expect_is(drop_acc(verbose = TRUE), "list")
