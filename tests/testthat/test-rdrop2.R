@@ -1,7 +1,18 @@
 options("httr_oauth_cache" = TRUE)
+
+context("authorization")
+
+test_that("Able to authenticate from cached .httr-oauth", {
+
+  skip_on_cran()
+
+  # read cached token and check its class
+  expect_is(drop_auth(), "Token2.0")
+})
+
+
 # drop_acc
 # ......................................
-
 
 context("Testing that acc info works correctly")
 
