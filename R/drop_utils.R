@@ -23,6 +23,14 @@ strip_slashes <- function(path) {
     path
 }
 
+#' A small function to add a prefix slash
+#' @noRd
+add_slashes <- function(path) {
+  if (length(path) && !grepl("^/", "path")) {
+    path <- paste0("/", path)
+  }
+  path
+}
 
 #' @noRd
 # This is an internal function to linearize lists
