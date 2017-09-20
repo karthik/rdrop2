@@ -1,31 +1,3 @@
-context("authorization")
-
-test_that("Able to authenticate from saved RDS token", {
-  skip_on_cran()
-
-  # read cached token and check its class
-  expect_is(drop_auth(rdstoken = "token.rds"), "Token2.0")
-})
-
-
-# drop_acc
-# ......................................
-
-context("Testing that acc info works correctly")
-
-test_that("Account information works correctly", {
-  skip_on_cran()
-
-  acc_info <- drop_acc()
-
-
-  # expect list
-  expect_is(acc_info, "list")
-
-  # name element should be its own list
-  expect_is(acc_info$name, "list")
-})
-
 
 context("File ops")
 # --------------------------------------
@@ -55,25 +27,15 @@ test_that("drop_dir returns data correctly", {
   expect_equal(nrow(dir_listing), 3)
   expect_identical(sort(basename(dir_listing$path)), sort(basename(filenames_slash)))
   drop_delete("testingdirectories")
-  sapply(filenames_slash, unlink)
+  sapply(filenames, unlink)
 })
 
 
 # All the file ops (move/copy/delete)
 # drop_get, drop_upload
 # ......................................
-context("drop_get and drop_upload")
+context("drop_get")
 
-test_that("Test that basic file ops work correctly", {
-  skip_on_cran()
-  file_name <- paste0(uuid::UUIDgenerate(), ".csv")
-  write.csv(mtcars, file_name)
-  print(file_name)
-  # Check to see if file uploads are successful
-  expect_message(drop_upload(file_name), "uploaded successfully")
-  expect_message(drop_delete(file_name), "successfully deleted")
-  unlink(file_name)
-})
 
 test_that("Drop_get work correctly", {
   skip_on_cran()
@@ -101,7 +63,6 @@ test_that("Copying files works correctly", {
   res <- drop_dir("copy_test")
   expect_identical(basename(file_name), basename(res$path))
   drop_delete("copy_test")
-  drop_delete(file_name)
   unlink(file_name)
 })
 
@@ -115,6 +76,7 @@ test_that("Moving files works correctly", {
   drop_create("move_test")
   drop_move(file_name, paste0("/move_test/", file_name))
   res <- drop_dir("move_test")
+  # problem
   expect_identical(basename(file_name), basename(res$path))
   # Now test that the file is there.
   # do a search for the path/file
@@ -191,7 +153,7 @@ test_that("We can verify that a file exists on Dropbox", {
   expect_false(drop_exists(paste0(uuid::UUIDgenerate(), uuid::UUIDgenerate(), ".csv")))
   # Now test files inside subfolders
   write.csv(iris, file = "iris.csv")
-  drop_upload("iris.csv", dest = "existential_test")
+  drop_upload("iris.csv", path = "existential_test")
   expect_true(drop_exists("existential_test/iris.csv"))
   drop_delete("existential_test")
 
