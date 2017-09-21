@@ -12,9 +12,9 @@ context("Directory listing works ok")
 test_that("drop_dir returns data correctly", {
   skip_on_cran()
 
-  file1 <- paste0(uuid::UUIDgenerate(), ".csv")
-  file2 <- paste0(uuid::UUIDgenerate(), ".csv")
-  file3 <- paste0(uuid::UUIDgenerate(), ".csv")
+  file1 <- paste0(uuid::UUIDgenerate(), "-drop_dir-", ".csv")
+  file2 <- paste0(uuid::UUIDgenerate(), "-drop_dir-", ".csv")
+  file3 <- paste0(uuid::UUIDgenerate(), "-drop_dir-", ".csv")
   write.csv(iris, file1)
   write.csv(iris, file2)
   write.csv(iris, file3)
@@ -44,19 +44,19 @@ context("drop_get")
 test_that("Drop_get work correctly", {
   skip_on_cran()
   download.file("http://media4.giphy.com/media/YaXcVXGvBQlEI/200.gif",
-                destfile = "duck_rabbit.gif")
-  drop_upload("duck_rabbit.gif")
-  drop_get("duck_rabbit.gif", overwrite = TRUE)
-  expect_true("duck_rabbit.gif" %in% dir())
-  file.remove("duck_rabbit.gif")
-  drop_delete("duck_rabbit.gif")
+                destfile = "duck_rabbit-drop_get.gif")
+  drop_upload("duck_rabbit-drop_get.gif")
+  drop_get("duck_rabbit-drop_get.gif", overwrite = TRUE)
+  expect_true("duck_rabbit-drop_get.gif" %in% dir())
+  file.remove("duck_rabbit-drop_get.gif")
+  drop_delete("duck_rabbit-drop_get.gif")
 })
 
 # drop_copy
 # ......................................
 test_that("Copying files works correctly", {
   skip_on_cran()
-  file_name <- paste0(uuid::UUIDgenerate(), ".csv")
+  file_name <- paste0(uuid::UUIDgenerate(), "-copy-", "d")
   write.csv(iris, file = file_name)
   drop_upload(file_name)
   drop_create("copy_test")
@@ -68,13 +68,14 @@ test_that("Copying files works correctly", {
   expect_identical(basename(file_name), basename(res$path))
   drop_delete("copy_test")
   unlink(file_name)
+  drop_delete(file_name)
 })
 
 # drop_move
 # ......................................
 test_that("Moving files works correctly", {
   skip_on_cran()
-  file_name <- paste0(uuid::UUIDgenerate(), ".csv")
+  file_name <- paste0(uuid::UUIDgenerate(), "-move-", "d")
   write.csv(iris, file = file_name)
   drop_upload(file_name)
   drop_create("move_test")
@@ -95,7 +96,7 @@ test_that("Moving files works correctly", {
 context("testing drop share")
 test_that("Sharing a Dropbox resource works correctly", {
   skip_on_cran()
-  file_name <- paste0(uuid::UUIDgenerate(), ".csv")
+  file_name <- paste0(uuid::UUIDgenerate(), "-share-", "d")
   write.csv(iris, file = file_name)
   drop_upload(file_name)
   res <- drop_share(file_name)
@@ -118,13 +119,13 @@ test_that("Search works correctly", {
   skip_on_cran()
 
   download.file("http://media4.giphy.com/media/YaXcVXGvBQlEI/200.gif",
-                destfile = "duck_rabbit.gif")
-  drop_upload("duck_rabbit.gif")
+                destfile = "duck_rabbit-search.gif")
+  drop_upload("duck_rabbit-search.gif")
   my_gifs <- drop_search('gif')
   expect_is(my_gifs, "data.frame")
-  expect_true("/duck_rabbit.gif" %in% my_gifs$path)
-  unlink("duck_rabbit.gif")
-  drop_delete("/duck_rabbit.gif")
+  expect_true("/duck_rabbit-search.gif" %in% my_gifs$path)
+  unlink("duck_rabbit-search.gif")
+  drop_delete("/duck_rabbit-search.gif")
 })
 
 
@@ -154,13 +155,13 @@ test_that("We can verify that a file exists on Dropbox", {
 
   drop_create("existential_test")
   expect_true(drop_exists("existential_test"))
-  expect_false(drop_exists(paste0(uuid::UUIDgenerate(), uuid::UUIDgenerate(), ".csv")))
+  expect_false(drop_exists(paste0(uuid::UUIDgenerate(), uuid::UUIDgenerate(), "d")))
   # Now test files inside subfolders
   write.csv(iris, file = "iris.csv")
   drop_upload("iris.csv", path = "existential_test")
   expect_true(drop_exists("existential_test/iris.csv"))
   drop_delete("existential_test")
-
+  unlink("iris.csv")
 })
 
 
@@ -170,12 +171,12 @@ context("Testing Media URLs")
 test_that("Media URLs work correctly", {
   skip_on_cran()
   download.file("http://media4.giphy.com/media/YaXcVXGvBQlEI/200.gif",
-                destfile = "duck_rabbit.gif")
-  drop_upload("duck_rabbit.gif")
-  media_url <- drop_media("duck_rabbit.gif")
+                destfile = "duck_rabbit-media.gif")
+  drop_upload("duck_rabbit-media.gif")
+  media_url <- drop_media("duck_rabbit-media.gif")
   expect_match(media_url$url, "https://dl.dropboxusercontent.com")
-  unlink("duck_rabbit.gif")
-  drop_delete("duck_rabbit.gif")
+  unlink("duck_rabbit-media.gif")
+  drop_delete("duck_rabbit-media.gif")
 })
 
 
@@ -184,7 +185,7 @@ context("Testing drop_read_csv")
 test_that("Can read csv files directly from dropbox", {
   skip_on_cran()
 
-  file_name <- paste0(uuid::UUIDgenerate(), ".csv")
+  file_name <- paste0(uuid::UUIDgenerate(), "-drop_read-", ".csv")
   write.csv(iris, file = file_name)
   drop_upload(file_name)
   z <- drop_read_csv(file_name)
@@ -199,7 +200,7 @@ context("Drop delta works")
 test_that("Drop delta works", {
   skip_on_cran()
 
-  file_name <- paste0(uuid::UUIDgenerate(), ".csv")
+  file_name <- paste0(uuid::UUIDgenerate(), "-drop_delta-", ".csv")
   write.csv(iris, file = file_name)
   z <- drop_delta(path_prefix = "/")
   expected_names <- c("has_more", "cursor", "entries", "reset")
