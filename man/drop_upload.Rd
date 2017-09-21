@@ -4,7 +4,7 @@
 \alias{drop_upload}
 \title{Uploads a file to Dropbox.}
 \usage{
-drop_upload(file, path = NULL, mode = "overwrite", autorename = FALSE,
+drop_upload(file, path = NULL, mode = "overwrite", autorename = TRUE,
   verbose = FALSE, mute = FALSE, dtoken = get_dropbox_token())
 }
 \arguments{
@@ -14,18 +14,13 @@ drop_upload(file, path = NULL, mode = "overwrite", autorename = FALSE,
 
 \item{mode}{- "add" - will not overwrite an existing file in case of a
 conflict. With this mode, when a a duplicate file.txt is uploaded, it  will
-become file (2).txt. - "overwrite" will always overwrite a file - "update"
-Overwrite if the given "rev" matches the existing file's "rev". The
-autorename strategy is to append the string "conflicted copy" to the file
-name. For example, "document.txt" might become "document (conflicted
-copy).txt" or "document (Panda's conflicted copy).txt".}
+become file (2).txt. - "overwrite" will always overwrite a file -}
 
-\item{autorename}{This logical determines what
-happens when there is a conflict. If true, the file being uploaded will be
-automatically renamed to avoid the conflict. (For example, test.txt might be
-automatically renamed to test (1).txt.) The new name can be obtained from
-the returned metadata. If false, the call will fail with a 409 (Conflict).
-response code.}
+\item{autorename}{This logical determines what happens when there is a
+conflict. If true, the file being uploaded will be automatically renamed to
+avoid the conflict. (For example, test.txt might be automatically renamed to
+test (1).txt.) The new name can be obtained from the returned metadata. If
+false, the call will fail with a 409 (Conflict) response code. The default is `TRUE`}
 
 \item{verbose}{By default verbose output is \code{FALSE}. Set to \code{TRUE}
 if you need to troubleshoot any output or grab additional parameters.}
