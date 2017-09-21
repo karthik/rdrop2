@@ -1,4 +1,8 @@
 
+# These are the remaining tests after auth and upload.If the tests are getting
+# to be more than 30 lines, split them off into a separate file. Execution order
+# is is all of the `helper-*.R` files and then all of the `test-*.R` files
+
 context("File ops")
 # --------------------------------------
 
@@ -138,7 +142,7 @@ test_that("Revisions are returned correctly", {
   x <- drop_history("iris.csv")
   expect_equal(ncol(x), 15)
   expect_is(x, "data.frame")
-  drop_delete("iris.csv")
+  drop_delete("/iris.csv")
   unlink("iris.csv")
 })
 
