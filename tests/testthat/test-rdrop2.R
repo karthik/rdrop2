@@ -207,7 +207,7 @@ test_that("Media URLs work correctly", {
                 destfile = "duck_rabbit.gif")
   drop_upload("duck_rabbit.gif")
   media_url <- drop_media("duck_rabbit.gif")
-  expect_match(media_url$url, "https://dl.dropboxusercontent.com")
+  expect_match(media_url$link, "https://dl.dropboxusercontent.com")
   unlink("duck_rabbit.gif")
   drop_delete("duck_rabbit.gif")
 })
