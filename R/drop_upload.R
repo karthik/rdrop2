@@ -12,16 +12,12 @@
 #'@param mode - "add" - will not overwrite an existing file in case of a
 #'  conflict. With this mode, when a a duplicate file.txt is uploaded, it  will
 #'  become file (2).txt. - "overwrite" will always overwrite a file - "update"
-#'  Overwrite if the given "rev" matches the existing file's "rev". The
-#'  autorename strategy is to append the string "conflicted copy" to the file
-#'  name. For example, "document.txt" might become "document (conflicted
-#'  copy).txt" or "document (Panda's conflicted copy).txt".
-#'@param autorename This logical determines what
-#'  happens when there is a conflict. If true, the file being uploaded will be
-#'  automatically renamed to avoid the conflict. (For example, test.txt might be
-#'  automatically renamed to test (1).txt.) The new name can be obtained from
-#'  the returned metadata. If false, the call will fail with a 409 (Conflict).
-#'  response code.
+#'  Overwrite if the given "rev" matches the existing file's "rev".
+#'@param autorename This logical determines what happens when there is a
+#'  conflict. If true, the file being uploaded will be automatically renamed to
+#'  avoid the conflict. (For example, test.txt might be automatically renamed to
+#'  test (1).txt.) The new name can be obtained from the returned metadata. If
+#'  false, the call will fail with a 409 (Conflict) response code. The default is `TRUE`
 #'@param mute Set to FALSE to prevent a notification trigger on the desktop and
 #'  mobile apps
 #'@template verbose
@@ -34,7 +30,7 @@
 drop_upload <- function(file,
                         path = NULL,
                         mode = "overwrite",
-                        autorename = FALSE,
+                        autorename = TRUE,
                         verbose = FALSE,
                         mute = FALSE,
                         dtoken = get_dropbox_token()) {
@@ -48,7 +44,7 @@ drop_upload <- function(file,
   put_url <- "https://content.dropboxapi.com/2/files/upload"
   req <- httr::POST(
     url = put_url,
-    httr::config(token = rdrop2:::get_dropbox_token()),
+    httr::config(token = get_dropbox_token()),
     httr::add_headers("Dropbox-API-Arg" = jsonlite::toJSON(
       list(
         path = path,
@@ -59,10 +55,11 @@ drop_upload <- function(file,
       auto_unbox = TRUE
     )),
     body = httr::upload_file(file, type = "application/octet-stream")
-    # application/octet-stream is save to save to a file let another application
-    # figure out how to read. So for this purpose we're totally ok.
+    # application/octet-stream is to save to a file to disk and not worry about
+    # what application/function might handle it. This lets another application
+    # figure out how to read it. So for this purpose we're totally ok.
   )
-  warn_for_status(req)
+  httr::stop_for_status(req)
   response <- httr::content(req)
   if (verbose) {
     pretty_lists(response)
@@ -81,7 +78,7 @@ drop_upload <- function(file,
 }
 
 # TODO
-# update and add do not work
+# add and autorename do not work
 # need to add tests for update, overwrite, autorename
 # need to test a few different file types
 # drop_upload("mtt.txt", path = "foo/foo.txt")
