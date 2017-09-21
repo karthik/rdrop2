@@ -11,8 +11,7 @@
 #'@param path The relative path on Dropbox where the file should get uploaded.
 #'@param mode - "add" - will not overwrite an existing file in case of a
 #'  conflict. With this mode, when a a duplicate file.txt is uploaded, it  will
-#'  become file (2).txt. - "overwrite" will always overwrite a file - "update"
-#'  Overwrite if the given "rev" matches the existing file's "rev".
+#'  become file (2).txt. - "overwrite" will always overwrite a file -
 #'@param autorename This logical determines what happens when there is a
 #'  conflict. If true, the file being uploaded will be automatically renamed to
 #'  avoid the conflict. (For example, test.txt might be automatically renamed to
