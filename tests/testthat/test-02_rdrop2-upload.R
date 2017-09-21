@@ -10,7 +10,7 @@ test_that("Test that basic file ops work correctly", {
 
   # This is a simple test to see if we can upload a csv file successfully
 
-  file_name <- paste0(uuid::UUIDgenerate(), ".csv")
+  file_name <- paste0(uuid::UUIDgenerate(), "-file-ops-", ".csv")
   write.csv(mtcars, file_name)
   row_count <- nrow(mtcars)
   print(file_name)
