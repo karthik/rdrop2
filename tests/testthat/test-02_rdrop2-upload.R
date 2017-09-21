@@ -77,6 +77,6 @@ three_files <- drop_dir("add_overwrite_test")
 e_3files <- c("/add_overwrite_test/iris (1).csv", "/add_overwrite_test/iris (2).csv","/add_overwrite_test/iris.csv")
 expect_identical(three_files$path, e_3files)
 drop_delete("add_overwrite_test")
-
+unlink("iris.csv")
 # Test file integrity
 # ------------------
