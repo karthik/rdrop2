@@ -2,6 +2,7 @@
 
 
 
+
 #'Uploads a file to Dropbox.
 #'
 #'This function will allow you to write files of any size to Dropbox(even ones
@@ -30,17 +31,25 @@ drop_upload <- function(file,
                         path = NULL,
                         mode = "overwrite",
                         autorename = TRUE,
-                        verbose = FALSE,
                         mute = FALSE,
+                        verbose = FALSE,
                         dtoken = get_dropbox_token()) {
+  put_url <- "https://content.dropboxapi.com/2/files/upload"
+
+  # Check that object exists locally before adding slashes
+  assertive::assert_all_are_existing_files(file, severity = ("stop"))
+
+  # Check to see if only supported modes are specified
+  standard_modes <- c("overwrite", "add", "update")
+  assertive::assert_any_are_matching_fixed(standard_modes, mode)
+
+  # Dropbox API requires a / before an object name.
   if (is.null(path)) {
-    path <- paste0("/", basename(file))
+    path <- add_slashes(basename(file))
   } else {
     path <- paste0("/", strip_slashes(path), "/", basename(file))
   }
 
-  stopifnot(file.exists(file))
-  put_url <- "https://content.dropboxapi.com/2/files/upload"
   req <- httr::POST(
     url = put_url,
     httr::config(token = get_dropbox_token()),
@@ -62,6 +71,7 @@ drop_upload <- function(file,
   response <- httr::content(req)
   if (verbose) {
     pretty_lists(response)
+    invisible(response)
   } else {
     invisible(response)
     message(
@@ -75,8 +85,3 @@ drop_upload <- function(file,
   }
 
 }
-
-# TODO
-# drop_upload("mtt.txt", path = "foo/foo.txt")
-# File mtt.txt uploaded as /foo/foo.txt/mtt.txt successfully at 2017-09-20T00:40:08Z
-# This is an issue because it doesn’t rename the files
