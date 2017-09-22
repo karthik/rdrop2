@@ -9,6 +9,7 @@ BugReports: https://github.com/karthik/rdrop2/issues
 LazyData: true
 Imports: 
          assertive,
+         assertthat,
          data.table,
          dplyr,
          httr,
