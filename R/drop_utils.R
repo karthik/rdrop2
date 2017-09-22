@@ -185,11 +185,10 @@ LinearizeNestedList <- function(NList, LinearizeDataFrames=FALSE,
 }
 
 #' A pretty list printer. Reduces extraneous space.
-#' @importFrom assertthat assert_that
 #' @noRd
 pretty_lists <- function(x)
 {
-  assert_that(inherits(x, "list"))
+  assertive::assert_is_list(x)
 
    for(key in names(x)){
       value <- format(x[[key]])
