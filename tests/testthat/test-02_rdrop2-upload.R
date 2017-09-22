@@ -57,6 +57,7 @@ test_that("Upload of a non-existent file fails", {
 
 # Test autorename
 # ------------------
+test_that("Autorename upload works correctly", {
 drop_create("add_overwrite_test")
 blank <- drop_dir("add_overwrite_test")
 expect_equal(nrow(blank), 0)
@@ -87,5 +88,5 @@ e_3files <-
 expect_identical(three_files$path, e_3files)
 drop_delete("add_overwrite_test")
 unlink("iris.csv")
-
+})
 
