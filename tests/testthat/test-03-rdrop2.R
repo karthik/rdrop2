@@ -96,17 +96,17 @@ test_that("Moving files works correctly", {
 context("testing drop share")
 test_that("Sharing a Dropbox resource works correctly", {
   skip_on_cran()
-  file_name <- paste0(uuid::UUIDgenerate(), "-share-", "d")
+  file_name <- paste0(uuid::UUIDgenerate(), "-share", ".csv")
   write.csv(iris, file = file_name)
   drop_upload(file_name)
   res <- drop_share(file_name)
-  expect_equal(length(res), 3)
-  share_names <- sort(c("url", "expires", "visibility"))
+  expect_equal(length(res), 10)
+  share_names <- sort(c(".tag", "url", "id", "name", "path_lower", "link_permissions",
+                        "client_modified", "server_modified", "rev", "size"))
   res_names <- sort(names(res))
   expect_identical(share_names, res_names)
   unlink(file_name)
   drop_delete(file_name)
-  # Make sure the $url starts with http://
 })
 
 
