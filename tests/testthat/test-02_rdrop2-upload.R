@@ -44,15 +44,15 @@ test_that("Image upload works correctly", {
   roundtrip_file_hash <-  digest::digest("drop-test-business.png")
   expect_equal(local_file_hash, roundtrip_file_hash)
   drop_delete("/drop-test-business.png")
-
+  unlink("drop-test-business.png")
 })
 
 # Test upload of a non existent file
 # ----------------------------------
 
 test_that("Upload of a non-existent file fails", {
-
-
+  expect_error(drop_upload("higgledy-piggledy.csv"))
+  expect_error(drop_upload("higgledy-piggledy.csv", mode = "stuff"))
 })
 
 # Test autorename
@@ -64,21 +64,28 @@ write.csv(iris, file = "iris.csv")
 drop_upload("iris.csv", path = "add_overwrite_test")
 one_file <- drop_dir("add_overwrite_test")
 expect_equal(nrow(one_file), 1)
-expect_identical(one_file[1, ]$path, "/add_overwrite_test/iris.csv")
+expect_identical(one_file[1,]$path, "/add_overwrite_test/iris.csv")
 # Write a slightly different object to the same filename
-write.csv(iris[1:6,], file = "iris.csv")
+write.csv(iris[1:6, ], file = "iris.csv")
 drop_upload("iris.csv", path = "add_overwrite_test", mode = "add")
 two_files <- drop_dir("add_overwrite_test")
 expect_equal(nrow(two_files), 2)
 # This is what I should expect
-expected_files <- c("/add_overwrite_test/iris (1).csv", "/add_overwrite_test/iris.csv")
+expected_files <-
+  c("/add_overwrite_test/iris (1).csv",
+    "/add_overwrite_test/iris.csv")
 expect_identical(two_files$path, expected_files)
-write.csv(iris[1:5,], file = "iris.csv")
+write.csv(iris[1:5, ], file = "iris.csv")
 drop_upload("iris.csv", path = "add_overwrite_test", mode = "add")
 three_files <- drop_dir("add_overwrite_test")
-e_3files <- c("/add_overwrite_test/iris (1).csv", "/add_overwrite_test/iris (2).csv","/add_overwrite_test/iris.csv")
+e_3files <-
+  c(
+    "/add_overwrite_test/iris (1).csv",
+    "/add_overwrite_test/iris (2).csv",
+    "/add_overwrite_test/iris.csv"
+  )
 expect_identical(three_files$path, e_3files)
 drop_delete("add_overwrite_test")
 unlink("iris.csv")
-# Test file integrity
-# ------------------
+
+
