@@ -8,7 +8,7 @@ License: MIT + file LICENSE
 BugReports: https://github.com/karthik/rdrop2/issues
 LazyData: true
 Imports: 
-         assertthat,
+         assertive,
          data.table,
          dplyr,
          httr,
