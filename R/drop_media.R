@@ -9,22 +9,20 @@
 #' after 4 hours. So you'll need to cache the content with knitr cache OR re-run
 #' the function call after exipry.
 #'@template path
-#'@template locale
 #' @template token
 #'@export
 #' @examples \dontrun{
 #' drop_media('Public/gifs/duck_rabbit.gif')
 #'}
-drop_media <- function(path = NULL, locale = NULL, dtoken = get_dropbox_token()) {
-      assert_that(!is.null(path))
-         if(drop_exists(path)) {
-       args <- as.list(drop_compact(c(path = path,
-                                locale = locale)))
-   media_url <- "https://api.dropbox.com/1/media/auto/"
-   res <- POST(media_url, query = args, config(token = dtoken), encode = "form")
-   pretty_lists(content(res))
-} else {
+drop_media <- function(path = NULL, dtoken = get_dropbox_token()) {
+  assert_that(!is.null(path))
+  if(drop_exists(path)) {
+    media_url <- "https://api.dropbox.com/2/files/get_temporary_link"
+    path <- add_slashes(path)
+    res <- POST(media_url, body = list(path = path), httr::config(token = dtoken), encode = "json")
+    content(res)
+  } else {
     stop("File not found \n")
     FALSE
-}
+  }
 }

@@ -1,20 +1,25 @@
 
 
-#'Uploads a file to Dropbox using PUT semantics.
+
+
+
+#'Uploads a file to Dropbox.
 #'
-#' This function will allow you to write files of any size to Dropbox(even ones
-#' that cannot be read into memory) by uploading them in chunks.
+#'This function will allow you to write files of any size to Dropbox(even ones
+#'that cannot be read into memory) by uploading them in chunks.
+#'
 #'@param file Relative path to local file.
-#'@param  dest The relative path on Dropbox where the file should get uploaded.
-#'@param overwrite Default behavior (\code{TRUE}) is to overwrite files in the
-#'  destination. Set to \code{FALSE} to prevent this.
-#' @param encode The file encoding
-#'@param autorename This value, either true (default) or false, determines what
-#'  happens when there is a conflict. If true, the file being uploaded will be
-#'  automatically renamed to avoid the conflict. (For example, test.txt might be
-#'  automatically renamed to test (1).txt.) The new name can be obtained from
-#'  the returned metadata. If false, the call will fail with a 409 (Conflict).
-#'  response code.
+#'@param path The relative path on Dropbox where the file should get uploaded.
+#'@param mode - "add" - will not overwrite an existing file in case of a
+#'  conflict. With this mode, when a a duplicate file.txt is uploaded, it  will
+#'  become file (2).txt. - "overwrite" will always overwrite a file -
+#'@param autorename This logical determines what happens when there is a
+#'  conflict. If true, the file being uploaded will be automatically renamed to
+#'  avoid the conflict. (For example, test.txt might be automatically renamed to
+#'  test (1).txt.) The new name can be obtained from the returned metadata. If
+#'  false, the call will fail with a 409 (Conflict) response code. The default is `TRUE`
+#'@param mute Set to FALSE to prevent a notification trigger on the desktop and
+#'  mobile apps
 #'@template verbose
 #'@template token
 #'@export
@@ -23,37 +28,60 @@
 #' drop_upload("mtt.csv")
 #'}
 drop_upload <- function(file,
-                        dest = NULL,
-                        overwrite = TRUE,
-                        autorename = FALSE,
+                        path = NULL,
+                        mode = "overwrite",
+                        autorename = TRUE,
+                        mute = FALSE,
                         verbose = FALSE,
-                        encode = "multipart",
                         dtoken = get_dropbox_token()) {
-  if(is.null(dest)) {
-    dest <- basename(file)
+  put_url <- "https://content.dropboxapi.com/2/files/upload"
+
+  # Check that object exists locally before adding slashes
+  assertive::assert_all_are_existing_files(file, severity = ("stop"))
+
+  # Check to see if only supported modes are specified
+  standard_modes <- c("overwrite", "add", "update")
+  assertive::assert_any_are_matching_fixed(standard_modes, mode)
+
+  # Dropbox API requires a / before an object name.
+  if (is.null(path)) {
+    path <- add_slashes(basename(file))
   } else {
-    dest <- paste0(strip_slashes(dest),"/", basename(file))
+    path <- paste0("/", strip_slashes(path), "/", basename(file))
   }
-    stopifnot(file.exists(file))
-    put_url <- "https://api-content.dropbox.com/1/files_put/auto/"
-    # content_type <- drop_mime(file)
-    # content_length <- file.info(file)$size
-    args <- as.list(drop_compact(c(# `Content-Type` = content_type,
-                                   # `Content-Length` = content_length,
-                                    overwrite = overwrite,
-                                    autorename = autorename,
-                                    path = dest)))
-    # pretty_lists(args) # temporarily printing args for debugging
-    response <- PUT(put_url,
-                    config(token = dtoken),
-                    query = args,
-                    encode = encode,
-                    body = upload_file(file))
-    if(verbose) {
-        pretty_lists(content(response))
-    } else {
-        invisible(content(response))
-        message(sprintf('File %s uploaded successfully', file))
-    }
+
+  req <- httr::POST(
+    url = put_url,
+    httr::config(token = get_dropbox_token()),
+    httr::add_headers("Dropbox-API-Arg" = jsonlite::toJSON(
+      list(
+        path = path,
+        mode = mode,
+        autorename = autorename,
+        mute = mute
+      ),
+      auto_unbox = TRUE
+    )),
+    body = httr::upload_file(file, type = "application/octet-stream")
+    # application/octet-stream is to save to a file to disk and not worry about
+    # what application/function might handle it. This lets another application
+    # figure out how to read it. So for this purpose we're totally ok.
+  )
+  httr::stop_for_status(req)
+  response <- httr::content(req)
+  if (verbose) {
+    pretty_lists(response)
+    invisible(response)
+  } else {
+    invisible(response)
+    message(
+      sprintf(
+        'File %s uploaded as %s successfully at %s',
+        file,
+        response$path_display,
+        response$server_modified
+      )
+    )
+  }
 
 }

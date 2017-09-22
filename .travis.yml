@@ -1,5 +1,6 @@
 language: r
-sudo: required
+sudo: false
+cache: packages
 before_install:
 - openssl aes-256-cbc -K $encrypted_ad3262635b9a_key -iv $encrypted_ad3262635b9a_iv -in tests/testthat/token.rds.enc -out tests/testthat/token.rds -d
 r_packages:
