@@ -77,9 +77,6 @@ drop_upload <- function(file,
 }
 
 # TODO
-# add and autorename do not work
-# need to add tests for update, overwrite, autorename
-# need to test a few different file types
 # drop_upload("mtt.txt", path = "foo/foo.txt")
 # File mtt.txt uploaded as /foo/foo.txt/mtt.txt successfully at 2017-09-20T00:40:08Z
 # This is an issue because it doesn’t rename the files
