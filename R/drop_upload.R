@@ -52,7 +52,7 @@ drop_upload <- function(file,
 
   req <- httr::POST(
     url = put_url,
-    httr::config(token = get_dropbox_token()),
+    httr::config(token = dtoken),
     httr::add_headers("Dropbox-API-Arg" = jsonlite::toJSON(
       list(
         path = path,
