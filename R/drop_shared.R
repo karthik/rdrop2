@@ -54,7 +54,7 @@ drop_share <- function(path = NULL,
 
   req <- httr::POST(
     url = share_url,
-    httr::config(token = get_dropbox_token()),
+    httr::config(token = dtoken),
     body = list(path = path, settings = settings),
     encode = "json"
   )
@@ -73,9 +73,9 @@ drop_share <- function(path = NULL,
 #' @export
 #'
 #' @examples \dontrun{
-#' list_shared_links()
+#' drop_list_shared_links()
 #' }
-list_shared_links <-
+drop_list_shared_links <-
   function(verbose = TRUE, dtoken = get_dropbox_token()) {
     shared_links_url <-
       "https://api.dropboxapi.com/2/sharing/list_shared_links"
