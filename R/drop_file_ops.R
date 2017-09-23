@@ -6,7 +6,6 @@
 #' @template verbose
 #' @template token
 #' @export
-#' @importFrom assertthat assert_that
 #' @examples \dontrun{
 #' write.csv(mtcars, file = "mt.csv")
 #' drop_upload("mt.csv")
@@ -43,7 +42,6 @@ drop_copy <- function(from_path = NULL, to_path = NULL, root = "auto", verbose =
 #' @template verbose
 #' @template token
 #' @export
-#' @importFrom assertthat assert_that
 #' @examples \dontrun{
 #' write.csv(mtcars, file = "mt.csv")
 #' drop_upload("mt.csv")
@@ -148,7 +146,7 @@ drop_create <- function (path = NULL, root = "auto", verbose = FALSE, dtoken = g
 #' drop_delete("existential_test")
 #'}
 drop_exists <- function(path = NULL, dtoken = get_dropbox_token()) {
-  assert_that(!is.null(path))
+  assertive::assert_is_not_null(path)
   if(!grepl('^/', path)) path <- paste0("/", path)
   dir_name <- suppressMessages(dirname(path))
   dir_listing <- drop_dir_internal(path = dir_name, dtoken = dtoken)
