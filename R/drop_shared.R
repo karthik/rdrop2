@@ -48,7 +48,7 @@ drop_share <- function(path = NULL,
         expires = expires
       )
     )
-  # settings <- jsonlite::toJSON(settings, auto_unbox = TRUE)
+  #  TODO: Check to see if this is necessary when we have encode to json below
   share_url <-
     "https://api.dropboxapi.com/2/sharing/create_shared_link_with_settings"
 
@@ -56,7 +56,7 @@ drop_share <- function(path = NULL,
     url = share_url,
     httr::config(token = dtoken),
     body = list(path = path, settings = settings),
-    encode = "json"
+    encode = "json" 
   )
   # stopping for status otherwise content fails
   httr::stop_for_status(req)
