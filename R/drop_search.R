@@ -29,18 +29,18 @@ drop_search <- function(query = NULL,
     c("filename", "filename_and_content", "deleted_filename")
   assertive::assert_any_are_matching_fixed(available_modes, mode)
 
+  assertive::assert_is_not_null(query)
 
-  args <- as.list(drop_compact(
-    c(
+  args <- drop_compact(
+    list(
       query = query,
       path = path,
       start = as.integer(start),
       max_results = as.integer(max_results),
       mode = mode
     )
-  ))
-  args$start <- as.integer(start)
-  args$max_results <- as.integer(max_results)
+  )
+
   search_url <- "https://api.dropboxapi.com/2/files/search"
   res <-
     httr::POST(search_url,
