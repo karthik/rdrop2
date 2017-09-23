@@ -115,17 +115,16 @@ test_that("Sharing a Dropbox resource works correctly", {
 # ......................................
 
 context("testing search")
-test_that("Search works correctly", {
+test_that("Drop search works correctly", {
+
   skip_on_cran()
 
-  download.file("http://media4.giphy.com/media/YaXcVXGvBQlEI/200.gif",
-                destfile = "duck_rabbit-search.gif")
-  drop_upload("duck_rabbit-search.gif")
-  my_gifs <- drop_search('gif')
-  expect_is(my_gifs, "data.frame")
-  expect_true("/duck_rabbit-search.gif" %in% my_gifs$path)
-  unlink("duck_rabbit-search.gif")
-  drop_delete("/duck_rabbit-search.gif")
+drop_create("search_test")
+write.csv(mtcars, file = "mtcars.csv")
+drop_upload("mtcars.csv", path = "search_test")
+x <- drop_search("mt")
+expect_equal(x$matches[[1]]$metadata$name, "mtcars.csv")
+drop_delete("search_test")
 })
 
 

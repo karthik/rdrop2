@@ -12,8 +12,7 @@
 #'  The default for this field is 0
 #'@param max_results The maximum number of search results to return. The default
 #'  for this field is 100.
-#'@param  include_deleted If this parameter is set to true, then files and
-#'  folders that have been deleted will also be included in the search.
+#'@param  mode Mode can take the option of filename, filename_and_content, or search deleted files with deleted_filename
 #'@template token
 #'@export
 #' @examples \dontrun{
