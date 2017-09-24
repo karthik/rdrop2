@@ -1,5 +1,6 @@
 
 
+
 #'Returns metadata for all files and folders whose filename contains the given
 #'search string as a substring.
 #'
@@ -7,40 +8,49 @@
 #'  individual words. Files and folders will be returned if they contain all
 #'  words in the search string.
 #'@template path
-#'@template file_limit
-#'@param  include_deleted If this parameter is set to true, then files and
-#'  folders that have been deleted will also be included in the search.
-#'@template locale
-#'@template include_membership
+#'@param start The starting index within the search results (used for paging).
+#'  The default for this field is 0
+#'@param max_results The maximum number of search results to return. The default
+#'  for this field is 100.
+#'@param  mode Mode can take the option of filename, filename_and_content, or search deleted files with deleted_filename
 #'@template token
 #'@export
 #' @examples \dontrun{
 #' # If you know me, you know why this query exists
 #' drop_search('gif') %>% select(path, is_dir, mime_type)
 #'}
-drop_search <- function(query = NULL,
-                        path = NULL,
-                        file_limit = 1000,
-                        include_deleted = FALSE,
-                        locale = NULL,
-                        include_membership = FALSE,
+drop_search <- function(query,
+                        path = "",
+                        start = 0,
+                        max_results = 100,
+                        mode = "filename",
                         dtoken = get_dropbox_token()) {
-    args <- as.list(drop_compact(c(query = query,
-                                 path = path,
-                                 file_limit = file_limit,
-                                 include_deleted = include_deleted,
-                                 locale = locale,
-                                 include_membership = include_membership)))
-    search_url <- "https://api.dropbox.com/1/search/auto/"
-    res <- GET(search_url, query = args, config(token = dtoken))
-    results <- content(res)
-    # The search results contain a field called 'modifier' that is NULL
-    # by default. This makes it really hard to rbind the list either with
-    # dplyr or data.table. So this lapply just kills that field before I
-    # can rbind everything into a nice list.
-    zz <- lapply(results, function(t) { t$modifier = NULL; t })
-    # I hate myself :(
-    dplyr::tbl_df(data.table::rbindlist(zz, fill = T))
+  available_modes <-
+    c("filename", "filename_and_content", "deleted_filename")
+  assertive::assert_any_are_matching_fixed(available_modes, mode)
+  # A search cannot have a negative start index and a negative max_results
+  assertive::assert_all_are_non_negative(start, max_results)
+  args <- drop_compact(
+    list(
+      query = query,
+      path = path,
+      start = as.integer(start),
+      max_results = as.integer(max_results),
+      mode = mode
+    )
+  )
+
+  search_url <- "https://api.dropboxapi.com/2/files/search"
+  res <-
+    httr::POST(search_url,
+               body = args,
+               httr::config(token = dtoken),
+               encode = "json")
+  httr::stop_for_status(res)
+  httr::content(res)
+  # TODO
+  # Need to do a verbose return but also print a nice data.frame
+  # One way to do that is with purrr::flatten
+  # e.g. purrr::flatten(results$matches)
+  # But, do we want purrr as another import???
 }
-
-
