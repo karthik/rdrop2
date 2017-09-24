@@ -125,6 +125,8 @@ drop_upload("mtcars.csv", path = "search_test")
 x <- drop_search("mt")
 expect_equal(x$matches[[1]]$metadata$name, "mtcars.csv")
 drop_delete("search_test")
+# A search with no query should fail
+expect_error(drop_search())
 })
 
 

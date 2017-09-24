@@ -19,7 +19,7 @@
 #' # If you know me, you know why this query exists
 #' drop_search('gif') %>% select(path, is_dir, mime_type)
 #'}
-drop_search <- function(query = NULL,
+drop_search <- function(query,
                         path = "",
                         start = 0,
                         max_results = 100,
@@ -28,9 +28,8 @@ drop_search <- function(query = NULL,
   available_modes <-
     c("filename", "filename_and_content", "deleted_filename")
   assertive::assert_any_are_matching_fixed(available_modes, mode)
-
-  assertive::assert_is_not_null(query)
-
+  # A search cannot have a negative start index and a negative max_results
+  assertive::assert_all_are_non_negative(start, max_results)
   args <- drop_compact(
     list(
       query = query,
