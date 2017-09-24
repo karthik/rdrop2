@@ -23,6 +23,8 @@ drop_get_metadata <- function(
 
   url <- "https://api.dropboxapi.com/2/files/get_metadata"
 
+  if (!grepl("^(id|rev):", path)) path <- add_slashes(path)
+
   req <- httr::POST(
     url = url,
     httr::config(token = dtoken),

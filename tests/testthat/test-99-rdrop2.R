@@ -3,38 +3,6 @@
 # to be more than 30 lines, split them off into a separate file. Execution order
 # is is all of the `helper-*.R` files and then all of the `test-*.R` files
 
-context("File ops")
-# --------------------------------------
-
-# drop_dir
-# ......................................
-context("Directory listing works ok")
-test_that("drop_dir returns data correctly", {
-  skip_on_cran()
-
-  file1 <- paste0(uuid::UUIDgenerate(), "-drop_dir-", ".csv")
-  file2 <- paste0(uuid::UUIDgenerate(), "-drop_dir-", ".csv")
-  file3 <- paste0(uuid::UUIDgenerate(), "-drop_dir-", ".csv")
-  write.csv(iris, file1)
-  write.csv(iris, file2)
-  write.csv(iris, file3)
-
-  filenames <- c(file1, file2, file3)
-  # add a leading slash
-  filenames_slash <- paste0("/", filenames)
-  drop_create(path = "testingdirectories")
-  drop_upload(file1, "testingdirectories")
-  drop_upload(file2, "testingdirectories")
-  drop_upload(file3, "testingdirectories")
-  dir_listing <- drop_dir("testingdirectories")
-  # Now test that it has nrow 3
-  expect_equal(nrow(dir_listing), 3)
-  expect_identical(sort(basename(dir_listing$path)), sort(basename(filenames_slash)))
-  drop_delete("testingdirectories")
-  sapply(filenames, unlink)
-})
-
-
 # All the file ops (move/copy/delete)
 # drop_get, drop_upload
 # ......................................
@@ -65,7 +33,7 @@ test_that("Copying files works correctly", {
   drop_upload(file_name)
   drop_copy(file_name, paste0("/copy_test/", file_name))
   res <- drop_dir("copy_test")
-  expect_identical(basename(file_name), basename(res$path))
+  expect_identical(basename(file_name), basename(res$path_lower))
   drop_delete("copy_test")
   unlink(file_name)
   drop_delete(file_name)
@@ -82,7 +50,7 @@ test_that("Moving files works correctly", {
   drop_move(file_name, paste0("/move_test/", file_name))
   res <- drop_dir("move_test")
   # problem
-  expect_identical(basename(file_name), basename(res$path))
+  expect_identical(basename(file_name), basename(res$path_lower))
   # Now test that the file is there.
   # do a search for the path/file
   # the make sure it exists
