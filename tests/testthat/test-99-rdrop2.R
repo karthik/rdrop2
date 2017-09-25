@@ -3,23 +3,6 @@
 # to be more than 30 lines, split them off into a separate file. Execution order
 # is is all of the `helper-*.R` files and then all of the `test-*.R` files
 
-# All the file ops (move/copy/delete)
-# drop_get, drop_upload
-# ......................................
-context("drop_get")
-
-
-test_that("Drop_get work correctly", {
-  skip_on_cran()
-  download.file("http://media4.giphy.com/media/YaXcVXGvBQlEI/200.gif",
-                destfile = "duck_rabbit-drop_get.gif")
-  drop_upload("duck_rabbit-drop_get.gif")
-  drop_get("duck_rabbit-drop_get.gif", overwrite = TRUE)
-  expect_true("duck_rabbit-drop_get.gif" %in% dir())
-  file.remove("duck_rabbit-drop_get.gif")
-  drop_delete("duck_rabbit-drop_get.gif")
-})
-
 # drop_copy
 # ......................................
 test_that("Copying files works correctly", {
