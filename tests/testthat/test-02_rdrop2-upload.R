@@ -17,7 +17,7 @@ test_that("Test that basic file ops work correctly", {
   # Check to see if file uploads are successful
   expect_message(drop_upload(file_name), "successfully at")
   unlink(file_name)
-  drop_get(file_name)
+  drop_download(file_name)
   y <- utils::read.csv(file_name)
   server_row_count <- nrow(y)
   # Make sure the downloaded csv has the same number of rows
@@ -40,7 +40,7 @@ test_that("Image upload works correctly", {
   # expect_equal(file.info("drop-test-business.png")$size, 227000, tolerance = 500)
   drop_upload("drop-test-business.png")
   unlink("drop-test-business.png")
-  drop_get("drop-test-business.png")
+  drop_download("drop-test-business.png")
   roundtrip_file_hash <-  digest::digest("drop-test-business.png")
   expect_equal(local_file_hash, roundtrip_file_hash)
   drop_delete("/drop-test-business.png")
