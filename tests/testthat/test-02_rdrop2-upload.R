@@ -78,7 +78,7 @@ test_that("Autorename upload works correctly", {
   # This is what I should expect
   expected_files <-
     c(paste0("/", autorename_folder, "/iris.csv"),
-      paste0("/", add_overwrite_test, "/iris (1).csv"))
+      paste0("/", autorename_folder, "/iris (1).csv"))
   expect_identical(two_files$path_lower, expected_files)
   write.csv(iris[1:5, ], file = "iris.csv")
   drop_upload("iris.csv", path = autorename_folder, mode = "add")
