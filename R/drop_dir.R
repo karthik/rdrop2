@@ -1,6 +1,6 @@
 #' List folder contents and associated metadata
 #'
-#' @param path path to folder in Dropbox to list contents of.
+#' @param path path to folder in Dropbox to list contents of. Defaults to the root directory.
 #' @param recursive If true, the list folder operation will be applied recursively to all subfolders and the response will contain contents of all subfolders. Defaults to FALSE.
 #' @param include_media_info If true, FileMetadata.media_info is set for photo and video. Defaults to FALSE.
 #' @param include_deleted If true, the results will include entries for files and folders that used to exist but were deleted. Defaults to FALSE.
@@ -17,7 +17,7 @@
 #'
 #' @export
 drop_dir <- function(
-  path,
+  path = "/",
   recursive = FALSE,
   include_media_info = FALSE,
   include_deleted = FALSE,

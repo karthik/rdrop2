@@ -4,13 +4,13 @@
 \alias{drop_dir}
 \title{List folder contents and associated metadata}
 \usage{
-drop_dir(path, recursive = FALSE, include_media_info = FALSE,
+drop_dir(path = "/", recursive = FALSE, include_media_info = FALSE,
   include_deleted = FALSE, include_has_explicit_shared_members = FALSE,
   include_mounted_folders = TRUE, limit = NULL,
   dtoken = get_dropbox_token())
 }
 \arguments{
-\item{path}{path to folder in Dropbox to list contents of.}
+\item{path}{path to folder in Dropbox to list contents of. Defaults to the root directory.}
 
 \item{recursive}{If true, the list folder operation will be applied recursively to all subfolders and the response will contain contents of all subfolders. Defaults to FALSE.}
 
