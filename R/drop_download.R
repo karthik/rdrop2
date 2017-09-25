@@ -2,9 +2,9 @@
 #'
 #' @param path path to a file in Dropbox
 #' @param local_path path to save file to. If NULL (the default), saves file to working directory with same name. If not null, but a valid folder, file will be saved in this folder with same basename as path. If not null and not a folder, file will be saved to this path exactly.
-#' @param overwrite overwrite local file? Defaults to FALSE
-#' @param progress show a progress bar? Defaults to TRUE in interactive sessions, otherwise FALSE.
-#' @param verbose emit message giving location and size of the newly downloaded file?  Defaults to TRUE in interactive sessions, otherwise FALSE.
+#' @param overwrite If TRUE, overwrite local file. Defaults to FALSE
+#' @param progress If TRUE, show a progress bar for large file downloads. Defaults to TRUE in interactive sessions, otherwise FALSE.
+#' @param verbose if TRUE, emit message giving location and size of the newly downloaded file. Defaults to TRUE in interactive sessions, otherwise FALSE.
 #' @template token
 #'
 #' @return path to location file downloaded to, invisibly
