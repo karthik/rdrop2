@@ -19,10 +19,10 @@
 #'
 #'   # download to a different path, keeping file name constant
 #'   # will download to "some/other/place/dataset.zip"
-#'   drop_get("dataset.zip", local_file = "some/other/place/")
+#'   drop_get("dataset.zip", local_path = "some/other/place/")
 #'
 #'   # download to to a different path, changing filename
-#'   drop_get("dataset.zip", local_file = "some/other/place/not_a_dataset.zip")
+#'   drop_get("dataset.zip", local_path = "some/other/place/not_a_dataset.zip")
 #' }
 #'
 #' @export
@@ -57,6 +57,7 @@ drop_download <- function(
       ),
       auto_unbox = TRUE
     )),
+    if (progress) httr::progress(),
     httr::write_disk(local_path, overwrite)
   )
 
@@ -108,7 +109,7 @@ drop_get <- function(
 
   .Deprecated("drop_download")
 
-  stopifnot(!is.null(path))
+  assertive::assert_is_not_null(path)
 
   if (drop_exists(path, dtoken = dtoken)) {
     filename <- ifelse(is.null(local_file), basename(path), local_file)

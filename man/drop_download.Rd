@@ -42,10 +42,10 @@ Download a file from Dropbox to disk.
 
   # download to a different path, keeping file name constant
   # will download to "some/other/place/dataset.zip"
-  drop_get("dataset.zip", local_file = "some/other/place/")
+  drop_get("dataset.zip", local_path = "some/other/place/")
 
   # download to to a different path, changing filename
-  drop_get("dataset.zip", local_file = "some/other/place/not_a_dataset.zip")
+  drop_get("dataset.zip", local_path = "some/other/place/not_a_dataset.zip")
 }
 
 }
