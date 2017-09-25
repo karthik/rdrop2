@@ -69,6 +69,7 @@ drop_upload <- function(file,
   )
   httr::stop_for_status(req)
   response <- httr::content(req)
+
   if (verbose) {
     pretty_lists(response)
     invisible(response)

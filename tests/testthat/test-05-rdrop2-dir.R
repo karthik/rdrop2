@@ -4,12 +4,9 @@ test_that("drop_dir works as expected", {
   skip_on_cran()
 
   # create folders and objects
-  #1
-  # folder_name <- paste0("test-drop_dir-", uuid::UUIDgenerate())
   folder_name <- traceless("test-drop_dir")
   drop_create(folder_name)
 
-  # 2
   file_name <- traceless("test-drop_dir.csv")
   write.csv(mtcars, file_name)
   drop_upload(file_name, path = folder_name)
@@ -21,11 +18,9 @@ test_that("drop_dir works as expected", {
   expect_equal(nrow(results), 1)
 
   # add more things
-  # 3
   subfolder_name <- paste0(folder_name, "/", traceless("test-drop_subdir"))
   drop_create(subfolder_name)
 
-  # 4
   subfile_name <- traceless("test-drop-subfile.csv")
   write.csv(iris, subfile_name)
   drop_upload(subfile_name, path = subfolder_name)

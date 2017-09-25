@@ -1,3 +1,4 @@
+# !diagnostics off
 context("Testing drop_upload")
 library(dplyr)
 sprintf("Number of files on Dropbox", nrow(drop_dir("")))
@@ -34,18 +35,17 @@ test_that("Image upload works correctly", {
   skip_on_cran()
   # This test is to see if we can upload an image (a png in this case) and make sure that it maintains file integrity.
   # We compare hashes of local file, then the roundtrip copy.
-
+  dest <- traceless("rdrop2_package_test_drop.png")
   download.file("https://www.dropbox.com/s/k61p0mvapf285cf/business_card.png?dl=0",
-                destfile = "drop-test-business.png")
-  local_file_hash <- digest::digest("drop-test-business.png")
-  # expect_equal(file.info("drop-test-business.png")$size, 227000, tolerance = 500)
-  drop_upload("drop-test-business.png")
-  unlink("drop-test-business.png")
-  drop_download("drop-test-business.png")
-  roundtrip_file_hash <-  digest::digest("drop-test-business.png")
+                destfile = dest)
+  local_file_hash <- digest::digest(dest)
+  drop_upload(dest)
+  unlink(dest)
+  drop_download(dest)
+  roundtrip_file_hash <-  digest::digest(dest)
   expect_equal(local_file_hash, roundtrip_file_hash)
-  drop_delete("/drop-test-business.png")
-  unlink("drop-test-business.png")
+  drop_delete(dest)
+  unlink(dest)
 })
 
 # Test upload of a non existent file
@@ -61,7 +61,6 @@ test_that("Upload of a non-existent file fails", {
 test_that("Autorename upload works correctly", {
 
   autorename_folder <- traceless("autorename_test")
-
   drop_create(autorename_folder)
   blank <- drop_dir(autorename_folder)
   expect_equal(nrow(blank), 0)

@@ -7,7 +7,7 @@
 # ......................................
 test_that("Copying files works correctly", {
   skip_on_cran()
-  file_name <- paste0(uuid::UUIDgenerate(), "-copy-", "d")
+  file_name <- traceless("copy.csv")
   write.csv(iris, file = file_name)
   drop_upload(file_name)
   drop_create("copy_test")
@@ -26,7 +26,7 @@ test_that("Copying files works correctly", {
 # ......................................
 test_that("Moving files works correctly", {
   skip_on_cran()
-  file_name <- paste0(uuid::UUIDgenerate(), "-move-", "d")
+  file_name <- traceless("move.csv")
   write.csv(iris, file = file_name)
   drop_upload(file_name)
   drop_create("move_test")
@@ -47,7 +47,7 @@ test_that("Moving files works correctly", {
 context("testing drop share")
 test_that("Sharing a Dropbox resource works correctly", {
   skip_on_cran()
-  file_name <- paste0(uuid::UUIDgenerate(), "-share", ".csv")
+  file_name <- traceless("share.csv")
   write.csv(iris, file = file_name)
   drop_upload(file_name)
   res <- drop_share(file_name)
@@ -71,7 +71,8 @@ test_that("Drop search works correctly", {
 
   skip_on_cran()
 
-  folder_name <- paste0("test-drop_search-", uuid::UUIDgenerate())
+  folder_name <- traceless("test-drop_search")
+    #paste0("test-drop_search-", uuid::UUIDgenerate())
   drop_create(folder_name)
 
   write.csv(mtcars, "mtcars.csv")
@@ -116,7 +117,7 @@ test_that("We can verify that a file exists on Dropbox", {
 
   drop_create("existential_test")
   expect_true(drop_exists("existential_test"))
-  expect_false(drop_exists(paste0(uuid::UUIDgenerate(), uuid::UUIDgenerate(), "d")))
+  expect_false(drop_exists(traceless("stuffnthings")))
   # Now test files inside subfolders
   write.csv(iris, file = "iris.csv")
   drop_upload("iris.csv", path = "existential_test")
@@ -146,7 +147,7 @@ context("Testing drop_read_csv")
 test_that("Can read csv files directly from dropbox", {
   skip_on_cran()
 
-  file_name <- paste0(uuid::UUIDgenerate(), "-drop_read-", ".csv")
+  file_name <- traceless("drop_read.csv")
   write.csv(iris, file = file_name)
   drop_upload(file_name)
   z <- drop_read_csv(file_name)
@@ -161,7 +162,7 @@ context("Drop delta works")
 test_that("Drop delta works", {
   skip_on_cran()
 
-  file_name <- paste0(uuid::UUIDgenerate(), "-drop_delta-", ".csv")
+  file_name <- traceless("drop-delta.csv")
   write.csv(iris, file = file_name)
   z <- drop_delta(path_prefix = "/")
   expected_names <- c("has_more", "cursor", "entries", "reset")

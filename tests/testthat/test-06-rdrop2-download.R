@@ -4,7 +4,7 @@ test_that("drop_download works as expected", {
   skip_on_cran()
 
   # create and upload a file for testing
-  file_name <- paste0("test-drop_download-", uuid::UUIDgenerate(), ".csv")
+  file_name <- traceless("test-drop-download.csv")
   write.csv(mtcars, file_name)
   drop_upload(file_name)
 
@@ -16,14 +16,14 @@ test_that("drop_download works as expected", {
   )
 
   # download to a new path
-  new_path <- paste0("test-drop_download-", uuid::UUIDgenerate(), ".csv")
+  new_path <- traceless("test-drop_download_newpath.csv")
   expect_identical(
     drop_download(file_name, new_path),
     new_path
   )
 
   # dowload to an implied path
-  new_dir <- paste0("test-drop_download-", uuid::UUIDgenerate())
+  new_dir <- traceless("test-drop_download_newdir")
   dir.create(new_dir)
   implied_path <- file.path(new_dir, file_name)
   expect_identical(
