@@ -92,23 +92,40 @@ test_that("Drop search works correctly", {
 })
 
 
-# drop_history
-
-context("testing dropbox revisions")
+#### drop_history ####
+context("testing drop_history")
 
 test_that("Revisions are returned correctly", {
   skip_on_cran()
 
-  write.csv(iris, file = "iris.csv")
-  drop_upload("iris.csv")
-  write.csv(iris[iris$Species == "setosa",], file = "iris.csv")
-  drop_upload("iris.csv")
-  x <- drop_history("iris.csv")
-  expect_equal(ncol(x), 15)
-  expect_is(x, "data.frame")
-  drop_delete("/iris.csv")
-  unlink("iris.csv")
+  # upload once
+  file_name <- paste0("test-drop_history-", uuid::UUIDgenerate(), ".csv")
+  write.csv(iris, file_name)
+  drop_upload(file_name)
+
+  revisions <- drop_history(file_name)
+
+  expect_is(revisions, "tbl_df")
+  expect_equal(nrow(revisions), 1)
+
+  # delete, edit, upload again
+  # TODO: add proper revision once drop_upload supports it
+  drop_delete(file_name)
+  write.csv(iris[iris$Species == "setosa",], file_name)
+  drop_upload(file_name)
+
+  revisions <- drop_history(file_name)
+  expect_equal(nrow(revisions), 2)
+
+  # test limit arguments
+  revisions <- drop_history(file_name, limit = 1)
+  expect_equal(nrow(revisions), 1)
+
+  # cleanup
+  drop_delete(file_name)
+  unlink(file_name)
 })
+
 
 # drop_exists
 
