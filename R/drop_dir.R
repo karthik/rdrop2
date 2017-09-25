@@ -17,7 +17,7 @@
 #'
 #' @export
 drop_dir <- function(
-  path = "/",
+  path = "",
   recursive = FALSE,
   include_media_info = FALSE,
   include_deleted = FALSE,
@@ -29,7 +29,7 @@ drop_dir <- function(
 
   # make initial request
   contents <- drop_list_folder(
-    add_slashes(path),
+    path,
     recursive,
     include_media_info,
     include_deleted,
@@ -57,62 +57,70 @@ drop_dir <- function(
 }
 
 
-#' Old internal function used by drop_delete.
+#' List contents of a Dropbox folder.
 #'
-#' TODO: update drop_delete to not need this, then delete it.
+#' For internal use; drop_dir should generally be used to list files in a folder.
 #'
-#' noRd
-#' @keywords internal
-drop_dir_internal <- function(
-  path = NULL,
-  file_limit = 10000,
-  hash = NULL,
-  list = TRUE,
+#' @return a list with three elements: \code{entries}, \code{cursor}, and \code{has_more}.
+#'
+#' @references \href{https://www.dropbox.com/developers/documentation/http/documentation#files-list_folder}{API reference}
+#'
+#' @noRd
+drop_list_folder <- function(
+  path,
+  recursive = FALSE,
+  include_media_info = FALSE,
   include_deleted = FALSE,
-  rev = NULL,
-  locale = NULL,
-  include_media_info = TRUE,
-  include_membership = FALSE,
-  verbose = FALSE,
+  include_has_explicit_shared_members = FALSE,
+  include_mounted_folders = TRUE,
+  limit = NULL,
   dtoken = get_dropbox_token()
 ) {
 
-  is_dir <- NULL
+  if (!is.null(limit)) assertive::assert_is_numeric(limit)
 
-  args <- as.list(drop_compact(c(file_limit = file_limit,
-                                 hash = hash,
-                                 list = list,
-                                 include_deleted = include_deleted,
-                                 rev = rev,
-                                 locale = locale,
-                                 include_media_info = include_media_info,
-                                 include_membership = include_membership)))
-  metadata_url <- "https://api.dropbox.com/1/metadata/auto/"
+  url <- "https://api.dropboxapi.com/2/files/list_folder"
 
-  if (!is.null(path)) {
-    metadata_url <- paste0(metadata_url, path)
-  }
+  # this API doesn't accept "/", so don't add slashes to empty path, remove if given
+  if (path != "") path <- add_slashes(path)
+  if (path == "/") path <- ""
 
-  req <- httr::GET(metadata_url, query = args, config(token = dtoken))
-  res <- jsonlite::fromJSON(httr::content(req, as = "text"), flatten = TRUE)
+  req <- httr::POST(
+    url = url,
+    httr::config(token = dtoken),
+    body = drop_compact(list(
+      path = path,
+      recursive = recursive,
+      include_media_info = include_media_info,
+      include_deleted = include_deleted,
+      include_has_explicit_shared_members = include_has_explicit_shared_members,
+      include_mounted_folders = include_mounted_folders,
+      limit = if (!is.null(limit)) as.integer(limit)
+    )),
+    encode = "json"
+  )
 
-  if (length(res$contents) > 0) { # i.e. not an empty folder
-    if (verbose) {
-      res2 <- res
-      res2$contents <- data.frame()
-      res$contents <- dplyr::tbl_df(res$contents)
-      pretty_lists(res2)
-      print(dplyr::tbl_df(res$contents))
-      invisible(res)
-    } else {
-      path <- mime_type <- root <- bytes <- modified <- NULL
-      if ("mime_type" %in% names(res$contents)) {
-        dplyr::tbl_df(res$contents) %>% dplyr::select(path, mime_type, root, bytes, modified) # prints 25 files
-      } else {
-        dplyr::tbl_df(res$contents) %>% dplyr::select(path, is_dir, root, bytes, modified)  # prints 25 files
-      }
-    }
-  } else {
-    data.frame()
-  }
+  httr::stop_for_status(req)
+
+  httr::content(req)
+}
+
+
+#' Helper function for fetching additional results
+#'
+#' @noRd
+drop_list_folder_continue <- function(cursor, dtoken = get_dropbox_token()) {
+
+  url <- "https://api.dropboxapi.com/2/files/list_folder/continue"
+
+  req <- httr::POST(
+    url = url,
+    httr::config(token = dtoken),
+    body = list(cursor = content$cursor),
+    encode = "json"
+  )
+
+  httr::stop_for_status(req)
+
+  httr::content(req)
 }

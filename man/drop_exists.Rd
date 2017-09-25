@@ -15,6 +15,9 @@ However, if the credentials are not found, the function will initiate a new
 authentication request. You can override this in \code{\link{drop_auth}} by
 pointing to a different location where your credentials are stored.}
 }
+\value{
+boolean; TRUE is the file or folder exists, FALSE if it does not.
+}
 \description{
 Since many file operations such as move, copy, delete and history can only act
 on files that currently exist on a Dropbox store, checking to see if the
@@ -24,8 +27,9 @@ file path is valid on Dropbox.
 }
 \examples{
 \dontrun{
-drop_create("existential_test")
-drop_exists("existential_test")
-drop_delete("existential_test")
+  drop_create("existential_test")
+  drop_exists("existential_test")
+  drop_delete("existential_test")
 }
+
 }

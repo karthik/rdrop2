@@ -59,7 +59,7 @@ drop_move <- function(from_path = NULL, to_path = NULL, root = "auto", verbose =
     x <-POST(move_url, config(token = dtoken), query = args, encode = "form")
     res <- content(x)
     if(!verbose) {
-      message(sprintf("%s moved to %s", from_path, res$path)) 
+      message(sprintf("%s moved to %s", from_path, res$path))
     } else {
       pretty_lists(res)
       invisible(res)
@@ -108,18 +108,20 @@ drop_delete <- function (path = NULL, root = "auto", verbose = FALSE, dtoken = g
 #' @examples \dontrun{
 #' drop_create(path = "foobar")
 #'}
-drop_create <- function (path = NULL, root = "auto", verbose = FALSE, dtoken = get_dropbox_token()) {
-       if(!drop_exists(path)) {
+drop_create <- function(path = NULL, root = "auto", verbose = FALSE, dtoken = get_dropbox_token()) {
+
+  if (!drop_exists(path)) {
     create_url <- "https://api.dropbox.com/1/fileops/create_folder"
-    x <-POST(create_url, config(token = dtoken), body = list(root = root, path = path), encode = "form")
+    x <- POST(create_url, config(token = dtoken), body = list(root = root, path = path), encode = "form")
     results <- content(x)
 
-  if(verbose) {
-    pretty_lists(results)
-  } else {
-    if(results$is_dir) message(sprintf("Folder %s created successfully \n", path))
-  }
-  invisible(results)
+    if (verbose) {
+      pretty_lists(results)
+    } else {
+      if (results$is_dir) message(sprintf("Folder %s created successfully \n", path))
+    }
+
+    invisible(results)
   } else {
     stop("Folder already exists")
   }
@@ -130,28 +132,33 @@ drop_create <- function (path = NULL, root = "auto", verbose = FALSE, dtoken = g
 
 
 
-#'Checks to see if a file/folder exists on Dropbox
+#' Checks to see if a file/folder exists on Dropbox
 #'
-#'Since many file operations such as move, copy, delete and history can only act
-#'on files that currently exist on a Dropbox store, checking to see if the
-#'\code{path} is valid before operating prevents bad API calls from being sent
-#'to the server. This functions returns a logical response after checking if a
-#'file path is valid on Dropbox.
-#'@param path The full path to a Dropbox file
+#' Since many file operations such as move, copy, delete and history can only act
+#' on files that currently exist on a Dropbox store, checking to see if the
+#' \code{path} is valid before operating prevents bad API calls from being sent
+#' to the server. This functions returns a logical response after checking if a
+#' file path is valid on Dropbox.
+#'
+#' @param path The full path to a Dropbox file
 #' @template token
-#' @export
+#'
+#' @return boolean; TRUE is the file or folder exists, FALSE if it does not.
+#'
 #' @examples \dontrun{
-#' drop_create("existential_test")
-#' drop_exists("existential_test")
-#' drop_delete("existential_test")
-#'}
+#'   drop_create("existential_test")
+#'   drop_exists("existential_test")
+#'   drop_delete("existential_test")
+#' }
+#'
+#' @export
 drop_exists <- function(path = NULL, dtoken = get_dropbox_token()) {
   assertive::assert_is_not_null(path)
-  if(!grepl('^/', path)) path <- paste0("/", path)
+  if (!grepl('^/', path)) path <- paste0("/", path)
   dir_name <- suppressMessages(dirname(path))
-  dir_listing <- drop_dir_internal(path = dir_name, dtoken = dtoken)
+  dir_listing <- drop_dir(path = dir_name, dtoken = dtoken)
 
-    if(path %in% dir_listing$path) {
+    if (path %in% dir_listing$path_display) {
       TRUE
     } else {
       FALSE

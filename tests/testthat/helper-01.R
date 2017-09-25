@@ -8,6 +8,6 @@ clean_dropbox <- function(dtoken = get_dropbox_token()) {
     )
   if (x == "y") {
     files <- drop_dir()
-    sapply(files$path, drop_delete)
+    sapply(files$path_lower, drop_delete)
   }
 }

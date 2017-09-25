@@ -83,18 +83,27 @@ test_that("Sharing a Dropbox resource works correctly", {
 # ......................................
 
 context("testing search")
+
 test_that("Drop search works correctly", {
 
   skip_on_cran()
 
-drop_create("search_test")
-write.csv(mtcars, file = "mtcars.csv")
-drop_upload("mtcars.csv", path = "search_test")
-x <- drop_search("mt")
-expect_equal(x$matches[[1]]$metadata$name, "mtcars.csv")
-drop_delete("search_test")
-# A search with no query should fail
-expect_error(drop_search())
+  folder_name <- paste0("test-drop_search-", uuid::UUIDgenerate())
+  drop_create(folder_name)
+
+  write.csv(mtcars, "mtcars.csv")
+  drop_upload("mtcars.csv", path = folder_name)
+
+  x <- drop_search("mt")
+
+  expect_equal(x$matches[[1]]$metadata$name, "mtcars.csv")
+
+  # A search with no query should fail
+  expect_error(drop_search())
+
+  #cleanup
+  drop_delete(folder_name)
+  unlink("mtcars.csv")
 })
 
 

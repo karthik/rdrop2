@@ -58,35 +58,35 @@ test_that("Upload of a non-existent file fails", {
 # Test autorename
 # ------------------
 test_that("Autorename upload works correctly", {
-drop_create("add_overwrite_test")
-blank <- drop_dir("add_overwrite_test")
-expect_equal(nrow(blank), 0)
-write.csv(iris, file = "iris.csv")
-drop_upload("iris.csv", path = "add_overwrite_test")
-one_file <- drop_dir("add_overwrite_test")
-expect_equal(nrow(one_file), 1)
-expect_identical(one_file[1,]$path_lower, "/add_overwrite_test/iris.csv")
-# Write a slightly different object to the same filename
-write.csv(iris[1:6, ], file = "iris.csv")
-drop_upload("iris.csv", path = "add_overwrite_test", mode = "add")
-two_files <- drop_dir("add_overwrite_test")
-expect_equal(nrow(two_files), 2)
-# This is what I should expect
-expected_files <-
-  c("/add_overwrite_test/iris.csv",
-    "/add_overwrite_test/iris (1).csv")
-expect_identical(two_files$path_lower, expected_files)
-write.csv(iris[1:5, ], file = "iris.csv")
-drop_upload("iris.csv", path = "add_overwrite_test", mode = "add")
-three_files <- drop_dir("add_overwrite_test")
-e_3files <-
-  c(
-    "/add_overwrite_test/iris.csv",
-    "/add_overwrite_test/iris (1).csv",
-    "/add_overwrite_test/iris (2).csv"
-  )
-expect_identical(three_files$path_lower, e_3files)
-drop_delete("add_overwrite_test")
-unlink("iris.csv")
+  drop_create("add_overwrite_test")
+  blank <- drop_dir("add_overwrite_test")
+  expect_equal(nrow(blank), 0)
+  write.csv(iris, file = "iris.csv")
+  drop_upload("iris.csv", path = "add_overwrite_test")
+  one_file <- drop_dir("add_overwrite_test")
+  expect_equal(nrow(one_file), 1)
+  expect_identical(one_file[1,]$path_lower, "/add_overwrite_test/iris.csv")
+  # Write a slightly different object to the same filename
+  write.csv(iris[1:6, ], file = "iris.csv")
+  drop_upload("iris.csv", path = "add_overwrite_test", mode = "add")
+  two_files <- drop_dir("add_overwrite_test")
+  expect_equal(nrow(two_files), 2)
+  # This is what I should expect
+  expected_files <-
+    c("/add_overwrite_test/iris.csv",
+      "/add_overwrite_test/iris (1).csv")
+  expect_identical(two_files$path_lower, expected_files)
+  write.csv(iris[1:5, ], file = "iris.csv")
+  drop_upload("iris.csv", path = "add_overwrite_test", mode = "add")
+  three_files <- drop_dir("add_overwrite_test")
+  e_3files <-
+    c(
+      "/add_overwrite_test/iris.csv",
+      "/add_overwrite_test/iris (1).csv",
+      "/add_overwrite_test/iris (2).csv"
+    )
+  expect_identical(three_files$path_lower, e_3files)
+  drop_delete("add_overwrite_test")
+  unlink("iris.csv")
 })
 

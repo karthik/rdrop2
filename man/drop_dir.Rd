@@ -4,7 +4,7 @@
 \alias{drop_dir}
 \title{List folder contents and associated metadata}
 \usage{
-drop_dir(path = "/", recursive = FALSE, include_media_info = FALSE,
+drop_dir(path = "", recursive = FALSE, include_media_info = FALSE,
   include_deleted = FALSE, include_has_explicit_shared_members = FALSE,
   include_mounted_folders = TRUE, limit = NULL,
   dtoken = get_dropbox_token())
