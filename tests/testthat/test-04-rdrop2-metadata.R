@@ -4,7 +4,7 @@ test_that("Able to retrieve metadata for file in multiple ways", {
   skip_on_cran()
 
   # upload new file to root
-  file_name <- paste0("test-drop_get_metadata-", uuid::UUIDgenerate(), ".csv")
+  file_name <- traceless("test-drop-get-metadata.csv")
   write.csv(mtcars, file_name)
   drop_upload(file_name)
 
