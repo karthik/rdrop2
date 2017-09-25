@@ -41,6 +41,8 @@ drop_history <- function(path, limit = 10, dtoken = get_dropbox_token()) {
 #' }
 #'
 #' @noRd
+#'
+#' @keywords internal
 drop_list_revisions <- function(path, limit = 10, dtoken = get_dropbox_token()) {
 
   url <- "https://api.dropboxapi.com/2/files/list_revisions"
