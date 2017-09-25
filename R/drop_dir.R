@@ -1,11 +1,11 @@
 #' List folder contents and associated metadata
 #'
 #' @param path path to folder in Dropbox to list contents of. Defaults to the root directory.
-#' @param recursive If true, the list folder operation will be applied recursively to all subfolders and the response will contain contents of all subfolders. Defaults to FALSE.
-#' @param include_media_info If true, FileMetadata.media_info is set for photo and video. Defaults to FALSE.
-#' @param include_deleted If true, the results will include entries for files and folders that used to exist but were deleted. Defaults to FALSE.
-#' @param include_has_explicit_shared_members If true, the results will include a flag for each file indicating whether or not that file has any explicit members. Defaults to FALSE.
-#' @param include_mounted_folders If true, the results will include entries under mounted folders which includes app folder, shared folder and team folder. Defaults to TRUE.
+#' @param recursive If TRUE, the list folder operation will be applied recursively to all subfolders and the response will contain contents of all subfolders. Defaults to FALSE.
+#' @param include_media_info If TRUE, FileMetadata.media_info is set for photo and video. Defaults to FALSE.
+#' @param include_deleted If TRUE, the results will include entries for files and folders that used to exist but were deleted. Defaults to FALSE.
+#' @param include_has_explicit_shared_members If TRUE, the results will include a flag for each file indicating whether or not that file has any explicit members. Defaults to FALSE.
+#' @param include_mounted_folders If TRUE, the results will include entries under mounted folders which includes app folder, shared folder and team folder. Defaults to TRUE.
 #' @param limit The maximum number of results to return per request. Note: This is an approximate number and there can be slightly more entries returned in some cases. Defaults to NULL, no limit.
 #' @template token
 #'
@@ -66,6 +66,8 @@ drop_dir <- function(
 #' @references \href{https://www.dropbox.com/developers/documentation/http/documentation#files-list_folder}{API reference}
 #'
 #' @noRd
+#'
+#' @keywords internal
 drop_list_folder <- function(
   path,
   recursive = FALSE,
@@ -109,6 +111,8 @@ drop_list_folder <- function(
 #' Helper function for fetching additional results
 #'
 #' @noRd
+#'
+#' @keywords internal
 drop_list_folder_continue <- function(cursor, dtoken = get_dropbox_token()) {
 
   url <- "https://api.dropboxapi.com/2/files/list_folder/continue"
