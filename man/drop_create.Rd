@@ -4,15 +4,14 @@
 \alias{drop_create}
 \title{Creates a folder on Dropbox}
 \usage{
-drop_create(path = NULL, root = "auto", verbose = FALSE,
+drop_create(path = NULL, autorename = FALSE, verbose = FALSE,
   dtoken = get_dropbox_token())
 }
 \arguments{
 \item{path}{This is required The path to the new folder to create relative to
 root.}
 
-\item{root}{This is required. The root relative to which path is specified.
-Valid values are auto (recommended and also the default), sandbox, and dropbox.}
+\item{autorename}{Set to \code{TRUE} to automatically rename. Default is FALSE.}
 
 \item{verbose}{By default verbose output is \code{FALSE}. Set to \code{TRUE}
 if you need to troubleshoot any output or grab additional parameters.}
