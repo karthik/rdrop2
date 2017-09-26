@@ -57,7 +57,7 @@ drop_list_revisions <- function(path, limit = 10, dtoken = get_dropbox_token()) 
     encode = "json"
   )
 
-  stop_for_status(req)
+  httr::stop_for_status(req)
 
   httr::content(req)
 }
