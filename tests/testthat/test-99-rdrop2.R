@@ -29,16 +29,17 @@ test_that("Moving files works correctly", {
   file_name <- traceless("move.csv")
   write.csv(iris, file = file_name)
   drop_upload(file_name)
-  drop_create("move_test")
-  drop_move(file_name, paste0("/move_test/", file_name))
-  res <- drop_dir("move_test")
+  mtest <- traceless("move_test")
+  drop_create(mtest)
+  drop_move(file_name, paste0("/", mtest, "/", file_name))
+  res <- drop_dir(mtest)
   # problem
   expect_identical(basename(file_name), basename(res$path_lower))
   # Now test that the file is there.
   # do a search for the path/file
   # the make sure it exists
   # ......................................
-  drop_delete("/move_test")
+  drop_delete(mtest)
   unlink(file_name)
 })
 
