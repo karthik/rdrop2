@@ -11,6 +11,7 @@ LazyData: true
 Imports: 
          assertive,
          data.table,
+         digest,
          dplyr,
          httr,
          jsonlite,
