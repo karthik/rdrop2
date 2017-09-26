@@ -99,7 +99,7 @@ test_that("Revisions are returned correctly", {
   skip_on_cran()
 
   # upload once
-  file_name <- paste0("test-drop_history-", uuid::UUIDgenerate(), ".csv")
+  file_name <- traceless("drop_history_iris.csv")
   write.csv(iris, file_name)
   drop_upload(file_name)
 
