@@ -183,18 +183,3 @@ test_that("drop_read_csv works correctly", {
   unlink(file_name)
   drop_delete(file_name)
 })
-
-
-# drop_delta
-test_that("drop_delta works correctly", {
-  skip_on_cran()
-
-  file_name <- traceless("drop-delta.csv")
-  write.csv(iris, file = file_name)
-  z <- drop_delta(path_prefix = "/")
-  expected_names <- c("has_more", "cursor", "entries", "reset")
-  expect_identical(names(z), expected_names)
-
-  # unlink
-  unlink(file_name)
-})
