@@ -8,7 +8,8 @@ context("Testing drop copy")
 expect_that("drop_copy works correctly", {
 # Copying files to files only
 # ------------------------
-
+# We need to start with a clean slate
+expect_equal(nrow(drop_dir()), 0)
 # Copy a file to a new name
 write.csv(iris, "iris.csv")
 drop_upload("iris.csv")
