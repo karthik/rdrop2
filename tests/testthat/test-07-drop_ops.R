@@ -6,40 +6,42 @@ context("Testing drop copy")
 # while we work through them
 
 expect_that("drop_copy works correctly", {
+
 # Copying files to files only
 # ------------------------
 # We need to start with a clean slate
-expect_equal(nrow(drop_dir()), 0)
+cfile_name <- traceless("iris-copy.csv")
 # Copy a file to a new name
-write.csv(iris, "iris.csv")
-drop_upload("iris.csv")
-expect_equal(nrow(drop_dir()), 1)
+write.csv(iris, cfile_name)
+drop_upload(cfile_name)
+num_copy_files <- drop_dir()  %>% select(name, contains("iris-copy")) %>% nrow
+expect_equal(num_copy_files, 1)
 # Copy to a new name, same folder
-drop_copy("iris.csv", "iris2.csv")
-expect_equal(nrow(drop_dir()), 2)
-exp_2 <- sort(c("iris2.csv", "iris.csv" ))
+cfile_name2 <- traceless("iris-copy.csv")
+drop_copy(cfile_name, cfile_name2)
+num_copy_files2 <- drop_dir()  %>% select(name, contains("iris-copy")) %>% nrow
+expect_equal(num_copy_files2, 2)
+exp_2 <- sort(c(cfile_name, cfile_name2))
 server_exp_2 <- drop_dir() %>% dplyr::select(name) %>% pull %>% sort
 expect_identical(exp_2, server_exp_2)
 # Copy to same name, but autorename is TRUE
-drop_copy('iris.csv', "iris.csv", autorename = TRUE)
-expect_equal(nrow(drop_dir()), 3)
-exp_3 <- sort(c("iris2.csv", "iris.csv", "iris (1).csv"))
-server_exp_3 <- drop_dir() %>% dplyr::select(name) %>% pull %>% sort
-expect_identical(exp_3, server_exp_3)
+file_3 <- drop_copy(cfile_name, cfile_name, autorename = TRUE)
+num_copy_files3 <- drop_dir()  %>% select(name, contains("iris-copy")) %>% nrow
+expect_equal(num_copy_files3 , 3)
 
 # Copying files to folders
 # ------------------------
 drop_create("copy_folder")
-drop_copy("iris.csv", "copy_folder")
-dc_dir <-  drop_dir("copy_folder") %>% dplyr::select(name) %>% pull
-expect_equal(dc_dir, "iris.csv")
+drop_copy(cfile_name, "copy_folder")
+dc_dir <-  drop_dir("copy_folder") %>% dplyr::select(name, contains(cfile_name)) %>% pull
+expect_equal(dc_dir, cfile_name)
 
 # Copying folders to existing folders
 # ------------------------
 drop_create("copy_folder_2")
 drop_copy("copy_folder", "copy_folder_2")
 copy_folder_2_contents <- drop_dir("copy_folder_2/copy_folder") %>% dplyr::select(name) %>% pull
-expect_equal(copy_folder_2_contents, "iris.csv")
+expect_equal(copy_folder_2_contents, cfile_name)
 
 # Copying files to new folders
 # ------------------------
@@ -51,9 +53,9 @@ expect_identical(d1, d2)
 drop_delete("kerfuffle")
 drop_delete("copy_folder")
 drop_delete("copy_folder_2")
-drop_delete("iris.csv")
-drop_delete("iris2.csv")
-drop_delete("iris (1).csv")
+drop_delete(cfile_name)
+drop_delete(cfile_name2)
+drop_delete(file_3$metadata$path_lower)
 })
 
 # TODO
@@ -117,6 +119,7 @@ test_that("Drop delete works correctly", {
   fake_file <- traceless("delete.csv")
   # Fails
   expect_error(drop_delete(fake_file))
+  unlink(file_name)
 })
 
 # --------------------------
