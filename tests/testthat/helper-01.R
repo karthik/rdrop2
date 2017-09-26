@@ -1,14 +1,16 @@
 
 
 #' Use this function to clean out your Dropbox in case there are stray files left over from a failed test.
-clean_dropbox <- function(dtoken = get_dropbox_token()) {
+clean_dropbox <- function(x = "" , dtoken = get_dropbox_token()) {
+  if(x != "y") {
   x <-
     readline(
       "WARNING: this will delete everything in your Dropbox account.  \n Do not do this unless this is a test account. Are you sure?? (y/n)"
     )
+  }
   if (x == "y") {
     files <- drop_dir()
-    sapply(files$path_lower, drop_delete)
+    suppressWarnings(sapply(files$path_lower, drop_delete))
   }
 }
 
