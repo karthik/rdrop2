@@ -4,16 +4,24 @@
 \alias{drop_move}
 \title{Moves a file or folder to a new location.}
 \usage{
-drop_move(from_path = NULL, to_path = NULL, root = "auto",
-  verbose = FALSE, dtoken = get_dropbox_token())
+drop_move(from_path = NULL, to_path = NULL, allow_shared_folder = FALSE,
+  autorename = FALSE, allow_ownership_transfer = FALSE, verbose = FALSE,
+  dtoken = get_dropbox_token())
 }
 \arguments{
 \item{from_path}{Source file or folder}
 
 \item{to_path}{destination file or folder}
 
-\item{root}{This is required. The root relative to which path is specified.
-Valid values are auto (recommended and also the default), sandbox, and dropbox.}
+\item{allow_shared_folder}{If \code{TRUE}, copy will copy contents in shared
+folder}
+
+\item{autorename}{If there's a conflict, have the Dropbox server try to
+autorename the file to avoid the conflict.}
+
+\item{allow_ownership_transfer}{Allow moves by owner even if it would result
+in an ownership transfer for the content being moved. This does not apply
+to copies. The default for this field is False.}
 
 \item{verbose}{By default verbose output is \code{FALSE}. Set to \code{TRUE}
 if you need to troubleshoot any output or grab additional parameters.}
