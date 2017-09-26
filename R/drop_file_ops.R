@@ -1,10 +1,17 @@
 
-#'Copies a file or folder to a new location.
+
+#' Copies a file or folder to a new location.
 #'
 #' @template from_to
-#' @template root
 #' @template verbose
 #' @template token
+#' @param allow_shared_folder  If \code{TRUE}, copy will copy contents in shared
+#'   folder
+#' @param autorename If there's a conflict, have the Dropbox server try to
+#'   autorename the file to avoid the conflict.
+#' @param allow_ownership_transfer Allow moves by owner even if it would result
+#'   in an ownership transfer for the content being moved. This does not apply
+#'   to copies. The default for this field is False.
 #' @export
 #' @examples \dontrun{
 #' write.csv(mtcars, file = "mt.csv")
@@ -12,35 +19,82 @@
 #' drop_create("drop_test2")
 #' drop_copy("mt.csv", "drop_test2/mt2.csv")
 #' }
-drop_copy <- function(from_path = NULL, to_path = NULL, root = "auto", verbose = FALSE, dtoken = get_dropbox_token())  {
-  move_url <- "https://api.dropbox.com/1/fileops/copy"
-     args <- as.list(drop_compact(c(root = root,
-                                    from_path = from_path,
-                                    to_path = to_path)))
-  # TODO
-  # here if to_path is just a path, append filename at the end
-  if(drop_exists(from_path)) {
-    # copy
-    x <-POST(move_url, config(token = dtoken), query = args, encode = "form")
-    res <- content(x)
-    if(!verbose) {
-      message(sprintf("%s copied to %s", basename(res$path), dirname(res$path)))
+drop_copy <-
+  function(from_path = NULL,
+           to_path = NULL,
+           allow_shared_folder = FALSE,
+           autorename = FALSE,
+           allow_ownership_transfer = FALSE,
+           verbose = FALSE,
+           dtoken = get_dropbox_token())  {
+    copy_url <- "https://api.dropboxapi.com/2/files/copy_v2"
+
+    from_path <- add_slashes(from_path)
+    to_path <- add_slashes(to_path)
+
+    # Copying a file into a folder
+    file_to_folder <-
+      c(drop_type(from_path) == "file",
+        drop_type(to_path) == "folder")
+    to_path <-
+      ifelse(all(file_to_folder), paste0(to_path, from_path), to_path)
+
+    # coping a folder to another folder
+    folder_to_folder <-
+      c(drop_type(from_path) == "folder",
+        drop_type(to_path) == "folder")
+    to_path <-
+      ifelse(all(folder_to_folder), paste0(to_path, from_path), to_path)
+
+    # Copying a file to a file
+    # Nothing to do, since both paths reflect origin and destination
+
+    # Copying a folder to an existing filename will result in a HTTP 409 (conflict error)
+
+    args <- drop_compact(
+      list(
+        from_path = from_path,
+        to_path = to_path,
+        allow_shared_folder = allow_shared_folder,
+        autorename = autorename,
+        allow_ownership_transfer = allow_ownership_transfer
+      )
+    )
+
+    if (drop_exists(from_path)) {
+      # copy
+      x <-
+        httr::POST(copy_url,
+                   httr::config(token = dtoken),
+                   body = args,
+                   encode = "json")
+      res <- httr::content(x)
+      if (!verbose) {
+        message(sprintf("%s copied to %s", from_path, res$metadata$path_lower))
+        invisible(res)
+      } else {
+        pretty_lists(res)
+        invisible(res)
+      }
     } else {
-      pretty_lists(res)
-      invisible(res)
+      stop("File or folder not found \n")
+      FALSE
     }
-  } else {
-    stop("File or folder not found \n")
-    FALSE
   }
-}
+
 
 #'Moves a file or folder to a new location.
 #'
 #' @template from_to
-#' @template root
 #' @template verbose
 #' @template token
+#' @param allow_shared_folder  If \code{TRUE}, copy will copy contents in shared
+#'   folder
+#' @param autorename If there's a conflict, have the Dropbox server try to
+#'   autorename the file to avoid the conflict.
+#' @param allow_ownership_transfer Allow moves by owner even if it would result
+#'   in an ownership transfer for the content being moved. This does not apply
+#'   to copies. The default for this field is False.
 #' @export
 #' @examples \dontrun{
 #' write.csv(mtcars, file = "mt.csv")
@@ -48,52 +102,105 @@ drop_copy <- function(from_path = NULL, to_path = NULL, root = "auto", verbose =
 #' drop_create("drop_test2")
 #' drop_move("mt.csv", "drop_test2/mt.csv")
 #' }
-drop_move <- function(from_path = NULL, to_path = NULL, root = "auto", verbose = FALSE, dtoken = get_dropbox_token())  {
-  move_url <- "https://api.dropbox.com/1/fileops/move"
-     args <- as.list(drop_compact(c(root = root,
-                                    from_path = from_path,
-                                    to_path = to_path)))
-  # TODO
-  # here if to_path is just a path, append filename at the end
-  if(drop_exists(from_path)) {
-    x <-POST(move_url, config(token = dtoken), query = args, encode = "form")
-    res <- content(x)
-    if(!verbose) {
-      message(sprintf("%s moved to %s", from_path, res$path))
+drop_move <-
+  function(from_path = NULL,
+           to_path = NULL,
+           allow_shared_folder = FALSE,
+           autorename = FALSE,
+           allow_ownership_transfer = FALSE,
+           verbose = FALSE,
+           dtoken = get_dropbox_token())  {
+    move_url <- "https://api.dropboxapi.com/2/files/move_v2"
+
+    from_path <- add_slashes(from_path)
+    to_path <- add_slashes(to_path)
+
+    # Moving a file into a folder
+    file_to_folder <-
+      c(drop_type(from_path) == "file",
+        drop_type(to_path) == "folder")
+    to_path <-
+      ifelse(all(file_to_folder), paste0(to_path, from_path), to_path)
+
+    # Moving a folder to another folder
+    folder_to_folder <-
+      c(drop_type(from_path) == "folder",
+        drop_type(to_path) == "folder")
+    to_path <-
+      ifelse(all(folder_to_folder), paste0(to_path, from_path), to_path)
+
+    # Moving a file to a file
+    # Nothing to do, since both paths reflect origin and destination
+
+    # Moving a folder to an existing filename will result in a HTTP 409 (conflict error)
+
+    args <- drop_compact(
+      list(
+        from_path = from_path,
+        to_path = to_path,
+        allow_shared_folder = allow_shared_folder,
+        autorename = autorename,
+        allow_ownership_transfer = allow_ownership_transfer
+      )
+    )
+
+    if (drop_exists(from_path)) {
+      # move
+      x <-
+        httr::POST(move_url,
+                   httr::config(token = dtoken),
+                   body = args,
+                   encode = "json")
+      res <- httr::content(x)
+
+      if (!verbose) {
+        message(sprintf("%s moved to %s", from_path, res$metadata$path_lower))
+        invisible(res)
+      } else {
+        pretty_lists(res)
+        invisible(res)
+      }
     } else {
-      pretty_lists(res)
-      invisible(res)
+      stop("File or folder not found \n")
+      FALSE
     }
-  } else {
-    stop("File or folder not found \n")
-    FALSE
   }
-}
 
 
 #'Deletes a file or folder.
 #'
 #' @template path
-#' @template root
 #' @template verbose
 #' @template token
 #' @export
-drop_delete <- function (path = NULL, root = "auto", verbose = FALSE, dtoken = get_dropbox_token()) {
-    create_url <- "https://api.dropbox.com/1/fileops/delete"
-   if(drop_exists(path)) { # file was found
-        # do delete
-      x <-POST(create_url, config(token = dtoken), body = list(root = root, path = path), encode = "form")
-      if(verbose) {
-        content(x) } else {
-          if(content(x)$is_deleted) message(sprintf('%s was successfully deleted', path))
-          invisible(content(x))
-        }
+drop_delete <-
+  function (path = NULL,
+            verbose = FALSE,
+            dtoken = get_dropbox_token()) {
+    create_url <- "https://api.dropboxapi.com/2/files/delete_v2"
+    if (drop_exists(path)) {
+      path <- add_slashes(path)
+      x <-
+        httr::POST(
+          create_url,
+          httr::config(token = dtoken),
+          body = list(path = path),
+          encode = "json"
+        )
+      res <- httr::content(x)
+
+      if (verbose) {
+        res
+      } else {
+        message(sprintf('%s was successfully deleted', res$metadata$path_display))
+        invisible(res)
+      }
     } else {
       # Since file/folder wasn't found, report a stop error
       stop("File not found on current path")
       FALSE
     }
-}
+  }
 
 
 #'Creates a folder on Dropbox
@@ -101,31 +208,44 @@ drop_delete <- function (path = NULL, root = "auto", verbose = FALSE, dtoken = g
 #'Returns a list containing the following fields: "size", "rev", "thumb_exists",
 #'"bytes", "modified", "path", "is_dir", "icon", "root", "revision"
 #'@template path
-#'@template root
+#'@param autorename Set to \code{TRUE} to automatically rename. Default is FALSE.
 #'@template verbose
 #'@template token
 #'@export
 #' @examples \dontrun{
 #' drop_create(path = "foobar")
 #'}
-drop_create <- function(path = NULL, root = "auto", verbose = FALSE, dtoken = get_dropbox_token()) {
+drop_create <-
+  function(path = NULL,
+           autorename = FALSE,
+           verbose = FALSE,
+           dtoken = get_dropbox_token()) {
+    if (!drop_exists(path)) {
+      create_url <- "https://api.dropboxapi.com/2/files/create_folder_v2"
 
-  if (!drop_exists(path)) {
-    create_url <- "https://api.dropbox.com/1/fileops/create_folder"
-    x <- POST(create_url, config(token = dtoken), body = list(root = root, path = path), encode = "form")
-    results <- content(x)
+      path <- add_slashes(path)
+      x <-
+        httr::POST(
+          create_url,
+          config(token = dtoken),
+          body = list(path = path, autorename = autorename),
+          encode = "json"
+        )
+      results <- httr::content(x)
+      browser()
+      if (verbose) {
+        pretty_lists(results)
+        invisible(results)
+      } else {
+          message(sprintf("Folder %s created successfully \n", results$metadata$path_lower))
+          invisible(results)
+      }
 
-    if (verbose) {
-      pretty_lists(results)
+      invisible(results)
     } else {
-      if (results$is_dir) message(sprintf("Folder %s created successfully \n", path))
+      stop("Folder already exists")
     }
-
-    invisible(results)
-  } else {
-    stop("Folder already exists")
   }
-}
 
 
 
@@ -154,15 +274,44 @@ drop_create <- function(path = NULL, root = "auto", verbose = FALSE, dtoken = ge
 #' @export
 drop_exists <- function(path = NULL, dtoken = get_dropbox_token()) {
   assertive::assert_is_not_null(path)
-  if (!grepl('^/', path)) path <- paste0("/", path)
+  if (!grepl('^/', path))
+    path <- paste0("/", path)
   dir_name <- suppressMessages(dirname(path))
   dir_listing <- drop_dir(path = dir_name, dtoken = dtoken)
 
-    if (path %in% dir_listing$path_display) {
-      TRUE
-    } else {
-      FALSE
-    }
+  if (path %in% dir_listing$path_display) {
+    TRUE
+  } else {
+    FALSE
+  }
 
 }
 
+#' Checks if an object is a file on Dropbox
+#'
+#' @noRd
+drop_is_file <- function(x, dtoken = get_dropbox_token()) {
+  x <- drop_get_metadata(x)
+  ifelse(x$.tag == "file", TRUE, FALSE)
+}
+
+#' Checks if an object is a folder on Dropbox
+#'
+#' @noRd
+drop_is_folder <- function(x, dtoken = get_dropbox_token()) {
+  x <- drop_get_metadata(x)
+  ifelse(x$.tag == "folder", TRUE, FALSE)
+}
+
+#' Checks on a name and returns file, folder, or FALSE for dropbox status
+#' @noRd
+drop_type <- function(x, dtoken = get_dropbox_token()) {
+  safe_meta <-
+    purrr::safely(drop_get_metadata, otherwise = FALSE, quiet = TRUE)
+  x <- safe_meta(x)
+  if (length(x$result) == 1 && !x$result) {
+    FALSE
+  } else {
+    x$result$.tag
+  }
+}

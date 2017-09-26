@@ -15,7 +15,8 @@ Imports:
          dplyr,
          httr,
          jsonlite,
-         magrittr
+         magrittr,
+         purrr
 Suggests: testthat,
           uuid
 RoxygenNote: 6.0.1
