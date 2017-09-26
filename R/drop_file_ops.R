@@ -220,7 +220,10 @@ drop_create <-
            autorename = FALSE,
            verbose = FALSE,
            dtoken = get_dropbox_token()) {
-    if (!drop_exists(path)) {
+
+   # if a folder exists, but autorename is TRUE, proceed
+   # However, if a folder exists, and autorename if FALSE, fail in the else.
+    if (!drop_exists(path) || autorename) {
       create_url <- "https://api.dropboxapi.com/2/files/create_folder_v2"
 
       path <- add_slashes(path)
@@ -232,7 +235,7 @@ drop_create <-
           encode = "json"
         )
       results <- httr::content(x)
-      browser()
+
       if (verbose) {
         pretty_lists(results)
         invisible(results)
