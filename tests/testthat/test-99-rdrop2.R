@@ -4,53 +4,7 @@
 
 context("old tests")
 
-# drop_copy
-test_that("Copying files works correctly", {
-  skip_on_cran()
 
-  file_name <- traceless("copy.csv")
-  folder_name <- traceless("drop_copy")
-  write.csv(iris, file = file_name)
-  drop_upload(file_name)
-  drop_create(folder_name)
-
-  # Try a duplicate create. This should fail
-  expect_error(drop_create(folder_name))
-  drop_upload(file_name)
-  drop_copy(file_name, paste0("/",folder_name, "/", file_name))
-
-  res <- drop_dir(folder_name)
-  expect_identical(basename(file_name), basename(res$path_lower))
-
-  # cleanup
-  drop_delete(folder_name)
-  unlink(file_name)
-  drop_delete(file_name)
-})
-
-
-# drop_move
-test_that("Moving files works correctly", {
-  skip_on_cran()
-
-  file_name <- traceless("move.csv")
-  write.csv(iris, file = file_name)
-  drop_upload(file_name)
-
-  mtest <- traceless("move_test")
-  drop_create(mtest)
-  drop_move(file_name, paste0("/", mtest, "/", file_name))
-  res <- drop_dir(mtest)
-  # problem
-  expect_identical(basename(file_name), basename(res$path_lower))
-  # Now test that the file is there.
-  # do a search for the path/file
-  # the make sure it exists
-
-  # cleanup
-  drop_delete(mtest)
-  unlink(file_name)
-})
 
 
 # drop_shared
@@ -129,26 +83,6 @@ test_that("drop_history works correctly", {
   unlink(file_name)
 })
 
-
-# drop_exists
-test_that("drop_exists works correctly", {
-  skip_on_cran()
-
-  folder_name <- traceless("drop_exists")
-  drop_create(folder_name)
-
-  expect_true(drop_exists(folder_name))
-  expect_false(drop_exists(traceless("stuffnthings")))
-
-  # Now test files inside subfolders
-  write.csv(iris, file = "iris.csv")
-  drop_upload("iris.csv", path = folder_name)
-  expect_true(drop_exists(paste0(folder_name, "/iris.csv")))
-
-  #cleanup
-  drop_delete(folder_name)
-  unlink("iris.csv")
-})
 
 
 # drop_media
