@@ -10,7 +10,7 @@ test_that("drop_copy works correctly", {
   # # Copying files to files only
   # # ------------------------
   # We need to start with a clean slate
-  clean_test_data("iris-test-copy")
+  # clean_test_data("iris-test-copy")
   cfile_name <- traceless("iris-test-copy.csv")
   # Copy a file to a new name
   write.csv(iris, cfile_name)

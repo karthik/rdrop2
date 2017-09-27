@@ -135,3 +135,6 @@ test_that("drop_read_csv works correctly", {
   unlink(file_name)
   drop_delete(file_name)
 })
+
+# Final cleanup of test files
+clean_test_data()
