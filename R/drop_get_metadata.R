@@ -5,7 +5,7 @@
 #' @param path Path to a file or folder on dropbox. Can also be an ID ("id:...") or revision ("rev:...").
 #' @param include_media_info If TRUE, additional metadata for photo or video is returns. Defaults to FALSE.
 #' @param include_deleted If TRUE, metadata will be returned for a deleted file, otherwise error. Defaults to FALSE.
-#' @param include_has_explicit_shared_members If TRUE, the reuslts will include a flag for each file indicating whether or not that file has any explicit members. Defaults to FALSE.
+#' @param include_has_explicit_shared_members If TRUE, the results will include a flag for each file indicating whether or not that file has any explicit members. Defaults to FALSE.
 #' @template token
 #'
 #' @return possibly-nested list of all available metadata for specified file/folder/id/revision.
