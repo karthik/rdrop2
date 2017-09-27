@@ -1,8 +1,5 @@
 # !diagnostics off
 context("Testing drop_upload")
-library(dplyr)
-sprintf("Number of files on Dropbox", nrow(drop_dir("")))
-
 
 # Test a basic file upload
 # -------------------------
@@ -52,6 +49,8 @@ test_that("Image upload works correctly", {
 # ----------------------------------
 
 test_that("Upload of a non-existent file fails", {
+  skip_on_cran()
+
   expect_error(drop_upload("higgledy-piggledy.csv"))
   expect_error(drop_upload("higgledy-piggledy.csv", mode = "stuff"))
 })
@@ -59,6 +58,7 @@ test_that("Upload of a non-existent file fails", {
 # Test autorename
 # ------------------
 test_that("Autorename upload works correctly", {
+  skip_on_cran()
 
   autorename_folder <- traceless("autorename_test")
   drop_create(autorename_folder)
