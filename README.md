@@ -42,8 +42,15 @@ saveRDS(token, file = "token.rds")
 
 ```r
 library(dplyr)
-drop_acc() %>% 
-    select(uid, display_name, email_verified, quota_info.quota)
+drop_acc() %>% data.frame()
+# Returns the following fields
+# [1] "account_id"            "name.given_name"      
+#  [3] "name.surname"          "name.familiar_name"   
+#  [5] "name.display_name"     "name.abbreviated_name"
+#  [7] "email"                 "email_verified"       
+#  [9] "disabled"              "country"              
+# [11] "locale"                "referral_link"        
+# [13] "is_paired"             ".tag"        
 ```
 
 #### Dropbox directory listing
