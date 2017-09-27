@@ -137,4 +137,7 @@ test_that("drop_read_csv works correctly", {
 })
 
 # Final cleanup of test files
-clean_test_data()
+test_that("final cleanup", {
+  skip_on_cran()
+  clean_test_data()
+})
