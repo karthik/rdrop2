@@ -1,28 +1,19 @@
 # rdrop2 - Dropbox interface from R  ![a_box](drop_thumbnail.png)  
 
-V2-API README. Currently a WIP.
-
----
 
 [![Build Status](https://travis-ci.org/karthik/rdrop2.svg)](https://travis-ci.org/karthik/rdrop2)  [![Coverage Status](https://coveralls.io./repos/karthik/rdrop2/badge.svg)](https://coveralls.io/r/karthik/rdrop2) [![](http://cranlogs.r-pkg.org/badges/rdrop2)](http://cran.rstudio.com/web/packages/rdrop2/index.html)  [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/rdrop2)](http://cran.r-project.org/web/packages/rdrop2)
 
 
 
-This package provides programmatic access to Dropbox from R. The functions in this package provide access to a full suite of file operations, including dir/copy/move/delete operations, account information (including quotas) and the ability to upload and download files from any Dropbox account. This package replaces the old [rDrop](https://github.com/karthik/rDrop). 
+This package provides programmatic access to Dropbox from R. The functions in this package provide access to a full suite of file operations, including dir/copy/move/delete operations, account information (including quotas) and the ability to upload and download files from any Dropbox account.  
 
 
 __Installation__  
 
-A stable version `0.7` can be installed from [CRAN](http://cran.r-project.org/web/packages/rdrop2/index.html)
+**Important:** The Dropbox API migrates to V2 on September 28th, 2017. After that date, `0.7.0` and lower versions (ones currently on CRAN) of this package will no longer work. You will need to install `0.8` or above from GitHub till this newer version becomes available on CRAN.
 
-```r
-install.packages('rdrop2')
 ```
-
-__Development version__  
-
-```r
-devtools::install_github('karthik/rdrop2')
+devtools::install_github("karthik/rdrop2")
 ```
 
 __Authentication__
@@ -33,6 +24,15 @@ drop_auth()
 # This will launch your browser and request access to your Dropbox account. You will be prompted to log in if you aren't already logged in.
 # Once completed, close your browser window and return to R to complete authentication. 
 # The credentials are automatically cached (you can prevent this) for future use.
+
+# If you wish to save the tokens, for local/remote use
+
+token <- drop_auth()
+saveRDS(token, file = "token.rds")
+
+# Then in any drop_* function, pass `dtoken = token
+# Tokens are valid until revoked.
+
 ```
 
 #### Retrieve Dropbox account information
@@ -188,6 +188,8 @@ drop_acc(dtoken = token)
 ```
 
 
-__Bugs and known issues__
+__Meta__
 
-* Given that this package hasn't been around for very long there are likely some undiscovered issues. So please file any [issues](https://github.com/karthik/rdrop2/issues) or problems as they arise.
+* Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
+
+* For bug reports and known problems, please look over the [issues](https://github.com/karthik/rdrop2/issues) before filing a new report.
