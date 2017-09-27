@@ -1,7 +1,23 @@
 
 # Contributing to rdrop2
 
+
 * Before filing an issue, make sure it's not already on the queue or something listed for a future milestone. Please be sure to include package version (`packageVersion("rdrop2")` or your `devtools::session_info()` output) in your issue report.
-*  Also be sure to check known issues at the bottom of the `README`.
 *  If you have a feature update or fix to contribute, fork the repo and send a pull request with detailed enough notes so I can quickly understand what you have added. 
-*  NOTE: Travis checks will likely not pass on your pull request because credentials to one of my (rarely used) Dropbox accounts are encrypted in the tests folder and [only decrypted for builds under my own account](http://docs.travis-ci.com/user/pull-requests/#Security-Restrictions-when-testing-Pull-Requests). So when you submit PRs, I'll have to test locally. You are also encouraged to do the same by adding your `.httr-oauth` file to the tests folder (the file is ignored on `.gitignore` so it should not get committed to GitHub).
+
+⚠ IMPORTANT INFORMATION REGARDING TESTING ⚠ 
+
+- Travis checks will likely pass on your pull request because the credentials are only decrypted on Travis for the maintainers (@karthik, @ClaytonJY). 
+
+- Before sending a PR, make sure tests pass for you locally. To test:
+
+```r
+# first authenticate into your own account
+token <- drop_auth(new_user = TRUE)
+saveRDS(token, "tests/testthat/token.rds")
+# Now run the tests as usual
+```
+
+Since `token.rds` is git ignored (as is `.httr-oauth`) your credentials will NOT end up on this repository. But you must have tests pass (and make a note of that) when you PR. A maintainer will checkout your request, make sure everything passes, and following comments, re-trigger Travis before merging.
+
+
