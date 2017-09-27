@@ -78,7 +78,6 @@ drop_copy <-
       }
     } else {
       stop("File or folder not found \n")
-      FALSE
     }
   }
 
@@ -162,7 +161,6 @@ drop_move <-
       }
     } else {
       stop("File or folder not found \n")
-      FALSE
     }
   }
 
@@ -198,7 +196,6 @@ drop_delete <-
     } else {
       # Since file/folder wasn't found, report a stop error
       stop("File not found on current path")
-      FALSE
     }
   }
 

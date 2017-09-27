@@ -9,6 +9,7 @@ test_that("drop_copy works correctly", {
 # # Copying files to files only
 # # ------------------------
 # We need to start with a clean slate
+clean_test_data("iris-test-copy")
 cfile_name <- traceless("iris-test-copy.csv")
 # Copy a file to a new name
 write.csv(iris, cfile_name)
@@ -18,6 +19,10 @@ cfile_name2 <- traceless("iris-test-copy.csv")
 drop_copy(cfile_name, cfile_name2)
 exp_2 <- sort(c(cfile_name, cfile_name2))
 server_exp_2 <- sort(drop_dir()$name)
+cat("\n")
+cat(exp_2)
+cat("\n")
+cat(server_exp_2)
 expect_identical(exp_2, server_exp_2)
 # Copy to same name, but autorename is TRUE
 file_3 <- drop_copy(cfile_name, cfile_name, autorename = TRUE)
