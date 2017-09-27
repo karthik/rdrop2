@@ -22,7 +22,7 @@ Dropbox webserver, used to provide a preview of the file, so that you can
 effectively stream the contents of your media. This URL should not be used to
 display content directly in the browser. IMPORTANT: The media link will expire
 after 4 hours. So you'll need to cache the content with knitr cache OR re-run
-the function call after exipry.
+the function call after expiry.
 }
 \examples{
 \dontrun{

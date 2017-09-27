@@ -12,7 +12,7 @@ drop_share(path = NULL, requested_visibility = "public",
 root.}
 
 \item{requested_visibility}{Can be `public`, `team_only`, or `password`. If the
-passsword option is chosen one must specify the `link_password`. Note that
+password option is chosen one must specify the `link_password`. Note that
 for basic (i.e. free) Dropbox accounts, the only option is to publicly
 share. Private sharing requires a pro account.}
 
