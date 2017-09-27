@@ -1,14 +1,17 @@
 # rdrop2 - Dropbox interface from R  ![a_box](drop_thumbnail.png)  
 
 
-[![Build Status](https://travis-ci.org/karthik/rdrop2.svg)](https://travis-ci.org/karthik/rdrop2)  [![Coverage Status](https://coveralls.io./repos/karthik/rdrop2/badge.svg)](https://coveralls.io/r/karthik/rdrop2) [![](http://cranlogs.r-pkg.org/badges/rdrop2)](http://cran.rstudio.com/web/packages/rdrop2/index.html)  [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/rdrop2)](http://cran.r-project.org/web/packages/rdrop2)
+
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+ [![Build Status](https://travis-ci.org/karthik/rdrop2.svg)](https://travis-ci.org/karthik/rdrop2)  [![Coverage Status](https://coveralls.io./repos/karthik/rdrop2/badge.svg)](https://coveralls.io/r/karthik/rdrop2) [![](http://cranlogs.r-pkg.org/badges/rdrop2)](http://cran.rstudio.com/web/packages/rdrop2/index.html)  [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/rdrop2)](http://cran.r-project.org/web/packages/rdrop2)
+
+__Maintainers:__ Karthik Ram (@karthik) and Clayton Yochum (@ClaytonJY)
 
 
+This package provides programmatic access to Dropbox from R. The functions in this package provide access to a full suite of file operations, including dir/copy/move/delete operations, account information and the ability to upload and download files from any Dropbox account.  
 
-This package provides programmatic access to Dropbox from R. The functions in this package provide access to a full suite of file operations, including dir/copy/move/delete operations, account information (including quotas) and the ability to upload and download files from any Dropbox account.  
 
-
-__Installation__  
+### Installation  
 
 **Important:** The Dropbox API migrates to V2 on September 28th, 2017. After that date, `0.7.0` and lower versions (ones currently on CRAN) of this package will no longer work. You will need to install `0.8` or above from GitHub till this newer version becomes available on CRAN.
 
@@ -16,7 +19,7 @@ __Installation__
 devtools::install_github("karthik/rdrop2")
 ```
 
-__Authentication__
+### Authentication
 
 ```r
 library(rdrop2)
