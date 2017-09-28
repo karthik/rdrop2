@@ -78,7 +78,7 @@ drop_download <- function(
   }
 
   # return full path to file, invisibly
-  invisible(as.character(req$content))
+  invisible(as.character(httr::content(req)))
 }
 
 
