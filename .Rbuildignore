@@ -16,3 +16,4 @@ cache/
 CONTRIBUTING.md
 NEWS.md
 cran-comments.md
+^CONDUCT\.md$
