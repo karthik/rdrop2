@@ -13,9 +13,12 @@ This package provides programmatic access to Dropbox from R. The functions in th
 
 ### Installation  
 
-**Important:** The Dropbox API migrates to V2 on September 28th, 2017. After that date, `0.7.0` and lower versions (ones currently on CRAN) of this package will no longer work. You will need to install `0.8` or above from GitHub till this newer version becomes available on CRAN.
 
 ```
+# Current CRAN version (0.8)
+install.packages('rdrop2')
+
+# or the development version (0.8.9999)
 devtools::install_github("karthik/rdrop2")
 ```
 
