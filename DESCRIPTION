@@ -1,6 +1,6 @@
 Package: rdrop2
 Title: Programmatic Interface to the 'Dropbox' API
-Version: 0.8.101
+Version: 0.8.1
 Authors@R: person("Karthik", "Ram", , "karthik.ram@gmail.com", c("aut", "cre"),
            person("Clayton", "Yochum", role = "aut"))
 Description: Provides full programmatic access to the Dropbox file hosting platform (dropbox.com), including support for all standard file operations.
@@ -8,14 +8,4 @@ Depends: R (>= 3.1.1)
 License: MIT + file LICENSE
 BugReports: https://github.com/karthik/rdrop2/issues
 LazyData: true
-Imports: 
-         assertive,
-         digest,
-         dplyr,
-         httr,
-         jsonlite,
-         magrittr,
-         purrr
-Suggests: testthat,
-          uuid
 RoxygenNote: 6.0.1

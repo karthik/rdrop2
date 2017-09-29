@@ -77,8 +77,8 @@ drop_download <- function(
     ))
   }
 
-  # return full path to file, invisibly
-  invisible(TRUE)
+  # it should work
+  TRUE
 }
 
 
