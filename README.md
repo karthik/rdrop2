@@ -15,10 +15,10 @@ This package provides programmatic access to Dropbox from R. The functions in th
 
 
 ```
-# Current CRAN version (0.8)
+# Current CRAN version (0.8.1)
 install.packages('rdrop2')
 
-# or the development version (0.8.9999)
+# or the development version (0.8.1.9999)
 devtools::install_github("karthik/rdrop2")
 ```
 
