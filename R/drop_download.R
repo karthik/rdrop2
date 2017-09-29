@@ -7,7 +7,7 @@
 #' @param verbose if TRUE, emit message giving location and size of the newly downloaded file. Defaults to TRUE in interactive sessions, otherwise FALSE.
 #' @template token
 #'
-#' @return path to location file downloaded to, invisibly
+#' @return TRUE if successful; error thrown otherwise.
 #'
 #' @examples \dontrun{
 #'
@@ -77,8 +77,8 @@ drop_download <- function(
     ))
   }
 
-  # return full path to file, invisibly
-  invisible(as.character(req$content))
+  # must have been successful
+  TRUE
 }
 
 
@@ -113,7 +113,8 @@ drop_get <- function(
 
   if (drop_exists(path, dtoken = dtoken)) {
     filename <- ifelse(is.null(local_file), basename(path), local_file)
-    filename <- drop_download(path, filename, overwrite, progress, verbose, dtoken)
+
+    drop_download(path, filename, overwrite, progress, verbose, dtoken)
 
     if (!verbose) {
       # prints file sizes in kb but this could also be pretty printed
