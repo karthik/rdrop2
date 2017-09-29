@@ -107,7 +107,7 @@ drop_dir <- function(
   }
 
   # coerce to tibble, one row per item found
-  dplyr::bind_rows(results)
+  dplyr::bind_rows(purrr::map(results, LinearizeNestedList))
 }
 
 
