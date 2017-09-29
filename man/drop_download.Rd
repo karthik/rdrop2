@@ -26,7 +26,7 @@ authentication request. You can override this in \code{\link{drop_auth}} by
 pointing to a different location where your credentials are stored.}
 }
 \value{
-path to location file downloaded to, invisibly
+TRUE if successful; error thrown otherwise.
 }
 \description{
 Download a file from Dropbox to disk.
