@@ -44,3 +44,6 @@ write.csv(mtcars, file = "mtt.csv")
 drop_upload("mtt.csv")
 }
 }
+\references{
+\href{https://www.dropbox.com/developers/documentation/http/documentation#files-upload}{API documentation}
+}

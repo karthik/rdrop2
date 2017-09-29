@@ -31,3 +31,6 @@ Returns a list containing the following fields: "size", "rev", "thumb_exists",
 drop_create(path = "foobar")
 }
 }
+\references{
+\href{https://www.dropbox.com/developers/documentation/http/documentation#files-create_folder_v2}{API documentation}
+}

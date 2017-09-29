@@ -49,3 +49,6 @@ Download a file from Dropbox to disk.
 }
 
 }
+\references{
+\href{https://www.dropbox.com/developers/documentation/http/documentation#files-download}{API documentation}
+}

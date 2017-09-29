@@ -43,3 +43,6 @@ drop_create("drop_test2")
 drop_copy("mt.csv", "drop_test2/mt2.csv")
 }
 }
+\references{
+\href{https://www.dropbox.com/developers/documentation/http/documentation#files-copy_v2}{API documentation}
+}

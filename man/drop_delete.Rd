@@ -22,3 +22,6 @@ pointing to a different location where your credentials are stored.}
 \description{
 Deletes a file or folder.
 }
+\references{
+\href{https://www.dropbox.com/developers/documentation/http/documentation#files-delete_v2}{API documentation}
+}
