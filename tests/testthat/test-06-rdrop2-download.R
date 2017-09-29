@@ -36,7 +36,7 @@ test_that("drop_get works, but is deprecated", {
   skip_on_cran()
 
   # create and upload a file for testing, then delete locally
-  file_name <- paste0("test-drop_download-", uuid::UUIDgenerate(), ".csv")
+  file_name <- traceless("test-drop_download.csv")
   write.csv(mtcars, file_name)
   drop_upload(file_name)
   unlink(file_name)
