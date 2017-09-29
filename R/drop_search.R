@@ -14,6 +14,7 @@
 #'  for this field is 100.
 #'@param  mode Mode can take the option of filename, filename_and_content, or search deleted files with deleted_filename
 #'@template token
+#' @references \href{https://www.dropbox.com/developers/documentation/http/documentation#files-search}{API documentation}
 #'@export
 #' @examples \dontrun{
 #' # If you know me, you know why this query exists

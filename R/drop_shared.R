@@ -11,6 +11,7 @@
 #'   "\%Y-\%m-\%dT\%H:\%M:\%SZ"). If no timestamp is specified, link never expires
 #' @template token
 #' @export
+#' @references \href{https://www.dropbox.com/developers/documentation/http/documentation#sharing-create_shared_link_with_settings}{API documentation}
 #' @examples \dontrun{
 #' write.csv(mtcars, file = "mt.csv")
 #' drop_upload("mt.csv")
@@ -71,6 +72,7 @@ drop_share <- function(path = NULL,
 #' @param verbose Print verbose output
 #'
 #' @export
+#' @references \href{https://www.dropbox.com/developers/documentation/http/documentation#sharing-list_shared_links}{API documentation}
 #'
 #' @examples \dontrun{
 #' drop_list_shared_links()

@@ -5,6 +5,7 @@
 #' @param overwrite If TRUE, overwrite local file. Defaults to FALSE
 #' @param progress If TRUE, show a progress bar for large file downloads. Defaults to TRUE in interactive sessions, otherwise FALSE.
 #' @param verbose if TRUE, emit message giving location and size of the newly downloaded file. Defaults to TRUE in interactive sessions, otherwise FALSE.
+#' @references \href{https://www.dropbox.com/developers/documentation/http/documentation#files-download}{API documentation}
 #' @template token
 #'
 #' @return TRUE if successful; error thrown otherwise.

@@ -11,6 +11,7 @@
 #'@template path
 #' @template token
 #'@export
+#' @references \href{https://www.dropbox.com/developers/documentation/http/documentation#files-get_temporary_link}{API documentation}
 #' @examples \dontrun{
 #' drop_media('Public/gifs/duck_rabbit.gif')
 #'}
