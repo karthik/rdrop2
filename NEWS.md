@@ -1,3 +1,7 @@
+# rdrop2 0.8.1
+* `drop_dir` now flattens nested responses so return can be coerced to `tbl_df`, e.g. if returned files/folders are shared with other (#135)
+* `drop_download` now returns `TRUE` when download was successful; should mitigate errors noted by multiple users (#132)
+
 # rdrop2 0.8 
 * This version is a major update from V1 of the Dropbox API (being deprecated on September 28, 2017) to V2. 🎉
 * `drop_acc` -  no longer returns quota information but still returns all other account related details. Quota retrieval will become available again on `0.9`
