@@ -22,15 +22,18 @@ traceless <- function(file) {
 
 
 # This should clean out any remaining/old test files and folders
-clean_test_data <- function(pattern = "rdrop_package_test", dtoken = get_dropbox_token()) {
-  x <- drop_dir() 
-  if(nrow(x) > 0) {
-  x1 <- x %>% dplyr::select(name) %>% pull
-  matching_files <- x1[grepl(pattern, x1)]
-  if(length(matching_files)) {
-  suppressWarnings(sapply(matching_files, drop_delete))
-}
-}
+clean_test_data <- function(pattern = "rdrop2_package_test", dtoken = get_dropbox_token()) {
+  files <- drop_dir()
+
+  if (nrow(files) > 0) {
+    filenames <- files[["name"]]
+
+    matching_files <- grep(pattern, filenames, value = TRUE)
+
+    if (length(matching_files)) {
+      suppressWarnings(purrr::walk(matching_files, drop_delete))
+    }
+  }
 }
 
 # Counts files matching a pattern
