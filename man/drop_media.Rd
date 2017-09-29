@@ -29,3 +29,6 @@ the function call after expiry.
 drop_media('Public/gifs/duck_rabbit.gif')
 }
 }
+\references{
+\href{https://www.dropbox.com/developers/documentation/http/documentation#files-get_temporary_link}{API documentation}
+}

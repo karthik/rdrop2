@@ -40,3 +40,6 @@ drop_share("mt.csv")
 drop_share("mt.csv", requested_visibility = "password", link_password = "test")
 }
 }
+\references{
+\href{https://www.dropbox.com/developers/documentation/http/documentation#sharing-create_shared_link_with_settings}{API documentation}
+}

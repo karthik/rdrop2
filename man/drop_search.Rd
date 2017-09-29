@@ -40,3 +40,6 @@ search string as a substring.
 drop_search('gif') \%>\% select(path, is_dir, mime_type)
 }
 }
+\references{
+\href{https://www.dropbox.com/developers/documentation/http/documentation#files-search}{API documentation}
+}

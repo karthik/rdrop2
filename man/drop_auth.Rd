@@ -58,3 +58,6 @@ reimplement your own.
   drop_auth(rdstoken = "/path/to/tokenfile.RDS")
 }
 }
+\references{
+\href{https://www.dropbox.com/developers/documentation/http/documentation#authorization}{API documentation}
+}

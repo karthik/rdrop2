@@ -23,3 +23,6 @@ This function returns a list of all links that are currently being shared
 drop_list_shared_links()
 }
 }
+\references{
+\href{https://www.dropbox.com/developers/documentation/http/documentation#sharing-list_shared_links}{API documentation}
+}
