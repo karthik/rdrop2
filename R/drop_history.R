@@ -33,6 +33,7 @@ drop_history <- function(path, limit = 10, dtoken = get_dropbox_token()) {
 #' @param path path to a file in Dropbox.
 #' @param limit maximum number of revisions to return; defaults to 10.
 #' @template token
+#' @references \href{https://www.dropbox.com/developers/documentation/http/documentation#files-list_revisions}{API documentation}
 #'
 #' @return list with elements \itemize{
 #'   \item{\code{is_deleted}}{logical; has the file been deleted?}

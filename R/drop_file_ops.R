@@ -13,6 +13,7 @@
 #'   in an ownership transfer for the content being moved. This does not apply
 #'   to copies. The default for this field is False.
 #' @export
+#' @references \href{https://www.dropbox.com/developers/documentation/http/documentation#files-copy_v2}{API documentation}
 #' @examples \dontrun{
 #' write.csv(mtcars, file = "mt.csv")
 #' drop_upload("mt.csv")
@@ -95,6 +96,7 @@ drop_copy <-
 #'   in an ownership transfer for the content being moved. This does not apply
 #'   to copies. The default for this field is False.
 #' @export
+#' @references \href{https://www.dropbox.com/developers/documentation/http/documentation#files-move_v2}{API documentation}
 #' @examples \dontrun{
 #' write.csv(mtcars, file = "mt.csv")
 #' drop_upload("mt.csv")
@@ -171,6 +173,7 @@ drop_move <-
 #' @template verbose
 #' @template token
 #' @export
+#' @references \href{https://www.dropbox.com/developers/documentation/http/documentation#files-delete_v2}{API documentation}
 drop_delete <-
   function (path = NULL,
             verbose = FALSE,
@@ -208,6 +211,7 @@ drop_delete <-
 #'@param autorename Set to \code{TRUE} to automatically rename. Default is FALSE.
 #'@template verbose
 #'@template token
+#' @references \href{https://www.dropbox.com/developers/documentation/http/documentation#files-create_folder_v2}{API documentation}
 #'@export
 #' @examples \dontrun{
 #' drop_create(path = "foobar")

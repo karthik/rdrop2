@@ -20,6 +20,7 @@
 #'  false, the call will fail with a 409 (Conflict) response code. The default is `TRUE`
 #'@param mute Set to FALSE to prevent a notification trigger on the desktop and
 #'  mobile apps
+#' @references \href{https://www.dropbox.com/developers/documentation/http/documentation#files-upload}{API documentation}
 #'@template verbose
 #'@template token
 #'@export

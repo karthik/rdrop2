@@ -29,6 +29,7 @@
 #' @return A Token2.0 object, invisibly
 #'
 #' @import httr
+#' @references \href{https://www.dropbox.com/developers/documentation/http/documentation#authorization}{API documentation}
 #' @export
 #'
 #' @examples
