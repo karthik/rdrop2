@@ -1,4 +1,4 @@
-# rdrop2 - Dropbox interface from R  ![a_box](drop_thumbnail.png)  
+# rdrop2 - Dropbox interface from R  ![a_box](docs/rdrop2-logo.png)  
 
 
 
