@@ -3,6 +3,7 @@ Title: Programmatic Interface to the 'Dropbox' API
 Version: 0.8.1.9999
 Authors@R: c(person("Karthik", "Ram", email = "karthik.ram@gmail.com", role = c("aut", "cre")),
            person("Clayton", "Yochum", role = "aut"),
+           person("Caleb", "Scheidel", role = "ctb"),
            person("Akhil", "Bhel", role = "cph")
            )
 Description: Provides full programmatic access to the 'Dropbox' file hosting platform <https://dropbox.com>, including support for all standard file operations.
