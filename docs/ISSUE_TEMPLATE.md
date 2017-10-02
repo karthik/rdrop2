@@ -37,7 +37,9 @@ Are you using Dropbox Basic, Dropbox Pro, or Dropbox for Business?
 
 ## Session Info
 
-Replace the output below with output from `devtools::session_info()` (or `sessionInfo()` if you don't have `devtools` installed) ran after running code to cause the issue.
+Replace the output below (inside the backticks) with output from `devtools::session_info()` (or `sessionInfo()` if you don't have `devtools` installed)
+
+<details><pre>
 
 ```r
 > devtools::session_info()
@@ -67,3 +69,5 @@ Packages -----------------------------------------------------------------------
  utils     * 3.4.2   2017-09-29 local
  withr       2.0.0   2017-07-28 cran (@2.0.0)
 ```
+
+</pre></details>
