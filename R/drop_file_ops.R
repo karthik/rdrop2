@@ -281,7 +281,15 @@ drop_exists <- function(path = NULL, dtoken = get_dropbox_token()) {
   if (!grepl('^/', path))
     path <- paste0("/", path)
   dir_name <- suppressMessages(dirname(path))
-  dir_listing <- drop_dir(path = dir_name, dtoken = dtoken)
+  # In issue #142, this part below (the drop_dir call) fails when drop_dir is
+  # looking to see if a second level folder exists (when it doesn't.) One safe
+  # option is to only run drop_dir('/', recursive = TRUE) and then grep through
+  # that. Downside: It would take forever if this was a really large account.
+  #
+  # Other solution is to run drop_dir one level above using dirname. Although this will
+  # solve the issue with a missing folder one level down, it will fail when one
+  # goes two levels down. (NEEDS TO BE SOLVED)
+  dir_listing <- drop_dir(path = '/', recursive = TRUE, dtoken = dtoken)
 
   if (path %in% dir_listing$path_display) {
     TRUE
