@@ -137,6 +137,10 @@ test_that("drop_exists works correctly", {
   drop_create(folder_name)
   # This should create a subfolder inside folder_name
   drop_create(folder_name2)
+ 
+  # A check on a non existent sub folder should return FALSE
+  fake_nested_path <- paste0(traceless("foo"), "/", traceless("foo"), "/", traceless("foo"))
+  expect_false(drop_exists(fake_nested_path))
 
   expect_true(drop_exists(folder_name))
   expect_true(drop_exists(folder_name2))
