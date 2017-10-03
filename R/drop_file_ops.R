@@ -193,7 +193,6 @@ drop_delete <-
       if (verbose) {
         res
       } else {
-        # message(sprintf('%s was successfully deleted', res$metadata$path_display))
         invisible(res)
       }
     } else {
