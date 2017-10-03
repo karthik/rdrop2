@@ -193,7 +193,6 @@ drop_delete <-
       if (verbose) {
         res
       } else {
-        message(sprintf('%s was successfully deleted', res$metadata$path_display))
         invisible(res)
       }
     } else {
@@ -281,13 +280,31 @@ drop_exists <- function(path = NULL, dtoken = get_dropbox_token()) {
   if (!grepl('^/', path))
     path <- paste0("/", path)
   dir_name <- suppressMessages(dirname(path))
-  dir_listing <- drop_dir(path = dir_name, dtoken = dtoken)
-
-  if (path %in% dir_listing$path_display) {
-    TRUE
-  } else {
+  # In issue #142, this part below (the drop_dir call) fails when drop_dir is
+  # looking to see if a second level folder exists (when it doesn't.) One safe
+  # option is to only run drop_dir('/', recursive = TRUE) and then grep through
+  # that. Downside: It would take forever if this was a really large account.
+  #
+  # Other solution is to use purrr::safely to trap the error and return FALSE
+  # (TODO): Explore uninteded consequence of this.
+  safe_dir_check <-
+    purrr::safely(drop_get_metadata, otherwise = FALSE, quiet = TRUE)
+  dir_listing <- safe_dir_check(path = path, dtoken = dtoken)
+    # browser()
+  if (length(dir_listing$result) == 1) {
+    # This means that object does not exist on Dropbox
     FALSE
+  } else {
+    # Root of path (dir_name), exists/
+    paths_only <- dir_listing$result$path_display
+
+    if (path %in% paths_only) {
+      TRUE
+    } else {
+      FALSE
+    }
   }
+
 
 }
 
