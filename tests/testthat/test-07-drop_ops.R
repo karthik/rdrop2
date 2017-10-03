@@ -133,9 +133,13 @@ test_that("drop_exists works correctly", {
   skip_on_cran()
 
   folder_name <- traceless("drop_exists")
+  folder_name2 <- paste0(folder_name, "/", "sub_folder")
   drop_create(folder_name)
+  # This should create a subfolder inside folder_name
+  drop_create(folder_name2)
 
   expect_true(drop_exists(folder_name))
+  expect_true(drop_exists(folder_name2))
   expect_false(drop_exists(traceless("stuffnthings")))
 
   # Now test files inside subfolders
