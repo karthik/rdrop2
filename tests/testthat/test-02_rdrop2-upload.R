@@ -21,7 +21,6 @@ test_that("Test that basic file ops work correctly", {
   server_row_count <- nrow(y)
   # Make sure the downloaded csv has the same number of rows
   expect_equal(row_count, server_row_count)
-  # expect_message(drop_delete(file_name), "successfully deleted")
   unlink(file_name)
   drop_delete(file_name)
 })
