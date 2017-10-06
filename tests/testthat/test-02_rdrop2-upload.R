@@ -33,37 +33,6 @@ test_that("Image upload works correctly", {
   # This test is to see if we can upload an image (a png in this case) and make
   # sure that it maintains file integrity. We compare hashes of local file, then
   # the roundtrip copy.
-  # ------------------------------------------------------------------------------------------
-  # This test is failing and I have no idea why.
-  #
-  # Approach #1 -------------
-  # Leave the image in tests/testthat and reference it
-  # with testthat::test_path()
-  #
-  # dest <- testthat::test_path('rdrop2_package_test_image.png')
-  #
-  # Failure cause: Fails with file not found on Travis but works locally.
-  #   
-  #
-  # Approach #2 ------------
-  # Leave the image in tests/testthat but use rprojroot
-  # to locate/reference the file rather than using test_path
-  #
-  # dest <- rprojroot::find_testthat_root_file('rdrop2_package_test_image.png')
-  #
-  # Failure cause: Fails with file not found on Travis but works locally.
-  #
-  # Approach #3 ------------------
-  # Leave the image in `inst/extdata`, then
-  # upload from there. Works locally but fails on Travis.
-  #
-  # image_path <- system.file("extdata", package="rdrop2")
-  # image_name <- "rdrop2_package_test_image.png"
-  # dest <- file.path(image_path, image_name)
-  #  ¯\_(ツ)_/¯
-  # ------------------------------------------------------------------------------------------
-  # First locate the png inside the package. This works fine locally with all
-  # three approaches but fails on Travis with all 3 approaches
   dest <- testthat::test_path('rdrop2_package_test_image.png')
   # No point continuing if you can’t find the file
   expect_true(file.exists(dest))
@@ -82,7 +51,6 @@ test_that("Image upload works correctly", {
   expect_equal(local_file_hash, roundtrip_file_hash)
   # Delete the Dropbox copy
   drop_delete(dest)
-  # Only delete this copy if it is copied from extdata, otherwise we'll lose the only copy.
 })
 
 # Test upload of a non existent file
