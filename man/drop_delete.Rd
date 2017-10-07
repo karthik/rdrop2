@@ -7,8 +7,7 @@
 drop_delete(path = NULL, verbose = FALSE, dtoken = get_dropbox_token())
 }
 \arguments{
-\item{path}{This is required The path to the new folder to create relative to
-root.}
+\item{path}{Path in the user's Dropbox to save the file.}
 
 \item{verbose}{By default verbose output is \code{FALSE}. Set to \code{TRUE}
 if you need to troubleshoot any output or grab additional parameters.}
