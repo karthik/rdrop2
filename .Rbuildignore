@@ -9,7 +9,6 @@ README.*
 tests/testthat/.httr-oauth.enc
 tests/testthat/.httr-oauth
 ^.*\.gif$
-^.*\.png$
 ^.*\.csv$
 zzz.R
 man-roxygen

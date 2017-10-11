@@ -39,6 +39,10 @@ clean_test_data <- function(pattern = "rdrop2_package_test", dtoken = get_dropbo
 # Counts files matching a pattern
 drop_file_count <- function(x, dtoken = get_dropbox_token()) {
   y <- drop_dir()
-  z <- grepl(x, y$name)
-  sum(z, na.rm = TRUE)
+  if(nrow(y) > 0) {
+    z <- grepl(x, y$name)
+    sum(z, na.rm = TRUE)
+    } else {
+      0
+    }
 }
