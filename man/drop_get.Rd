@@ -8,7 +8,7 @@ drop_get(path = NULL, local_file = NULL, overwrite = FALSE,
   verbose = FALSE, progress = FALSE, dtoken = get_dropbox_token())
 }
 \arguments{
-\item{path}{Path in the user's Dropbox to save the file.}
+\item{path}{Path in the user's Dropbox, relative to root}
 
 \item{local_file}{The name of the local copy. Leave this blank if you're fine with the original name.}
 

@@ -8,7 +8,7 @@ drop_create(path = NULL, autorename = FALSE, verbose = FALSE,
   dtoken = get_dropbox_token())
 }
 \arguments{
-\item{path}{Path in the user's Dropbox to save the file.}
+\item{path}{Path in the user's Dropbox, relative to root}
 
 \item{autorename}{Set to \code{TRUE} to automatically rename. Default is FALSE.}
 

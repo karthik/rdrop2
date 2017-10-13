@@ -13,7 +13,7 @@ drop_search(query, path = "", start = 0, max_results = 100,
 individual words. Files and folders will be returned if they contain all
 words in the search string.}
 
-\item{path}{Path in the user's Dropbox to save the file.}
+\item{path}{Path in the user's Dropbox, relative to root}
 
 \item{start}{The starting index within the search results (used for paging).
 The default for this field is 0}

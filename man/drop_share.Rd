@@ -8,7 +8,7 @@ drop_share(path = NULL, requested_visibility = "public",
   link_password = NULL, expires = NULL, dtoken = get_dropbox_token())
 }
 \arguments{
-\item{path}{Path in the user's Dropbox to save the file.}
+\item{path}{Path in the user's Dropbox, relative to root}
 
 \item{requested_visibility}{Can be `public`, `team_only`, or `password`. If the
 password option is chosen one must specify the `link_password`. Note that
