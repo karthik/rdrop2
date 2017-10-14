@@ -20,6 +20,11 @@ strip_slashes <- function(path) {
     if (length(path) && grepl("/$", path)) {
         path <- substr(path, 1, nchar(path) - 1)
     }
+    # Also remove leading slashes
+  if (length(path) && grepl("^/", path)) {
+    path <- substr(path, 2, nchar(path))
+  }
+
     path
 }
 

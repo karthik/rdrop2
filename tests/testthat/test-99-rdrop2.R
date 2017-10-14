@@ -120,6 +120,15 @@ test_that("drop_media works correctly", {
   drop_delete(file_name)
 })
 
+# minor test for strip slashes
+test_that("strip slashes works correctly", {
+  orig <- "//test/"
+  expect_true(grepl("^//", orig))
+  expect_false(grepl("^//", strip_slashes(orig)))
+  expect_true(grepl("^/", strip_slashes(orig)))
+  expect_true(grepl("/$", orig))
+  expect_false(grepl("/$", strip_slashes(orig)))
+  })
 
 # drop_read_csv
 test_that("drop_read_csv works correctly", {
