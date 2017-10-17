@@ -100,7 +100,7 @@ __csv files__
 write.csv(mtcars, 'mtcars.csv')
 drop_upload('mtcars.csv')
 # or upload to a specific folder
-drop_upload('mtcars.csv', dest = "drop_test")
+drop_upload('mtcars.csv', path = "drop_test")
 ```
 
 You can also do this for any other file type and large files are supported regardless of your memory.
