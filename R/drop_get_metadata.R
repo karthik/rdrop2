@@ -21,23 +21,37 @@ drop_get_metadata <- function(
   dtoken = get_dropbox_token()
 ) {
 
-  url <- "https://api.dropboxapi.com/2/files/get_metadata"
-
   if (!grepl("^(id|rev):", path)) path <- add_slashes(path)
 
-  req <- httr::POST(
-    url = url,
-    httr::config(token = dtoken),
-    body = list(
-      path = path,
-      include_media_info = include_media_info,
-      include_deleted = include_deleted,
-      include_has_explicit_shared_members = include_has_explicit_shared_members
-    ),
-    encode = "json"
+  api_get_metadata(
+    path,
+    include_media_info,
+    include_deleted,
+    include_has_explicit_shared_members,
+    dtoken
   )
+}
 
-  httr::stop_for_status(req)
 
-  httr::content(req)
+#' API wrapper for files/get_metadata
+#'
+#' @noRd
+#'
+#' @keywords internal
+api_get_metadata <- function(
+  path,
+  include_media_info = FALSE,
+  include_deleted = FALSE,
+  include_has_explicit_shared_members = FALSE,
+  dtoken
+) {
+
+  post_api(
+    "https://api.dropboxapi.com/2/files/get_metadata",
+    dtoken,
+    path,
+    include_media_info,
+    include_deleted,
+    include_has_explicit_shared_members
+  )
 }

@@ -4,7 +4,6 @@
 #'
 #' @template token
 #'
-#' @import httr
 #' @export
 #'
 #' @return
@@ -28,9 +27,16 @@
 #' }
 drop_acc <- function(dtoken = get_dropbox_token()) {
 
-  url <- "https://api.dropbox.com/2/users/get_current_account"
+  api_get_current_account(dtoken)
+}
 
-  # make request and parse response
-  req <- httr::POST(url, httr::config(token = dtoken))
-  httr::content(req)
+
+#' API wrapper for users/get_current_account
+#'
+#' @noRd
+#'
+#' @keywords internal
+api_get_current_account <- function(dtoken) {
+
+  post_api("https://api.dropbox.com/2/users/get_current_account", dtoken)
 }
