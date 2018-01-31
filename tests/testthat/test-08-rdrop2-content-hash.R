@@ -82,3 +82,9 @@ test_that("content_hash agrees with dropbox", {
   info <- drop_dir(folder_name)
   expect_equal(drop_content_hash(file_name), info$content_hash)
 })
+
+
+test_that("input validation", {
+  expect_error(drop_content_hash(1:10),
+               "Expected 'file' to be a character vector")
+})
