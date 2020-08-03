@@ -1,3 +1,7 @@
+# rdrop2 0.8.2
+* Minor update to unarchive on CRAN (archived because assertive was archived)
+
+
 # rdrop2 0.8.1
 * `drop_dir` now flattens nested responses so return can be coerced to `tbl_df`, e.g. if returned files/folders are shared with other (#135)
 * `drop_download` now returns `TRUE` when download was successful; should mitigate errors noted by multiple users (#132)

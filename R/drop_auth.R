@@ -5,7 +5,7 @@
 #' Authentication for Dropbox
 #'
 #' This function authenticates you into Dropbox. The documentation for the
-#' \href{https://www.dropbox.com/developers/core/docs}{core Dropbox API}
+#' \href{https://www.dropbox.com/developers/documentation?_tk=pilot_lp&_ad=topbar1&_camp=docs}{core Dropbox API}
 #' provides more details including alternate methods if you desire to
 #' reimplement your own.
 #'

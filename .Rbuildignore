@@ -13,5 +13,5 @@ tests/testthat/.httr-oauth
 zzz.R
 man-roxygen
 cache/
-NEWS.md
 cran-comments.md
+^CRAN-RELEASE$
