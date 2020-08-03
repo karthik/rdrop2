@@ -4,8 +4,13 @@
 \alias{drop_auth}
 \title{Authentication for Dropbox}
 \usage{
-drop_auth(new_user = FALSE, key = "mmhfsybffdom42w",
-  secret = "l8zeqqqgm1ne5z0", cache = TRUE, rdstoken = NA)
+drop_auth(
+  new_user = FALSE,
+  key = "mmhfsybffdom42w",
+  secret = "l8zeqqqgm1ne5z0",
+  cache = TRUE,
+  rdstoken = NA
+)
 }
 \arguments{
 \item{new_user}{Set to \code{TRUE} if you need to switch to a new user

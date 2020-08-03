@@ -4,8 +4,15 @@
 \alias{drop_upload}
 \title{Uploads a file to Dropbox.}
 \usage{
-drop_upload(file, path = NULL, mode = "overwrite", autorename = TRUE,
-  mute = FALSE, verbose = FALSE, dtoken = get_dropbox_token())
+drop_upload(
+  file,
+  path = NULL,
+  mode = "overwrite",
+  autorename = TRUE,
+  mute = FALSE,
+  verbose = FALSE,
+  dtoken = get_dropbox_token()
+)
 }
 \arguments{
 \item{file}{Relative path to local file.}

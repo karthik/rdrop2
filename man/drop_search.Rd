@@ -5,8 +5,14 @@
 \title{Returns metadata for all files and folders whose filename contains the given
 search string as a substring.}
 \usage{
-drop_search(query, path = "", start = 0, max_results = 100,
-  mode = "filename", dtoken = get_dropbox_token())
+drop_search(
+  query,
+  path = "",
+  start = 0,
+  max_results = 100,
+  mode = "filename",
+  dtoken = get_dropbox_token()
+)
 }
 \arguments{
 \item{query}{The search string. This string is split (on spaces) into

@@ -4,9 +4,14 @@
 \alias{drop_download}
 \title{Download a file from Dropbox to disk.}
 \usage{
-drop_download(path, local_path = NULL, overwrite = FALSE,
-  progress = interactive(), verbose = interactive(),
-  dtoken = get_dropbox_token())
+drop_download(
+  path,
+  local_path = NULL,
+  overwrite = FALSE,
+  progress = interactive(),
+  verbose = interactive(),
+  dtoken = get_dropbox_token()
+)
 }
 \arguments{
 \item{path}{path to a file in Dropbox}

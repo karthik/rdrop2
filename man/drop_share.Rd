@@ -4,8 +4,13 @@
 \alias{drop_share}
 \title{Creates and returns a shared link to a file or folder.}
 \usage{
-drop_share(path = NULL, requested_visibility = "public",
-  link_password = NULL, expires = NULL, dtoken = get_dropbox_token())
+drop_share(
+  path = NULL,
+  requested_visibility = "public",
+  link_password = NULL,
+  expires = NULL,
+  dtoken = get_dropbox_token()
+)
 }
 \arguments{
 \item{path}{Path in the user's Dropbox, relative to root}

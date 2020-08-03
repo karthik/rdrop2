@@ -4,8 +4,13 @@
 \alias{drop_get_metadata}
 \title{Retrieve metadata for a file or folder.}
 \usage{
-drop_get_metadata(path, include_media_info = FALSE, include_deleted = FALSE,
-  include_has_explicit_shared_members = FALSE, dtoken = get_dropbox_token())
+drop_get_metadata(
+  path,
+  include_media_info = FALSE,
+  include_deleted = FALSE,
+  include_has_explicit_shared_members = FALSE,
+  dtoken = get_dropbox_token()
+)
 }
 \arguments{
 \item{path}{Path to a file or folder on Dropbox. Can also be an ID ("id:...") or revision ("rev:...").}

@@ -4,9 +4,15 @@
 \alias{drop_move}
 \title{Moves a file or folder to a new location.}
 \usage{
-drop_move(from_path = NULL, to_path = NULL, allow_shared_folder = FALSE,
-  autorename = FALSE, allow_ownership_transfer = FALSE, verbose = FALSE,
-  dtoken = get_dropbox_token())
+drop_move(
+  from_path = NULL,
+  to_path = NULL,
+  allow_shared_folder = FALSE,
+  autorename = FALSE,
+  allow_ownership_transfer = FALSE,
+  verbose = FALSE,
+  dtoken = get_dropbox_token()
+)
 }
 \arguments{
 \item{from_path}{Source file or folder}
