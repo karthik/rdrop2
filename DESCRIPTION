@@ -1,6 +1,6 @@
 Package: rdrop2
 Title: Programmatic Interface to the 'Dropbox' API
-Version: 0.8.2
+Version: 0.8.2.1
 Authors@R: c(person("Karthik", "Ram", email = "karthik.ram@gmail.com", role = c("aut", "cre")),
            person("Clayton", "Yochum", role = "aut"),
            person("Caleb", "Scheidel", role = "ctb"),
