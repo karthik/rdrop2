@@ -31,27 +31,40 @@ drop_search <- function(query,
   assertive::assert_any_are_matching_fixed(available_modes, mode)
   # A search cannot have a negative start index and a negative max_results
   assertive::assert_all_are_non_negative(start, max_results)
-  args <- drop_compact(
-    list(
-      query = query,
-      path = path,
-      start = as.integer(start),
-      max_results = as.integer(max_results),
-      mode = mode
-    )
-  )
 
-  search_url <- "https://api.dropboxapi.com/2/files/search"
-  res <-
-    httr::POST(search_url,
-               body = args,
-               httr::config(token = dtoken),
-               encode = "json")
-  httr::stop_for_status(res)
-  httr::content(res)
+  start <- as.integer(start)
+  max_results <- as.integer(max_results)
+
+  api_search(path, query, start, max_results, mode, dtoken)
   # TODO
   # Need to do a verbose return but also print a nice data.frame
   # One way to do that is with purrr::flatten
   # e.g. purrr::flatten(results$matches)
   # But, do we want purrr as another import???
+}
+
+
+#' API wrapper for files/search
+#'
+#' @noRd
+#'
+#' @keywords internal
+api_search <- function(
+  path,
+  query,
+  start = 0L,
+  max_results = 100L,
+  mode = "filename",
+  dtoken
+) {
+
+  post_api(
+    "https://api.dropboxapi.com/2/files/search",
+    dtoken,
+    path,
+    query,
+    start,
+    max_results,
+    mode
+  )
 }

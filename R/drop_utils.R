@@ -8,6 +8,29 @@
 #' @usage lhs \%>\% rhs
 NULL
 
+#' Common pattern for calling most API endpoints
+#'
+#' Additional args are passed to API, with names inferred from calling environment.
+#'
+#' @noRd
+#' @keywords internal
+post_api <- function(url, token, ...) {
+
+  # if no args, leave NULL
+  body <- purrr::compact(tibble::lst(...))
+  if (purrr::is_empty(body)) body <- NULL
+
+  response <- httr::POST(
+    url = url,
+    httr::config(token = token),
+    body = body,
+    encode = "json"
+  )
+
+  httr::stop_for_status(response)
+
+  httr::content(response)
+}
 
 #' A local version of list compact from plyr.
 #' @noRd

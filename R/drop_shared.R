@@ -41,28 +41,14 @@ drop_share <- function(path = NULL,
   # exists on Dropbox before proceeding
 
   path <- add_slashes(path)
-  settings <-
-    drop_compact(
-      list(
-        requested_visibility = requested_visibility,
-        link_password = link_password,
-        expires = expires
-      )
-    )
-  #  TODO: Check to see if this is necessary when we have encode to json below
-  share_url <-
-    "https://api.dropboxapi.com/2/sharing/create_shared_link_with_settings"
 
-  req <- httr::POST(
-    url = share_url,
-    httr::config(token = dtoken),
-    body = list(path = path, settings = settings),
-    encode = "json" 
-  )
-  # stopping for status otherwise content fails
-  httr::stop_for_status(req)
-  response <- httr::content(req)
-  response
+  settings <- purrr::compact(tibble::lst(
+    requested_visibility,
+    link_password,
+    expires
+  ))
+
+  api_create_shared_link_with_settings(path, settings, dtoken)
 }
 
 #' List all shared links
@@ -79,12 +65,9 @@ drop_share <- function(path = NULL,
 #' }
 drop_list_shared_links <-
   function(verbose = TRUE, dtoken = get_dropbox_token()) {
-    shared_links_url <-
-      "https://api.dropboxapi.com/2/sharing/list_shared_links"
-    res <-
-      httr::POST(shared_links_url, httr::config(token = dtoken), encode = "json")
-    httr::stop_for_status(res)
-    z <- httr::content(res)
+
+    z <- api_list_shared_links(dtoken = dtoken)$links
+
     if (verbose) {
       invisible(z)
       pretty_lists(z)
@@ -94,3 +77,47 @@ drop_list_shared_links <-
       # Clean up the verbose and non-verbose options
     }
   }
+
+
+#### API wrappers ####
+
+#' API wrapper for sharing/create_shared_link_with_settings
+#'
+#' @noRd
+#'
+#' @keywords internal
+api_create_shared_link_with_settings <- function(
+  path,
+  settings = NULL,
+  dtoken
+) {
+
+  post_api(
+    "https://api.dropboxapi.com/2/sharing/create_shared_link_with_settings",
+    dtoken,
+    path,
+    settings
+  )
+}
+
+
+#' API wrapper for sharing/list_shared_links
+#'
+#' @noRd
+#'
+#' @keywords internal
+api_list_shared_links <- function(
+  path = NULL,
+  cursor = NULL,
+  direct_only = NULL,
+  dtoken
+) {
+
+  post_api(
+    "https://api.dropboxapi.com/2/sharing/list_shared_links",
+    dtoken,
+    path,
+    cursor,
+    direct_only
+  )
+}

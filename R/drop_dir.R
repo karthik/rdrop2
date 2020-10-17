@@ -60,12 +60,12 @@ drop_dir <- function(
   if (is.character(cursor)) {
 
     # list changes since cursor
-    content <- drop_list_folder_continue(cursor, dtoken)
+    content <- api_list_folder_continue(cursor, dtoken)
 
   } else if (cursor) {
 
     # get a cursor to track changes against
-    content <- drop_list_folder_get_latest_cursor(
+    content <- api_list_folder_get_latest_cursor(
       path,
       recursive,
       include_media_info,
@@ -80,7 +80,7 @@ drop_dir <- function(
   } else {
 
     # list files normally
-    content <- drop_list_folder(
+    content <- api_list_folder(
       path,
       recursive,
       include_media_info,
@@ -101,7 +101,7 @@ drop_dir <- function(
     while (content$has_more) {
 
       # update content, append results
-      content <- drop_list_folder_continue(content$cursor)
+      content <- api_list_folder_continue(content$cursor)
       results  <- append(results, content$entries)
     }
   }
@@ -111,18 +111,17 @@ drop_dir <- function(
 }
 
 
-#' List contents of a Dropbox folder.
-#'
-#' For internal use; drop_dir should generally be used to list files in a folder.
+#### API wrappers #####
+
+#' API wrapper for files/list_folder
 #'
 #' @return a list with three elements: \code{entries}, \code{cursor}, and \code{has_more}.
 #'
 #' @references \href{https://www.dropbox.com/developers/documentation/http/documentation#files-list_folder}{API reference}
 #'
 #' @noRd
-#'
 #' @keywords internal
-drop_list_folder <- function(
+api_list_folder <- function(
   path,
   recursive = FALSE,
   include_media_info = FALSE,
@@ -133,55 +132,43 @@ drop_list_folder <- function(
   dtoken = get_dropbox_token()
 ) {
 
-  url <- "https://api.dropboxapi.com/2/files/list_folder"
-
-  req <- httr::POST(
-    url = url,
-    httr::config(token = dtoken),
-    body = drop_compact(list(
-      path = path,
-      recursive = recursive,
-      include_media_info = include_media_info,
-      include_deleted = include_deleted,
-      include_has_explicit_shared_members = include_has_explicit_shared_members,
-      include_mounted_folders = include_mounted_folders,
-      limit = limit
-    )),
-    encode = "json"
+  post_api(
+    url = "https://api.dropboxapi.com/2/files/list_folder",
+    token = dtoken,
+    path,
+    recursive,
+    include_media_info,
+    include_deleted,
+    include_has_explicit_shared_members,
+    include_mounted_folders,
+    limit
   )
-
-  httr::stop_for_status(req)
-
-  httr::content(req)
 }
 
 
+#' API wrapper for files/list_folder/continue
+#'
 #' Fetch additional results from a cursor
 #'
-#' @return see \code{drop_list_folder}
+#' @return see \code{api_list_folder}
 #'
 #' @references \href{https://www.dropbox.com/developers/documentation/http/documentation#files-list_folder-continue}{Dropbox API}
 #'
 #' @noRd
 #'
 #' @keywords internal
-drop_list_folder_continue <- function(cursor, dtoken = get_dropbox_token()) {
+api_list_folder_continue <- function(cursor, dtoken = get_dropbox_token()) {
 
-  url <- "https://api.dropboxapi.com/2/files/list_folder/continue"
-
-  req <- httr::POST(
-    url = url,
-    httr::config(token = dtoken),
-    body = list(cursor = cursor),
-    encode = "json"
+  post_api(
+    "https://api.dropboxapi.com/2/files/list_folder/continue",
+    dtoken,
+    cursor
   )
-
-  httr::stop_for_status(req)
-
-  httr::content(req)
 }
 
 
+#' API wrapper for files/list_folder/get_latest_cursor
+#'
 #' Get the current cursor for a set of path + options
 #'
 #' @return a cursor, a string uniquely identifying a folder and how much of it has been listed
@@ -191,7 +178,7 @@ drop_list_folder_continue <- function(cursor, dtoken = get_dropbox_token()) {
 #' @noRd
 #'
 #' @keywords internal
-drop_list_folder_get_latest_cursor <- function(
+api_list_folder_get_latest_cursor <- function(
   path,
   recursive = FALSE,
   include_media_info = FALSE,
@@ -202,24 +189,15 @@ drop_list_folder_get_latest_cursor <- function(
   dtoken = get_dropbox_token()
 ) {
 
-  url <- "https://api.dropboxapi.com/2/files/list_folder/get_latest_cursor"
-
-  req <- httr::POST(
-    url = url,
-    httr::config(token = dtoken),
-    body = drop_compact(list(
-      path = path,
-      recursive = recursive,
-      include_media_info = include_media_info,
-      include_deleted = include_deleted,
-      include_has_explicit_shared_members = include_has_explicit_shared_members,
-      include_mounted_folders = include_mounted_folders,
-      limit = limit
-    )),
-    encode = "json"
+  post_api(
+    "https://api.dropboxapi.com/2/files/list_folder/get_latest_cursor",
+    dtoken,
+    path,
+    recursive,
+    include_media_info,
+    include_deleted,
+    include_has_explicit_shared_members,
+    include_mounted_folders,
+    limit
   )
-
-  httr::stop_for_status(req)
-
-  httr::content(req)
 }

@@ -28,7 +28,6 @@ drop_copy <-
            allow_ownership_transfer = FALSE,
            verbose = FALSE,
            dtoken = get_dropbox_token())  {
-    copy_url <- "https://api.dropboxapi.com/2/files/copy_v2"
 
     from_path <- add_slashes(from_path)
     to_path <- add_slashes(to_path)
@@ -51,25 +50,17 @@ drop_copy <-
     # Nothing to do, since both paths reflect origin and destination
 
     # Copying a folder to an existing filename will result in a HTTP 409 (conflict error)
-
-    args <- drop_compact(
-      list(
-        from_path = from_path,
-        to_path = to_path,
-        allow_shared_folder = allow_shared_folder,
-        autorename = autorename,
-        allow_ownership_transfer = allow_ownership_transfer
-      )
-    )
-
     if (drop_exists(from_path)) {
       # copy
-      x <-
-        httr::POST(copy_url,
-                   httr::config(token = dtoken),
-                   body = args,
-                   encode = "json")
-      res <- httr::content(x)
+      res <- api_copy(
+        from_path,
+        to_path,
+        allow_shared_folder,
+        autorename,
+        allow_ownership_transfer,
+        dtoken
+      )
+
       if (!verbose) {
         message(sprintf("%s copied to %s", from_path, res$metadata$path_lower))
         invisible(res)
@@ -111,7 +102,6 @@ drop_move <-
            allow_ownership_transfer = FALSE,
            verbose = FALSE,
            dtoken = get_dropbox_token())  {
-    move_url <- "https://api.dropboxapi.com/2/files/move_v2"
 
     from_path <- add_slashes(from_path)
     to_path <- add_slashes(to_path)
@@ -135,24 +125,16 @@ drop_move <-
 
     # Moving a folder to an existing filename will result in a HTTP 409 (conflict error)
 
-    args <- drop_compact(
-      list(
-        from_path = from_path,
-        to_path = to_path,
-        allow_shared_folder = allow_shared_folder,
-        autorename = autorename,
-        allow_ownership_transfer = allow_ownership_transfer
-      )
-    )
-
     if (drop_exists(from_path)) {
       # move
-      x <-
-        httr::POST(move_url,
-                   httr::config(token = dtoken),
-                   body = args,
-                   encode = "json")
-      res <- httr::content(x)
+      res <- api_move(
+        from_path,
+        to_path,
+        allow_shared_folder,
+        autorename,
+        allow_ownership_transfer,
+        dtoken
+      )
 
       if (!verbose) {
         message(sprintf("%s moved to %s", from_path, res$metadata$path_lower))
@@ -178,17 +160,11 @@ drop_delete <-
   function (path = NULL,
             verbose = FALSE,
             dtoken = get_dropbox_token()) {
-    create_url <- "https://api.dropboxapi.com/2/files/delete_v2"
+
     if (drop_exists(path)) {
       path <- add_slashes(path)
-      x <-
-        httr::POST(
-          create_url,
-          httr::config(token = dtoken),
-          body = list(path = path),
-          encode = "json"
-        )
-      res <- httr::content(x)
+
+      res <- api_delete(path, dtoken)
 
       if (verbose) {
         res
@@ -224,17 +200,10 @@ drop_create <-
    # if a folder exists, but autorename is TRUE, proceed
    # However, if a folder exists, and autorename if FALSE, fail in the else.
     if (!drop_exists(path) || autorename) {
-      create_url <- "https://api.dropboxapi.com/2/files/create_folder_v2"
 
       path <- add_slashes(path)
-      x <-
-        httr::POST(
-          create_url,
-          config(token = dtoken),
-          body = list(path = path, autorename = autorename),
-          encode = "json"
-        )
-      results <- httr::content(x)
+
+      results <- api_create_folder(path, autorename, dtoken)
 
       if (verbose) {
         pretty_lists(results)
@@ -335,4 +304,94 @@ drop_type <- function(x, dtoken = get_dropbox_token()) {
   } else {
     x$result$.tag
   }
+}
+
+
+
+#### API wrappers ####
+
+#' API wrapper for files/copy_v2
+#'
+#' @noRd
+#'
+#' @keywords internal
+api_copy <- function(
+  from_path,
+  to_path,
+  allow_shared_folder = FALSE,
+  autorename = FALSE,
+  allow_ownership_transfer = FALSE,
+  dtoken
+) {
+
+  post_api(
+    "https://api.dropboxapi.com/2/files/copy_v2",
+    dtoken,
+    from_path ,
+    to_path,
+    allow_shared_folder,
+    autorename,
+    allow_ownership_transfer
+  )
+}
+
+
+#' API wrapper for files/move_v2
+#'
+#' @noRd
+#'
+#' @keywords internal
+api_move <- function(
+  from_path,
+  to_path,
+  allow_shared_folder = FALSE,
+  autorename = FALSE,
+  allow_ownership_transfer = FALSE,
+  dtoken
+) {
+
+  post_api(
+    "https://api.dropboxapi.com/2/files/move_v2",
+    dtoken,
+    from_path,
+    to_path,
+    allow_shared_folder,
+    autorename,
+    allow_ownership_transfer
+  )
+}
+
+
+#' API wrapper for files/delete_v2
+#'
+#' @noRd
+#'
+#' @keywords internal
+api_delete <- function(path, dtoken) {
+
+  post_api(
+    "https://api.dropboxapi.com/2/files/delete_v2",
+    dtoken,
+    path
+  )
+}
+
+
+#' API wrapper for files/create_folder_v2
+#'
+#' @noRd
+#'
+#' @keywords internal
+api_create_folder <- function(
+  path,
+  autorename = FALSE,
+  dtoken
+) {
+
+  post_api(
+    "https://api.dropboxapi.com/2/files/create_folder_v2",
+    dtoken,
+    path,
+    autorename
+  )
 }

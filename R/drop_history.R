@@ -20,17 +20,22 @@
 #' @export
 drop_history <- function(path, limit = 10, dtoken = get_dropbox_token()) {
 
-  content <- drop_list_revisions(path, limit, dtoken)
+  content <- drop_list_revisions(
+    path = add_slashes(path),
+    limit = limit,
+    dtoken = dtoken
+  )
 
   dplyr::bind_rows(content$entries)
 }
 
 
-#' Get revision history of a file
+#' API wrapper for files/list_revisions
 #'
-#' Does not include deletions.
+#' Get revision history of a file. Does not include deletions.
 #'
 #' @param path path to a file in Dropbox.
+#' @param mode "path" or "id" (unexposed)
 #' @param limit maximum number of revisions to return; defaults to 10.
 #' @template token
 #' @references \href{https://www.dropbox.com/developers/documentation/http/documentation#files-list_revisions}{API documentation}
@@ -44,21 +49,18 @@ drop_history <- function(path, limit = 10, dtoken = get_dropbox_token()) {
 #' @noRd
 #'
 #' @keywords internal
-drop_list_revisions <- function(path, limit = 10, dtoken = get_dropbox_token()) {
+drop_list_revisions <- function(
+  path,
+  mode = "path",
+  limit = 10,
+  dtoken
+) {
 
-  url <- "https://api.dropboxapi.com/2/files/list_revisions"
-
-  req <- httr::POST(
-    url = url,
-    httr::config(token = dtoken),
-    body = list(
-      path = add_slashes(path),
-      limit = limit
-    ),
-    encode = "json"
+  post_api(
+    "https://api.dropboxapi.com/2/files/list_revisions",
+    dtoken,
+    path,
+    mode,
+    limit
   )
-
-  httr::stop_for_status(req)
-
-  httr::content(req)
 }
