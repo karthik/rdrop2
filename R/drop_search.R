@@ -34,7 +34,7 @@ drop_search <- function(query,
   args <- drop_compact(
     list(
       query = query,
-      path = path,
+      path = add_slashes(path),
       start = as.integer(start),
       max_results = as.integer(max_results),
       mode = mode
