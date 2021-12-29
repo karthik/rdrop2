@@ -18,7 +18,8 @@ Imports:
          httr,
          jsonlite,
          magrittr,
-         purrr
+         purrr,
+         readxl
 Suggests: testthat,
           uuid
 RoxygenNote: 7.1.1
