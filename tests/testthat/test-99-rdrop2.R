@@ -25,7 +25,7 @@ test_that("drop_share works correctly", {
 })
 
 
-# drop_search
+drop_search
 test_that("drop_search works correctly", {
   skip_on_cran()
 
@@ -82,27 +82,27 @@ test_that("drop_history works correctly", {
 })
 
 
-# drop_exists
-# test_that("drop_exists works correctly", {
-#   skip_on_cran()
-#
-#   folder_name <- traceless("drop_exists")
-#   drop_create(folder_name)
-#
-#   expect_true(drop_exists(folder_name))
-#   expect_false(drop_exists(traceless("stuffnthings")))
-#
-#   # Now test files inside subfolders
-#   write.csv(iris, file = "iris.csv")
-#   drop_upload("iris.csv", path = folder_name)
-#   expect_true(drop_exists(paste0(folder_name, "/iris.csv")))
-#
-#   #cleanup
-#   drop_delete(folder_name)
-#   unlink("iris.csv")
-# })
-#
-#
+drop_exists
+test_that("drop_exists works correctly", {
+  skip_on_cran()
+
+  folder_name <- traceless("drop_exists")
+  drop_create(folder_name)
+
+  expect_true(drop_exists(folder_name))
+  expect_false(drop_exists(traceless("stuffnthings")))
+
+  # Now test files inside subfolders
+  write.csv(iris, file = "iris.csv")
+  drop_upload("iris.csv", path = folder_name)
+  expect_true(drop_exists(paste0(folder_name, "/iris.csv")))
+
+  #cleanup
+  drop_delete(folder_name)
+  unlink("iris.csv")
+})
+
+
 # # drop_media
 # test_that("drop_media works correctly", {
 #   skip_on_cran()

@@ -1,16 +1,17 @@
 #' drop_read
 #'
-#' @description wrapper for importing read.csv, read_excel readRDS and load from dropbox
+#' @description wrapper for importing read.csv,
+#' read_excel readRDS and load from dropbox
 #'
 #' @param file path on dropbox
 #' @param dest local path. tempdir for default
 #' @param dtoken token
-#' @param ... other arguments according to file format into \code{read.csv} or \code{readxl} or \code(readRDS) or \code(load)
-#' @importFrom rdrop2 drop_download drop_upload
+#' @param ... other arguments according to file format
+#' into \code{read.csv} or \code{read_excel} or \code{readRDS} or \code{load}
 #' @importFrom readxl read_excel
+#' @author Lewis Hounkpevi
 #' @export
 #' @examples \dontrun{
-#'
 #' save(airquality, file = "airquality.RData")
 #' save(attenu, file = "attenu.RData")
 #' save(austres, file = "austres.RData")
@@ -41,7 +42,7 @@
 
 drop_read <- function (file,
                        dest = tempdir(),
-                       dtoken = rdrop2:::get_dropbox_token(),
+                       dtoken = get_dropbox_token(),
                        ...){
   localfile = paste0(dest, "/", basename(file))
   drop_download(file, localfile, overwrite = TRUE, dtoken = dtoken)
