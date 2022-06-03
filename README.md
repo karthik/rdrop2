@@ -1,5 +1,12 @@
 # rdrop2 - Dropbox interface from R  ![a_box](docs/rdrop2-logo.png)  
 
+```
+🚨🚨🚨
+The package is currently not maintained and up for adoption. If you are interested in taking over as maintainer, please send an email to karthik.ram@gmail.com. 
+
+If we can't find another maintainer before something breaks on CRAN, the package will be archived. 🙏
+🚨🚨🚨
+```
 
 
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
