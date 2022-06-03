@@ -1,8 +1,8 @@
 # rdrop2 - Dropbox interface from R  ![a_box](docs/rdrop2-logo.png)  
 
 
-🚨🚨🚨
-# Call for maintainers
+
+# 🚨🚨🚨 Call for maintainers 🚨🚨🚨
 
 The package is currently not maintained and up for adoption. If you are interested in taking over as maintainer, please send an email to karthik.ram@gmail.com. 
 
