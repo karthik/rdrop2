@@ -296,9 +296,9 @@ drop_exists <- function(path = NULL, dtoken = get_dropbox_token()) {
     FALSE
   } else {
     # Root of path (dir_name), exists/
-    paths_only <- dir_listing$result$path_display
+    paths_only <- dir_listing$result$path_lower
 
-    if (path %in% paths_only) {
+    if (tolower(path) %in% paths_only) {
       TRUE
     } else {
       FALSE
