@@ -4,7 +4,12 @@ Version: 0.8.2.1
 Authors@R: c(person("Karthik", "Ram", email = "karthik.ram@gmail.com", role = c("aut", "cre")),
            person("Clayton", "Yochum", role = "aut"),
            person("Caleb", "Scheidel", role = "ctb"),
-           person("Akhil", "Bhel", role = "cph")
+           person("Akhil", "Bhel", role = "cph"),
+           person(given = "Lewis",
+           family = "Hounkpevi",
+           role = "ctb",
+           email = "lewis.hounkpevi@gmail.com",
+           comment = c(ORCID = "0000-0001-5111-8568"))
            )
 Description: Provides full programmatic access to the 'Dropbox' file hosting platform <https://dropbox.com>, including support for all standard file operations.
 Depends: R (>= 3.1.1)
@@ -18,7 +23,9 @@ Imports:
          httr,
          jsonlite,
          magrittr,
-         purrr
+         purrr,
+         readxl,
+         openxlsx
 Suggests: testthat,
           uuid
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2

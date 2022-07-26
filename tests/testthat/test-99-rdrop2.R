@@ -25,7 +25,7 @@ test_that("drop_share works correctly", {
 })
 
 
-# drop_search
+drop_search
 test_that("drop_search works correctly", {
   skip_on_cran()
 
@@ -82,7 +82,7 @@ test_that("drop_history works correctly", {
 })
 
 
-# drop_exists
+drop_exists
 test_that("drop_exists works correctly", {
   skip_on_cran()
 
@@ -103,22 +103,22 @@ test_that("drop_exists works correctly", {
 })
 
 
-# drop_media
-test_that("drop_media works correctly", {
-  skip_on_cran()
-
-  file_name <- traceless("drop_media")
-  download.file("http://media4.giphy.com/media/YaXcVXGvBQlEI/200.gif",
-                destfile = file_name)
-  drop_upload(file_name)
-
-  media_url <- drop_media(file_name)
-  expect_match(media_url$link, "https://dl.dropboxusercontent.com")
-
-  # cleanup
-  unlink(file_name)
-  drop_delete(file_name)
-})
+# # drop_media
+# test_that("drop_media works correctly", {
+#   skip_on_cran()
+#
+#   file_name <- traceless("drop_media")
+#   download.file("http://media4.giphy.com/media/YaXcVXGvBQlEI/200.gif",
+#                 destfile = file_name)
+#   drop_upload(file_name)
+#
+#   media_url <- drop_media(file_name)
+#   expect_match(media_url$link, "https://dl.dropboxusercontent.com")
+#
+#   # cleanup
+#   unlink(file_name)
+#   drop_delete(file_name)
+# })
 
 # minor test for strip slashes
 test_that("strip slashes works correctly", {
