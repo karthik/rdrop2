@@ -183,10 +183,11 @@ saveRDS(token, "droptoken.rds")
 # ******** WARNING ********
 # read it back with readRDS
 token <- readRDS("droptoken.rds")
-# Then pass the token to each drop_ function
+# Then pass the token to each drop_ function or use this function as a preamble
 drop_acc(dtoken = token)
 ```
 
+NB: `drop_create (..., dtoken = token)` does not to work (rdrop2 0.8.1). There you need to call `drop_acc(dtoken = token)` before `drop_create (...)`
 
 __Meta__
 
