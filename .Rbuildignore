@@ -1,7 +1,6 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^\.httr-oauth$
-^\.travis\.yml$
 ^docs$
 Makefile
 README.*
@@ -15,3 +14,4 @@ man-roxygen
 cache/
 cran-comments.md
 ^CRAN-RELEASE$
+^\.github$
