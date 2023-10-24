@@ -12,12 +12,9 @@ If we can't find another maintainer before something breaks on CRAN, the package
 
 ---
 
- <!-- badges: start -->
-  [![R-CMD-check](https://github.com/limnotrack/rdrop2/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/limnotrack/rdrop2/actions/workflows/R-CMD-check.yaml)
-  [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
-[![Coverage Status](https://coveralls.io./repos/karthik/rdrop2/badge.svg)](https://coveralls.io/r/karthik/rdrop2) [![](http://cranlogs.r-pkg.org/badges/rdrop2)](http://cran.rstudio.com/web/packages/rdrop2/index.html)  [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/rdrop2)](http://cran.r-project.org/web/packages/rdrop2) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.998912.svg)](https://doi.org/10.5281/zenodo.998912)
-  <!-- badges: end -->
 
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+ [![Build Status](https://travis-ci.org/karthik/rdrop2.svg)](https://travis-ci.org/karthik/rdrop2)  [![Coverage Status](https://coveralls.io./repos/karthik/rdrop2/badge.svg)](https://coveralls.io/r/karthik/rdrop2) [![](http://cranlogs.r-pkg.org/badges/rdrop2)](http://cran.rstudio.com/web/packages/rdrop2/index.html)  [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/rdrop2)](http://cran.r-project.org/web/packages/rdrop2) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.998912.svg)](https://doi.org/10.5281/zenodo.998912)
 
 __Maintainers:__ Karthik Ram (@karthik) and Clayton Yochum (@ClaytonJY)
 
