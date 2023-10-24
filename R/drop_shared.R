@@ -34,7 +34,10 @@ drop_share <- function(path = NULL,
 
   # Check to see if only supported modes are specified
   visibilities <- c("public", "team_only", "password")
-  assertive::assert_any_are_matching_fixed(visibilities, requested_visibility)
+  if (!requested_visibility %in% visibilities) {
+    stop("'requested_visibility' must be one of '",
+         paste(visibilities, collapse = "', '"), ".")
+  }
 
   # TODO
   # Once the new drop_exists is done, one must check to see if a file/folder
@@ -57,7 +60,7 @@ drop_share <- function(path = NULL,
     url = share_url,
     httr::config(token = dtoken),
     body = list(path = path, settings = settings),
-    encode = "json" 
+    encode = "json"
   )
   # stopping for status otherwise content fails
   httr::stop_for_status(req)

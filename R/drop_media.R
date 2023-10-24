@@ -16,7 +16,7 @@
 #' drop_media('Public/gifs/duck_rabbit.gif')
 #'}
 drop_media <- function(path = NULL, dtoken = get_dropbox_token()) {
-  assertive::assert_is_not_null(path)
+  if (is.null(path)) stop("'path' is NULL.")
   if(drop_exists(path)) {
     media_url <- "https://api.dropbox.com/2/files/get_temporary_link"
     path <- add_slashes(path)

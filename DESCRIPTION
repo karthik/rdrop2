@@ -12,7 +12,6 @@ License: MIT + file LICENSE
 BugReports: https://github.com/karthik/rdrop2/issues
 LazyData: true
 Imports: 
-         assertive,
          digest,
          dplyr,
          httr,
@@ -21,4 +20,4 @@ Imports:
          purrr
 Suggests: testthat,
           uuid
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.3
