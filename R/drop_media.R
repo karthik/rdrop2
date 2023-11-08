@@ -17,13 +17,25 @@
 #'}
 drop_media <- function(path = NULL, dtoken = get_dropbox_token()) {
   assertive::assert_is_not_null(path)
-  if(drop_exists(path)) {
-    media_url <- "https://api.dropbox.com/2/files/get_temporary_link"
-    path <- add_slashes(path)
-    res <- POST(media_url, body = list(path = path), httr::config(token = dtoken), encode = "json")
-    content(res)
+  if (drop_exists(path)) {
+    api_get_temporary_link(add_slashes(path), dtoken)
   } else {
     stop("File not found \n")
     FALSE
   }
+}
+
+
+#' API wrapper for files/get_temporary_link
+#'
+#' @noRd
+#'
+#' @keywords internal
+api_get_temporary_link <- function(path, dtoken) {
+
+  post_api(
+    "https://api.dropbox.com/2/files/get_temporary_link",
+    dtoken,
+    path
+  )
 }
