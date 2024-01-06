@@ -45,9 +45,12 @@ drop_dir <- function(
 ) {
 
   # check args
-  assertive::assert_is_a_string(path)
-  if (!is.null(limit)) assertive::assert_is_numeric(limit)
-  assertive::assert_is_any_of(cursor, c("logical", "character"))
+  #assertive::assert_is_a_string(path)
+  #if (!is.null(limit)) assertive::assert_is_numeric(limit)
+  #assertive::assert_is_any_of(cursor, c("logical", "character"))
+  assertthat::assert_that(is.character(path),
+                          is.null(limit) || is.numeric(limit),
+                          class(cursor) %in% c("logical", "character"))
 
   # this API doesn't accept "/", so don't add slashes to empty path, remove if given
   if (path != "") path <- add_slashes(path)

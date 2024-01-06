@@ -28,9 +28,14 @@ drop_search <- function(query,
                         dtoken = get_dropbox_token()) {
   available_modes <-
     c("filename", "filename_and_content", "deleted_filename")
-  assertive::assert_any_are_matching_fixed(available_modes, mode)
+  # assertive::assert_any_are_matching_fixed(available_modes, mode)
+  assertthat::assert_that(mode %in% available_modes)
+
   # A search cannot have a negative start index and a negative max_results
-  assertive::assert_all_are_non_negative(start, max_results)
+  #assertive::assert_all_are_non_negative(start, max_results)
+  assertthat::assert_that(start >= 0,
+                          max_results >= 0)
+
   args <- drop_compact(
     list(
       query = query,

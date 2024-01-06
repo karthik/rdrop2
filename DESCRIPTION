@@ -1,6 +1,6 @@
 Package: rdrop2
 Title: Programmatic Interface to the 'Dropbox' API
-Version: 0.8.2.1
+Version: 0.8.2.2
 Authors@R: c(person("Karthik", "Ram", email = "karthik.ram@gmail.com", role = c("aut", "cre")),
            person("Clayton", "Yochum", role = "aut"),
            person("Caleb", "Scheidel", role = "ctb"),
@@ -11,14 +11,14 @@ Depends: R (>= 3.1.1)
 License: MIT + file LICENSE
 BugReports: https://github.com/karthik/rdrop2/issues
 LazyData: true
-Imports: 
-         assertive,
-         digest,
+Imports: digest,
          dplyr,
          httr,
          jsonlite,
          magrittr,
-         purrr
+         purrr,
+         assertthat
 Suggests: testthat,
           uuid
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.3
+Encoding: UTF-8
