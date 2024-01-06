@@ -110,7 +110,8 @@ drop_get <- function(
 
   .Deprecated("drop_download")
 
-  assertive::assert_is_not_null(path)
+  #assertive::assert_is_not_null(path)
+  assertthat::assert_that(!is.null(path))
 
   if (drop_exists(path, dtoken = dtoken)) {
     filename <- ifelse(is.null(local_file), basename(path), local_file)

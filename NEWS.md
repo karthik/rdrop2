@@ -1,3 +1,6 @@
+# rdrop2 0.8.2.2
+* replaced dependency package `assertive` by `assertthat`.
+
 # rdrop2 0.8.2
 * Minor update to unarchive on CRAN (archived because assertive was archived)
 

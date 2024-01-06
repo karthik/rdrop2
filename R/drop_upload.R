@@ -38,11 +38,13 @@ drop_upload <- function(file,
   put_url <- "https://content.dropboxapi.com/2/files/upload"
 
   # Check that object exists locally before adding slashes
-  assertive::assert_all_are_existing_files(file, severity = ("stop"))
+  # assertive::assert_all_are_existing_files(file, severity = ("stop"))
+  assertthat::assert_that(file.exists(file))
 
   # Check to see if only supported modes are specified
   standard_modes <- c("overwrite", "add", "update")
-  assertive::assert_any_are_matching_fixed(standard_modes, mode)
+  # assertive::assert_any_are_matching_fixed(standard_modes, mode)
+  assertthat::assert_that(mode %in% standard_modes)
 
   # Dropbox API requires a / before an object name.
   if (is.null(path)) {

@@ -276,7 +276,9 @@ drop_create <-
 #'
 #' @export
 drop_exists <- function(path = NULL, dtoken = get_dropbox_token()) {
-  assertive::assert_is_not_null(path)
+  #assertive::assert_is_not_null(path)
+  assertthat::assert_that(!is.null(path))
+
   if (!grepl('^/', path))
     path <- paste0("/", path)
   dir_name <- suppressMessages(dirname(path))

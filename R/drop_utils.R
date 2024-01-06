@@ -193,7 +193,8 @@ LinearizeNestedList <- function(NList, LinearizeDataFrames=FALSE,
 #' @noRd
 pretty_lists <- function(x)
 {
-  assertive::assert_is_list(x)
+  # assertive::assert_is_list(x)
+  assertthat::assert_that(is.list(x))
 
    for(key in names(x)){
       value <- format(x[[key]])
