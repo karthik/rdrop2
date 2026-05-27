@@ -14,53 +14,47 @@ drop_auth(
 }
 \arguments{
 \item{new_user}{Set to \code{TRUE} if you need to switch to a new user
-account or just flush existing token. Default is \code{FALSE}.}
+account or flush the existing cached token. Default is \code{FALSE}.}
 
-\item{key}{Your application key. \code{rdrop2} already comes with a key/secret but
-you are welcome to swap out with our own. Since these keys are shipped with
-the package, there is a small chance they could be voided if someone abuses
-the key. If you plan to use this in production, or for an internal tool,
-the recommended practice is to create a new application on Dropbox and use
-those keys for your purposes.}
+\item{key}{Your application key. \code{rdrop2} ships with a default key, but
+for production use you should create your own Dropbox app and supply its
+credentials.}
 
-\item{secret}{Your application secret. Like \code{key}, \code{rdrop2} comes
-with a secret but you are welcome to swap out with our own.}
+\item{secret}{Your application secret.}
 
-\item{cache}{By default your credentials are locally cached in a file called
-\code{.httr-oauth}. Set to FALSE if you need to authenticate separately
-each time.}
+\item{cache}{Either \code{TRUE} (save token to \code{.rdrop2-token.rds} in
+the working directory), \code{FALSE} (do not cache), or a file path string
+specifying where to save the token RDS file.}
 
-\item{rdstoken}{File path to stored RDS token. In server environments where
-interactive OAuth is not possible, a token can be created on a desktop
-client and used in production. See examples.}
+\item{rdstoken}{File path to a previously saved RDS token. In non-interactive
+(server) environments, create a token on a desktop machine with
+\code{drop_auth()}, save it with \code{saveRDS()}, and supply the path
+here. See examples.}
 }
 \value{
-A Token2.0 object, invisibly
+The \code{httr2_token} object, invisibly.
 }
 \description{
-This function authenticates you into Dropbox. The documentation for the
-\href{https://www.dropbox.com/developers/documentation?_tk=pilot_lp&_ad=topbar1&_camp=docs}{core Dropbox API}
-provides more details including alternate methods if you desire to
-reimplement your own.
+This function authenticates you into Dropbox using OAuth 2.0 via the
+\pkg{httr2} package. The documentation for the
+\href{https://www.dropbox.com/developers/documentation}{Dropbox API v2}
+provides more details.
 }
 \examples{
 \dontrun{
 
-  # To either read token from .httr-oauth in the working directory or open a
-  # web browser to authenticate (and cache a token)
+  # Open a browser to authenticate (and cache the token)
   drop_auth()
 
-  # If you want to overwrite an existing local token and switch to a new
-  # user, set new_user to TRUE.
+  # Switch to a new user account
   drop_auth(new_user = TRUE)
 
-  # To store a token for re-use (more flexible than .httr-oauth), save the
-  # output of drop_auth and save it to an RDS file
+  # Save the token for later re-use
   token <- drop_auth()
-  saveRDS(token, "/path/to/tokenfile.RDS")
+  saveRDS(token, "/path/to/tokenfile.rds")
 
-  # To use a stored token provide token location
-  drop_auth(rdstoken = "/path/to/tokenfile.RDS")
+  # Load a previously saved token
+  drop_auth(rdstoken = "/path/to/tokenfile.rds")
 }
 }
 \references{

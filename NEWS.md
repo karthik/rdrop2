@@ -1,3 +1,8 @@
+# rdrop2 0.10.0
+* Switched from `httr` to `httr2` for all HTTP requests.
+* Added `cli` package for improved user-facing messages, warnings, and errors.
+* Added Tadhg Moore as a contributor.
+
 # rdrop2 0.8.2.2
 * replaced dependency package `assertive` by `assertthat`.
 

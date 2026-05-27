@@ -2,8 +2,10 @@ context("authorization")
 test_that("Able to authenticate from saved RDS token", {
   skip_on_cran()
 
-  # read cached token and check its class
-  expect_is(drop_auth(rdstoken = "token.rds"), "Token2.0")
+  # read cached token and check it has an access_token field
+  token <- drop_auth(rdstoken = "token.rds")
+  expect_true(!is.null(token$access_token))
+  expect_is(token, "httr2_token")
 })
 
 
@@ -21,4 +23,3 @@ test_that("Account information works correctly", {
   # name element should be its own list
   expect_is(acc_info$name, "list")
 })
-

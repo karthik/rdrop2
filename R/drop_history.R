@@ -48,17 +48,41 @@ drop_list_revisions <- function(path, limit = 10, dtoken = get_dropbox_token()) 
 
   url <- "https://api.dropboxapi.com/2/files/list_revisions"
 
-  req <- httr::POST(
-    url = url,
-    httr::config(token = dtoken),
-    body = list(
-      path = add_slashes(path),
-      limit = limit
-    ),
-    encode = "json"
-  )
+  drop_request(url, dtoken, body = list(
+    path  = add_slashes(path),
+    limit = limit
+  ))
+}
 
-  httr::stop_for_status(req)
 
-  httr::content(req)
+#' Restore a file to a specific revision.
+#'
+#' Reverts a file on Dropbox to the content it had at a given revision. Use
+#' \code{\link{drop_history}} to find available revision IDs.
+#'
+#' @param path Path to the file on Dropbox.
+#' @param rev  The revision identifier string (e.g. \code{"a1c10ce0dd78"}) to
+#'   restore to.  Revision IDs are returned in the \code{rev} column of
+#'   \code{\link{drop_history}}.
+#' @template token
+#'
+#' @return A list of file metadata reflecting the restored version.
+#'
+#' @references \href{https://www.dropbox.com/developers/documentation/http/documentation#files-restore}{API documentation}
+#'
+#' @export
+#'
+#' @examples \dontrun{
+#'   history <- drop_history("report.csv")
+#'   # restore to the second most recent version
+#'   drop_restore("report.csv", rev = history$rev[2])
+#' }
+drop_restore <- function(path, rev, dtoken = get_dropbox_token()) {
+
+  url <- "https://api.dropboxapi.com/2/files/restore"
+
+  drop_request(url, dtoken, body = list(
+    path = add_slashes(path),
+    rev  = rev
+  ))
 }

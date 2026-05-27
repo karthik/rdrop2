@@ -2,11 +2,17 @@
 % Please edit documentation in R/drop_auth.R
 \name{get_dropbox_token}
 \alias{get_dropbox_token}
-\title{Retrieve oauth2 token from rdrop2-namespaced environment}
+\title{Retrieve the Dropbox bearer token string}
 \usage{
 get_dropbox_token()
 }
+\value{
+The Dropbox access token string.
+}
 \description{
-Retrieves a token if it is previously stored, otherwise prompts user to get one.
+Returns the access token string stored in the rdrop2 environment. If no
+token is cached, \code{\link{drop_auth}} is called interactively. If the
+stored token has expired and a refresh token is available, the token is
+silently refreshed and the cache file is updated.
 }
 \keyword{internal}

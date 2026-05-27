@@ -1,24 +1,26 @@
 Package: rdrop2
 Title: Programmatic Interface to the 'Dropbox' API
-Version: 0.8.2.2
+Version: 0.10.0
 Authors@R: c(person("Karthik", "Ram", email = "karthik.ram@gmail.com", role = c("aut", "cre")),
            person("Clayton", "Yochum", role = "aut"),
            person("Caleb", "Scheidel", role = "ctb"),
-           person("Akhil", "Bhel", role = "cph")
+           person("Akhil", "Bhel", role = "cph"),
+           person("Tadhg", "Moore", role = "ctb")
            )
-Description: Provides full programmatic access to the 'Dropbox' file hosting platform <https://dropbox.com>, including support for all standard file operations.
-Depends: R (>= 3.1.1)
+Description: Provides full programmatic access to the 'Dropbox' file hosting platform <https://dropbox.com>, including support for all standard file operations. Uses the 'httr2' package for HTTP requests and the Dropbox API v2.
+Depends: R (>= 3.6.0)
 License: MIT + file LICENSE
 BugReports: https://github.com/karthik/rdrop2/issues
 LazyData: true
-Imports: digest,
+Imports: cli,
+         digest,
          dplyr,
-         httr,
+         httr2,
          jsonlite,
          magrittr,
          purrr,
          assertthat
 Suggests: testthat,
           uuid
-RoxygenNote: 7.2.3
 Encoding: UTF-8
+Config/roxygen2/version: 8.0.0

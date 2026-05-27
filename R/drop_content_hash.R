@@ -35,7 +35,7 @@
 #' }
 drop_content_hash <- function(file) {
   if (!is.character(file)) {
-    stop("Expected 'file' to be a character vector")
+    cli::cli_abort("Expected {.arg file} to be a character vector")
   }
   if (length(file) != 1L) {
     return(vapply(file, drop_content_hash, character(1), USE.NAMES = FALSE))

@@ -38,7 +38,8 @@ test_that("drop_search works correctly", {
 
   x <- drop_search("mt")
 
-  expect_equal(x$matches[[1]]$metadata$name, "mtcars.csv")
+  # search_v2 nests metadata: matches[[i]]$metadata$metadata$name
+  expect_equal(x$matches[[1]]$metadata$metadata$name, "mtcars.csv")
 
   # A search with no query should fail
   expect_error(drop_search())

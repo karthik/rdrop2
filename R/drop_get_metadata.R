@@ -3,7 +3,7 @@
 #' Details vary by input and args.
 #'
 #' @param path Path to a file or folder on Dropbox. Can also be an ID ("id:...") or revision ("rev:...").
-#' @param include_media_info If TRUE, additional metadata for photo or video is returns. Defaults to FALSE.
+#' @param include_media_info If TRUE, additional metadata for photo or video is returned. Defaults to FALSE.
 #' @param include_deleted If TRUE, metadata will be returned for a deleted file, otherwise error. Defaults to FALSE.
 #' @param include_has_explicit_shared_members If TRUE, the results will include a flag for each file indicating whether or not that file has any explicit members. Defaults to FALSE.
 #' @template token
@@ -25,19 +25,10 @@ drop_get_metadata <- function(
 
   if (!grepl("^(id|rev):", path)) path <- add_slashes(path)
 
-  req <- httr::POST(
-    url = url,
-    httr::config(token = dtoken),
-    body = list(
-      path = path,
-      include_media_info = include_media_info,
-      include_deleted = include_deleted,
-      include_has_explicit_shared_members = include_has_explicit_shared_members
-    ),
-    encode = "json"
-  )
-
-  httr::stop_for_status(req)
-
-  httr::content(req)
+  drop_request(url, dtoken, body = list(
+    path = path,
+    include_media_info = include_media_info,
+    include_deleted = include_deleted,
+    include_has_explicit_shared_members = include_has_explicit_shared_members
+  ))
 }

@@ -19,18 +19,15 @@ drop_upload(
 
 \item{path}{The relative path on Dropbox where the file should get uploaded.}
 
-\item{mode}{- "add" - will not overwrite an existing file in case of a
-conflict. With this mode, when a a duplicate file.txt is uploaded, it  will
-become file (2).txt. - "overwrite" will always overwrite a file -}
+\item{mode}{Upload mode: \code{"overwrite"} (default) will always overwrite
+an existing file; \code{"add"} will not overwrite and instead create a
+renamed copy on conflict; \code{"update"} requires a \code{rev} argument.}
 
-\item{autorename}{This logical determines what happens when there is a
-conflict. If true, the file being uploaded will be automatically renamed to
-avoid the conflict. (For example, test.txt might be automatically renamed to
-test (1).txt.) The new name can be obtained from the returned metadata. If
-false, the call will fail with a 409 (Conflict) response code. The default is `TRUE`}
+\item{autorename}{If \code{TRUE} (default), the file being uploaded will be
+automatically renamed to avoid conflicts when using \code{mode = "add"}.}
 
-\item{mute}{Set to FALSE to prevent a notification trigger on the desktop and
-mobile apps}
+\item{mute}{Set to \code{TRUE} to suppress desktop/mobile notifications.
+Defaults to \code{FALSE}.}
 
 \item{verbose}{By default verbose output is \code{FALSE}. Set to \code{TRUE}
 if you need to troubleshoot any output or grab additional parameters.}
@@ -41,9 +38,13 @@ However, if the credentials are not found, the function will initiate a new
 authentication request. You can override this in \code{\link{drop_auth}} by
 pointing to a different location where your credentials are stored.}
 }
+\value{
+Dropbox file metadata list, invisibly.
+}
 \description{
-This function will allow you to write files of any size to Dropbox(even ones
-that cannot be read into memory) by uploading them in chunks.
+This function will allow you to write files of any size to Dropbox. Files
+larger than 150 MB are automatically uploaded in chunks using the Dropbox
+upload session API.
 }
 \examples{
 \dontrun{

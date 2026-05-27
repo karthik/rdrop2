@@ -15,7 +15,7 @@ drop_get_metadata(
 \arguments{
 \item{path}{Path to a file or folder on Dropbox. Can also be an ID ("id:...") or revision ("rev:...").}
 
-\item{include_media_info}{If TRUE, additional metadata for photo or video is returns. Defaults to FALSE.}
+\item{include_media_info}{If TRUE, additional metadata for photo or video is returned. Defaults to FALSE.}
 
 \item{include_deleted}{If TRUE, metadata will be returned for a deleted file, otherwise error. Defaults to FALSE.}
 

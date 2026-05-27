@@ -45,9 +45,6 @@ drop_dir <- function(
 ) {
 
   # check args
-  #assertive::assert_is_a_string(path)
-  #if (!is.null(limit)) assertive::assert_is_numeric(limit)
-  #assertive::assert_is_any_of(cursor, c("logical", "character"))
   assertthat::assert_that(is.character(path),
                           is.null(limit) || is.numeric(limit),
                           class(cursor) %in% c("logical", "character"))
@@ -104,7 +101,7 @@ drop_dir <- function(
     while (content$has_more) {
 
       # update content, append results
-      content <- drop_list_folder_continue(content$cursor)
+      content <- drop_list_folder_continue(content$cursor, dtoken)
       results  <- append(results, content$entries)
     }
   }
@@ -138,24 +135,15 @@ drop_list_folder <- function(
 
   url <- "https://api.dropboxapi.com/2/files/list_folder"
 
-  req <- httr::POST(
-    url = url,
-    httr::config(token = dtoken),
-    body = drop_compact(list(
-      path = path,
-      recursive = recursive,
-      include_media_info = include_media_info,
-      include_deleted = include_deleted,
-      include_has_explicit_shared_members = include_has_explicit_shared_members,
-      include_mounted_folders = include_mounted_folders,
-      limit = limit
-    )),
-    encode = "json"
-  )
-
-  httr::stop_for_status(req)
-
-  httr::content(req)
+  drop_request(url, dtoken, body = drop_compact(list(
+    path = path,
+    recursive = recursive,
+    include_media_info = include_media_info,
+    include_deleted = include_deleted,
+    include_has_explicit_shared_members = include_has_explicit_shared_members,
+    include_mounted_folders = include_mounted_folders,
+    limit = limit
+  )))
 }
 
 
@@ -172,16 +160,7 @@ drop_list_folder_continue <- function(cursor, dtoken = get_dropbox_token()) {
 
   url <- "https://api.dropboxapi.com/2/files/list_folder/continue"
 
-  req <- httr::POST(
-    url = url,
-    httr::config(token = dtoken),
-    body = list(cursor = cursor),
-    encode = "json"
-  )
-
-  httr::stop_for_status(req)
-
-  httr::content(req)
+  drop_request(url, dtoken, body = list(cursor = cursor))
 }
 
 
@@ -207,22 +186,13 @@ drop_list_folder_get_latest_cursor <- function(
 
   url <- "https://api.dropboxapi.com/2/files/list_folder/get_latest_cursor"
 
-  req <- httr::POST(
-    url = url,
-    httr::config(token = dtoken),
-    body = drop_compact(list(
-      path = path,
-      recursive = recursive,
-      include_media_info = include_media_info,
-      include_deleted = include_deleted,
-      include_has_explicit_shared_members = include_has_explicit_shared_members,
-      include_mounted_folders = include_mounted_folders,
-      limit = limit
-    )),
-    encode = "json"
-  )
-
-  httr::stop_for_status(req)
-
-  httr::content(req)
+  drop_request(url, dtoken, body = drop_compact(list(
+    path = path,
+    recursive = recursive,
+    include_media_info = include_media_info,
+    include_deleted = include_deleted,
+    include_has_explicit_shared_members = include_has_explicit_shared_members,
+    include_mounted_folders = include_mounted_folders,
+    limit = limit
+  )))
 }

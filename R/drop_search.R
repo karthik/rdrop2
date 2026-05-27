@@ -1,62 +1,96 @@
 
 
-
-#'Returns metadata for all files and folders whose filename contains the given
-#'search string as a substring.
+#' Search for files and folders on Dropbox.
 #'
-#'@param query  The search string. This string is split (on spaces) into
-#'  individual words. Files and folders will be returned if they contain all
-#'  words in the search string.
-#'@template path
-#'@param start The starting index within the search results (used for paging).
-#'  The default for this field is 0
-#'@param max_results The maximum number of search results to return. The default
-#'  for this field is 100.
-#'@param  mode Mode can take the option of filename, filename_and_content, or search deleted files with deleted_filename
-#'@template token
-#' @references \href{https://www.dropbox.com/developers/documentation/http/documentation#files-search}{API documentation}
-#'@export
+#' Returns metadata for all files and folders whose filename (or content, if
+#' enabled) matches the given search string.  Uses the Dropbox
+#' \code{files/search_v2} API endpoint which supports richer filtering options
+#' than the original search endpoint.
+#'
+#' @param query The search string. Split on spaces into individual words;
+#'   results are returned if they contain all words.
+#' @param path  Dropbox path to restrict the search to. Defaults to the entire
+#'   Dropbox (\code{""}).
+#' @param max_results The maximum number of search results to return. Defaults
+#'   to 100.
+#' @param file_status  Filter by file status: \code{"active"} (default) returns
+#'   only existing files; \code{"deleted"} returns only deleted files.
+#' @param filename_only If \code{TRUE}, restricts the search to filenames only
+#'   (faster). Defaults to \code{FALSE}.
+#' @param file_extensions Optional character vector of file extensions to
+#'   restrict results to (e.g., \code{c("pdf", "docx")}).
+#' @param file_categories Optional character vector of file category tags to
+#'   restrict results to. Valid values: \code{"image"}, \code{"document"},
+#'   \code{"pdf"}, \code{"spreadsheet"}, \code{"presentation"}, \code{"audio"},
+#'   \code{"video"}, \code{"folder"}, \code{"paper"}, \code{"others"}.
+#' @template token
+#'
+#' @return A list as returned by the Dropbox API, with a \code{matches} element
+#'   (list of match objects) and an optional \code{cursor} for pagination.
+#'
+#' @references \href{https://www.dropbox.com/developers/documentation/http/documentation#files-search_v2}{API documentation}
+#'
+#' @export
+#'
 #' @examples \dontrun{
-#' # If you know me, you know why this query exists
-#' drop_search('gif') %>% select(path, is_dir, mime_type)
-#'}
+#'   # simple filename search
+#'   results <- drop_search("report")
+#'   results$matches[[1]]$metadata$metadata$name
+#'
+#'   # search only PDF files
+#'   drop_search("budget", file_extensions = "pdf")
+#'
+#'   # search images only
+#'   drop_search("vacation", file_categories = "image")
+#' }
 drop_search <- function(query,
                         path = "",
-                        start = 0,
                         max_results = 100,
-                        mode = "filename",
+                        file_status = "active",
+                        filename_only = FALSE,
+                        file_extensions = NULL,
+                        file_categories = NULL,
                         dtoken = get_dropbox_token()) {
-  available_modes <-
-    c("filename", "filename_and_content", "deleted_filename")
-  # assertive::assert_any_are_matching_fixed(available_modes, mode)
-  assertthat::assert_that(mode %in% available_modes)
 
-  # A search cannot have a negative start index and a negative max_results
-  #assertive::assert_all_are_non_negative(start, max_results)
-  assertthat::assert_that(start >= 0,
-                          max_results >= 0)
+  valid_file_status <- c("active", "deleted")
+  assertthat::assert_that(file_status %in% valid_file_status)
+  assertthat::assert_that(max_results >= 0)
 
-  args <- drop_compact(
-    list(
-      query = query,
-      path = path,
-      start = as.integer(start),
-      max_results = as.integer(max_results),
-      mode = mode
-    )
-  )
+  # build options list, dropping NULLs
+  options <- drop_compact(list(
+    path              = if (nchar(path) > 0) add_slashes(path) else NULL,
+    max_results       = as.integer(max_results),
+    file_status       = list(".tag" = file_status),
+    filename_only     = filename_only,
+    file_extensions   = if (!is.null(file_extensions)) as.list(file_extensions) else NULL,
+    file_categories   = if (!is.null(file_categories))
+                          lapply(file_categories, function(x) list(".tag" = x))
+                        else NULL
+  ))
 
-  search_url <- "https://api.dropboxapi.com/2/files/search"
-  res <-
-    httr::POST(search_url,
-               body = args,
-               httr::config(token = dtoken),
-               encode = "json")
-  httr::stop_for_status(res)
-  httr::content(res)
-  # TODO
-  # Need to do a verbose return but also print a nice data.frame
-  # One way to do that is with purrr::flatten
-  # e.g. purrr::flatten(results$matches)
-  # But, do we want purrr as another import???
+  search_url <- "https://api.dropboxapi.com/2/files/search_v2"
+  drop_request(search_url, dtoken,
+               body = list(query = query, options = options))
+}
+
+
+#' Continue a paginated search begun with \code{drop_search}.
+#'
+#' @param cursor A cursor string returned in a previous \code{drop_search} call.
+#' @template token
+#'
+#' @return Same structure as \code{\link{drop_search}}.
+#'
+#' @references \href{https://www.dropbox.com/developers/documentation/http/documentation#files-search-continue_v2}{API documentation}
+#'
+#' @export
+#'
+#' @examples \dontrun{
+#'   first_page  <- drop_search("report", max_results = 20)
+#'   second_page <- drop_search_continue(first_page$cursor)
+#' }
+drop_search_continue <- function(cursor, dtoken = get_dropbox_token()) {
+
+  url <- "https://api.dropboxapi.com/2/files/search/continue_v2"
+  drop_request(url, dtoken, body = list(cursor = cursor))
 }

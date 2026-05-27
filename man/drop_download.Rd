@@ -40,17 +40,17 @@ Download a file from Dropbox to disk.
 \dontrun{
 
   # download a file to the current working directory
-  drop_get("dataset.zip")
+  drop_download("dataset.zip")
 
   # download again, overwriting previous result
-  drop_get("dataset.zip", overwrite = TRUE)
+  drop_download("dataset.zip", overwrite = TRUE)
 
   # download to a different path, keeping file name constant
   # will download to "some/other/place/dataset.zip"
-  drop_get("dataset.zip", local_path = "some/other/place/")
+  drop_download("dataset.zip", local_path = "some/other/place/")
 
-  # download to to a different path, changing filename
-  drop_get("dataset.zip", local_path = "some/other/place/not_a_dataset.zip")
+  # download to a different path, changing filename
+  drop_download("dataset.zip", local_path = "some/other/place/not_a_dataset.zip")
 }
 
 }

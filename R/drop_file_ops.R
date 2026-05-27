@@ -2,6 +2,8 @@
 
 #' Copies a file or folder to a new location.
 #'
+#' Copies a file or folder to a new location.
+#'
 #' @template from_to
 #' @template verbose
 #' @template token
@@ -20,8 +22,7 @@
 #' drop_create("drop_test2")
 #' drop_copy("mt.csv", "drop_test2/mt2.csv")
 #' }
-drop_copy <-
-  function(from_path = NULL,
+drop_copy <- function(from_path = NULL,
            to_path = NULL,
            allow_shared_folder = FALSE,
            autorename = FALSE,
@@ -29,29 +30,21 @@ drop_copy <-
            verbose = FALSE,
            dtoken = get_dropbox_token())  {
     copy_url <- "https://api.dropboxapi.com/2/files/copy_v2"
-
     from_path <- add_slashes(from_path)
     to_path <- add_slashes(to_path)
-
     # Copying a file into a folder
-    file_to_folder <-
-      c(drop_type(from_path) == "file",
-        drop_type(to_path) == "folder")
-    to_path <-
-      ifelse(all(file_to_folder), paste0(to_path, from_path), to_path)
-
-    # coping a folder to another folder
-    folder_to_folder <-
-      c(drop_type(from_path) == "folder",
-        drop_type(to_path) == "folder")
-    to_path <-
-      ifelse(all(folder_to_folder), paste0(to_path, from_path), to_path)
-
+    file_to_folder <- c(drop_type(from_path) == "file",
+                        drop_type(to_path) == "folder")
+    to_path <- ifelse(all(file_to_folder), paste0(to_path, from_path), to_path)
+    # Copying a folder to another folder
+    folder_to_folder <- c(drop_type(from_path) == "folder",
+                          drop_type(to_path) == "folder")
+    to_path <- ifelse(all(folder_to_folder), paste0(to_path, from_path), to_path)
+    # Nothing to do, since both paths reflect origin and destination
     # Copying a file to a file
     # Nothing to do, since both paths reflect origin and destination
 
     # Copying a folder to an existing filename will result in a HTTP 409 (conflict error)
-
     args <- drop_compact(
       list(
         from_path = from_path,
@@ -63,22 +56,16 @@ drop_copy <-
     )
 
     if (drop_exists(from_path)) {
-      # copy
-      x <-
-        httr::POST(copy_url,
-                   httr::config(token = dtoken),
-                   body = args,
-                   encode = "json")
-      res <- httr::content(x)
+      res <- drop_request(copy_url, dtoken, body = args)
       if (!verbose) {
-        message(sprintf("%s copied to %s", from_path, res$metadata$path_lower))
+        cli::cli_alert_success("{from_path} copied to {res$metadata$path_lower}")
         invisible(res)
       } else {
         pretty_lists(res)
         invisible(res)
       }
     } else {
-      stop("File or folder not found \n")
+      cli::cli_abort("File or folder not found")
     }
   }
 
@@ -103,8 +90,7 @@ drop_copy <-
 #' drop_create("drop_test2")
 #' drop_move("mt.csv", "drop_test2/mt.csv")
 #' }
-drop_move <-
-  function(from_path = NULL,
+drop_move <- function(from_path = NULL,
            to_path = NULL,
            allow_shared_folder = FALSE,
            autorename = FALSE,
@@ -117,18 +103,14 @@ drop_move <-
     to_path <- add_slashes(to_path)
 
     # Moving a file into a folder
-    file_to_folder <-
-      c(drop_type(from_path) == "file",
-        drop_type(to_path) == "folder")
-    to_path <-
-      ifelse(all(file_to_folder), paste0(to_path, from_path), to_path)
+    file_to_folder <- c(drop_type(from_path) == "file",
+                        drop_type(to_path) == "folder")
+    to_path <- ifelse(all(file_to_folder), paste0(to_path, from_path), to_path)
 
     # Moving a folder to another folder
-    folder_to_folder <-
-      c(drop_type(from_path) == "folder",
-        drop_type(to_path) == "folder")
-    to_path <-
-      ifelse(all(folder_to_folder), paste0(to_path, from_path), to_path)
+    folder_to_folder <- c(drop_type(from_path) == "folder",
+                          drop_type(to_path) == "folder")
+    to_path <- ifelse(all(folder_to_folder), paste0(to_path, from_path), to_path)
 
     # Moving a file to a file
     # Nothing to do, since both paths reflect origin and destination
@@ -146,23 +128,17 @@ drop_move <-
     )
 
     if (drop_exists(from_path)) {
-      # move
-      x <-
-        httr::POST(move_url,
-                   httr::config(token = dtoken),
-                   body = args,
-                   encode = "json")
-      res <- httr::content(x)
+      res <- drop_request(move_url, dtoken, body = args)
 
       if (!verbose) {
-        message(sprintf("%s moved to %s", from_path, res$metadata$path_lower))
+        cli::cli_alert_success("{from_path} moved to {res$metadata$path_lower}")
         invisible(res)
       } else {
         pretty_lists(res)
         invisible(res)
       }
     } else {
-      stop("File or folder not found \n")
+      cli::cli_abort("File or folder not found")
     }
   }
 
@@ -174,21 +150,13 @@ drop_move <-
 #' @template token
 #' @export
 #' @references \href{https://www.dropbox.com/developers/documentation/http/documentation#files-delete_v2}{API documentation}
-drop_delete <-
-  function (path = NULL,
+drop_delete <- function(path = NULL,
             verbose = FALSE,
             dtoken = get_dropbox_token()) {
     create_url <- "https://api.dropboxapi.com/2/files/delete_v2"
     if (drop_exists(path)) {
       path <- add_slashes(path)
-      x <-
-        httr::POST(
-          create_url,
-          httr::config(token = dtoken),
-          body = list(path = path),
-          encode = "json"
-        )
-      res <- httr::content(x)
+      res <- drop_request(create_url, dtoken, body = list(path = path))
 
       if (verbose) {
         res
@@ -197,7 +165,7 @@ drop_delete <-
       }
     } else {
       # Since file/folder wasn't found, report a stop error
-      stop("File not found on current path")
+      cli::cli_abort("File not found on current path")
     }
   }
 
@@ -215,8 +183,7 @@ drop_delete <-
 #' @examples \dontrun{
 #' drop_create(path = "foobar")
 #'}
-drop_create <-
-  function(path = NULL,
+drop_create <- function(path = NULL,
            autorename = FALSE,
            verbose = FALSE,
            dtoken = get_dropbox_token()) {
@@ -227,32 +194,24 @@ drop_create <-
       create_url <- "https://api.dropboxapi.com/2/files/create_folder_v2"
 
       path <- add_slashes(path)
-      x <-
-        httr::POST(
-          create_url,
-          config(token = dtoken),
-          body = list(path = path, autorename = autorename),
-          encode = "json"
-        )
-      results <- httr::content(x)
+      results <- drop_request(
+        create_url, dtoken,
+        body = list(path = path, autorename = autorename)
+      )
 
       if (verbose) {
         pretty_lists(results)
         invisible(results)
       } else {
-          message(sprintf("Folder %s created successfully \n", results$metadata$path_lower))
+          cli::cli_alert_success("Folder {results$metadata$path_lower} created successfully")
           invisible(results)
       }
 
       invisible(results)
     } else {
-      stop("Folder already exists")
+      cli::cli_abort("Folder already exists")
     }
   }
-
-
-
-
 
 
 #' Checks to see if a file/folder exists on Dropbox
@@ -289,8 +248,7 @@ drop_exists <- function(path = NULL, dtoken = get_dropbox_token()) {
   #
   # Other solution is to use purrr::safely to trap the error and return FALSE
   # (TODO): Explore uninteded consequence of this.
-  safe_dir_check <-
-    purrr::safely(drop_get_metadata, otherwise = FALSE, quiet = TRUE)
+  safe_dir_check <- purrr::safely(drop_get_metadata, otherwise = FALSE, quiet = TRUE)
   dir_listing <- safe_dir_check(path = path, dtoken = dtoken)
     # browser()
   if (length(dir_listing$result) == 1) {
@@ -329,12 +287,156 @@ drop_is_folder <- function(x, dtoken = get_dropbox_token()) {
 #' Checks on a name and returns file, folder, or FALSE for dropbox status
 #' @noRd
 drop_type <- function(x, dtoken = get_dropbox_token()) {
-  safe_meta <-
-    purrr::safely(drop_get_metadata, otherwise = FALSE, quiet = TRUE)
+  safe_meta <- purrr::safely(drop_get_metadata, otherwise = FALSE, quiet = TRUE)
   x <- safe_meta(x)
   if (length(x$result) == 1 && !x$result) {
     FALSE
   } else {
     x$result$.tag
+  }
+}
+
+
+#' Copy multiple files or folders in a single batch request.
+#'
+#' More efficient than calling \code{\link{drop_copy}} repeatedly for large
+#' numbers of files.  The function blocks until the batch job completes.
+#'
+#' @param entries A list of named lists, each with \code{from_path} and
+#'   \code{to_path} character elements.
+#' @param autorename If \code{TRUE}, the Dropbox server will try to autorename
+#'   files to avoid conflicts. Default \code{FALSE}.
+#' @template token
+#'
+#' @return A list of per-entry results returned by the Dropbox API.
+#'
+#' @references \href{https://www.dropbox.com/developers/documentation/http/documentation#files-copy_batch_v2}{API documentation}
+#'
+#' @export
+#'
+#' @examples \dontrun{
+#'   entries <- list(
+#'     list(from_path = "/file1.csv", to_path = "/backup/file1.csv"),
+#'     list(from_path = "/file2.csv", to_path = "/backup/file2.csv")
+#'   )
+#'   drop_copy_batch(entries)
+#' }
+drop_copy_batch <- function(entries, autorename = FALSE,
+                            dtoken = get_dropbox_token()) {
+  url_start  <- "https://api.dropboxapi.com/2/files/copy_batch_v2"
+  url_check  <- "https://api.dropboxapi.com/2/files/copy_batch/check_v2"
+
+  res <- drop_request(url_start, dtoken,
+                      body = list(entries = entries, autorename = autorename))
+
+  .poll_async_job(res, url_check, dtoken)
+}
+
+
+#' Move multiple files or folders in a single batch request.
+#'
+#' More efficient than calling \code{\link{drop_move}} repeatedly for large
+#' numbers of files.  The function blocks until the batch job completes.
+#'
+#' @param entries A list of named lists, each with \code{from_path} and
+#'   \code{to_path} character elements.
+#' @param autorename If \code{TRUE}, the Dropbox server will try to autorename
+#'   files to avoid conflicts. Default \code{FALSE}.
+#' @param allow_ownership_transfer If \code{TRUE}, allow moves that would
+#'   result in ownership transfer. Default \code{FALSE}.
+#' @template token
+#'
+#' @return A list of per-entry results returned by the Dropbox API.
+#'
+#' @references \href{https://www.dropbox.com/developers/documentation/http/documentation#files-move_batch_v2}{API documentation}
+#'
+#' @export
+#'
+#' @examples \dontrun{
+#'   entries <- list(
+#'     list(from_path = "/file1.csv", to_path = "/archive/file1.csv")
+#'   )
+#'   drop_move_batch(entries)
+#' }
+drop_move_batch <- function(entries, autorename = FALSE,
+                            allow_ownership_transfer = FALSE,
+                            dtoken = get_dropbox_token()) {
+  url_start <- "https://api.dropboxapi.com/2/files/move_batch_v2"
+  url_check <- "https://api.dropboxapi.com/2/files/move_batch/check_v2"
+
+  res <- drop_request(url_start, dtoken,
+                      body = list(
+                        entries                  = entries,
+                        autorename               = autorename,
+                        allow_ownership_transfer = allow_ownership_transfer
+                      ))
+
+  .poll_async_job(res, url_check, dtoken)
+}
+
+
+#' Delete multiple files or folders in a single batch request.
+#'
+#' More efficient than calling \code{\link{drop_delete}} repeatedly for large
+#' numbers of files.  The function blocks until the batch job completes.
+#'
+#' @param entries A list of named lists, each with a \code{path} character
+#'   element specifying the Dropbox path to delete.
+#' @template token
+#'
+#' @return A list of per-entry results returned by the Dropbox API.
+#'
+#' @references \href{https://www.dropbox.com/developers/documentation/http/documentation#files-delete_batch}{API documentation}
+#'
+#' @export
+#'
+#' @examples \dontrun{
+#'   entries <- list(
+#'     list(path = "/old_file1.csv"),
+#'     list(path = "/old_file2.csv")
+#'   )
+#'   drop_delete_batch(entries)
+#' }
+drop_delete_batch <- function(entries, dtoken = get_dropbox_token()) {
+  url_start <- "https://api.dropboxapi.com/2/files/delete_batch"
+  url_check <- "https://api.dropboxapi.com/2/files/delete_batch/check"
+
+  res <- drop_request(url_start, dtoken, body = list(entries = entries))
+
+  .poll_async_job(res, url_check, dtoken)
+}
+
+
+#' Poll an async Dropbox job until it completes.
+#'
+#' @param res   Initial response from a batch/async endpoint.
+#' @param check_url  URL of the corresponding check endpoint.
+#' @param dtoken ****** string.
+#' @param interval Polling interval in seconds. Default 2.
+#'
+#' @return The completed job result list.
+#'
+#' @noRd
+.poll_async_job <- function(res, check_url, dtoken, interval = 2) {
+  # If already complete, return immediately
+  if (!is.null(res[[".tag"]]) && res[[".tag"]] == "complete") {
+    return(res$entries)
+  }
+
+  async_job_id <- res$async_job_id
+  if (is.null(async_job_id)) return(res)
+
+  repeat {
+    Sys.sleep(interval)
+    status <- drop_request(check_url, dtoken,
+                           body = list(async_job_id = async_job_id))
+    tag <- status[[".tag"]]
+    if (!is.null(tag) && tag == "complete") {
+      return(status$entries)
+    }
+    if (!is.null(tag) && tag == "failed") {
+      cli::cli_abort("Batch job failed: {status$failure}")
+    }
+    # tag == "in_progress": keep polling
   }
 }

@@ -23,7 +23,7 @@ Nested list with elements \code{account_id},
   \code{country}, \code{team} (list), \code{team_member_id}.
 }
 \description{
-Fields returned will vary by account;
+Fields returned will vary by account.
 }
 \examples{
 \dontrun{
