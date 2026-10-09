@@ -95,12 +95,13 @@ LinearizeNestedList <- function(NList, LinearizeDataFrames=FALSE,
     stopifnot(is.logical(LinearizeDataFrames), length(LinearizeDataFrames) == 1)
     stopifnot(is.logical(ForceNames), length(ForceNames) == 1)
     if (! is.list(NList)) return(NList)
+    if (length(NList) == 0L) return(NList)
     #
     # If no names on the top-level list coerce names. Recursion shall handle
     # naming at all levels.
     #
     if (is.null(names(NList)) | ForceNames == TRUE)
-        names(NList) <- as.character(1:length(NList))
+        names(NList) <- as.character(seq_along(NList))
     #
     # If simply a dataframe deal promptly.
     #
@@ -149,7 +150,7 @@ LinearizeNestedList <- function(NList, LinearizeDataFrames=FALSE,
                     # Generate or coerce names as need be.
                     #
                     if (is.null(names(Element)) | ForceNames == TRUE)
-                        names(Element) <- as.character(1:length(Element))
+                        names(Element) <- as.character(seq_along(Element))
                     #
                     # Just throw back as list since dataframes have no nesting.
                     #
@@ -157,7 +158,8 @@ LinearizeNestedList <- function(NList, LinearizeDataFrames=FALSE,
                     #
                     # Update names
                     #
-                    names(Element) <- paste(EName, names(Element), sep=NameSep)
+                    if (length(Element))
+                        names(Element) <- paste(EName, names(Element), sep=NameSep)
                     #
                     # Plug the branch back into the top-level trunk.
                     #
@@ -170,10 +172,12 @@ LinearizeNestedList <- function(NList, LinearizeDataFrames=FALSE,
                 # Go recursive! :)
                 #
                 if (is.null(names(Element)) | ForceNames == TRUE)
-                    names(Element) <- as.character(1:length(Element))
+                    names(Element) <- as.character(seq_along(Element))
                 Element <- LinearizeNestedList(Element, LinearizeDataFrames,
                                                NameSep, ForceNames)
-                names(Element) <- paste(EName, names(Element), sep=NameSep)
+                # Empty metadata branches have no leaves to name or retain.
+                if (length(Element))
+                    names(Element) <- paste(EName, names(Element), sep=NameSep)
                 Jump <- length(Element)
                 NList <- c(Before, Element, After)
             }

@@ -1,4 +1,5 @@
 # rdrop2 0.8.2.2
+* Fixed `drop_dir()` failing when Dropbox returns empty nested metadata lists.
 * replaced dependency package `assertive` by `assertthat`.
 
 # rdrop2 0.8.2
